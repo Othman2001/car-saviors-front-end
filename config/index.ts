@@ -1,14 +1,21 @@
 import { IContext, createOvermind } from "overmind";
 import { namespaced } from "overmind/config";
+
 import {
   createStateHook,
   createActionsHook,
   createEffectsHook,
 } from "overmind-react";
 
-import { state } from "../application/state";
+import { state } from "../application/authentication/state";
+import * as authenticationEffects from "../infstracture/authentication/effects";
+import * as authenticationActions from "../application/authentication/action";
 
-const authentication = { state };
+const authentication = {
+  state,
+  effects: authenticationEffects,
+  actions: authenticationActions,
+};
 
 export const config = namespaced({
   authentication,

@@ -10,9 +10,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/open-sans": "^0.2.2",
+    "@react-native-firebase/app": "^14.8.0",
+    "axios": "^0.26.1",
     "expo": "~44.0.0",
+    "expo-app-loading": "~1.3.0",
+    "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",
-    "firebase": "^9.6.10",
+    "firebase": "^9.6.11",
     "overmind": "^28.0.1",
     "overmind-react": "^29.0.1",
     "react": "17.0.1",
@@ -28,6 +33,8 @@
     "@babel/core": "^7.12.9",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
+    "@types/styled-components": "^5.1.25",
+    "@types/styled-components-react-native": "^5.1.3",
     "typescript": "~4.3.5"
   },
   "private": true
