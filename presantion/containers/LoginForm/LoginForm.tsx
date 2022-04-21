@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import LoginFormComponent from "../../components/LoginForm";
+import LoginFormComponent from "../../components/loginForm/LoginForm";
 import { useActions } from "../../../config";
 
 export default function LoginForm() {

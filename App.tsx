@@ -1,66 +1,26 @@
-import { StyleSheet, View, Text, Image } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import "react-native-gesture-handler";
+import { config } from "./config";
 import { Provider } from "overmind-react";
-import { overmind } from "./config";
-import AppLoading from "expo-app-loading";
-import Register from "./presantion/screens/RegisterScreen/Register";
 import { useFonts, OpenSans_700Bold } from "@expo-google-fonts/open-sans";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
+import { createOvermind } from "overmind";
+import Application from "./Application";
+
+const overmind = createOvermind(config, {
+  devtools: "localhost:3031",
+});
 
 export default function App() {
+  const Stack = createStackNavigator();
   let [fontsLoaded] = useFonts({ OpenSans_700Bold });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
   return (
     <Provider value={overmind}>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: "#E5E5E5",
-        }}
-      >
-        <View
-          style={{
-            position: "absolute",
-            zIndex: 1000,
-            top: -10,
-            left: 0,
-            right: 0,
-            marginLeft: -100,
-          }}
-        >
-          <Image
-            source={require("./assets/circle.png")}
-            style={{
-              width: 240,
-              height: 240,
-              zIndex: 100,
-              top: 0,
-              left: 0,
-              right: 0,
-            }}
-          />
-        </View>
-        <View
-          style={{
-            backgroundColor: "#E5E5E5",
-            flex: 1,
-          }}
-        >
-          <Register />
-        </View>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Application />
+      </NavigationContainer>
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
