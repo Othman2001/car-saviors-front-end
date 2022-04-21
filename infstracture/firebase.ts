@@ -4,7 +4,7 @@ import firebase from "firebase/compat/app";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB42ab0qD3LOTsL5aIrj_jA6XiH5JC32vc",
+  apiKey: "",
   authDomain: "car-saviors.firebaseapp.com",
   projectId: "car-saviors",
   storageBucket: "car-saviors.appspot.com",
