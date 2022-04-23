@@ -7,20 +7,15 @@ import i18n from "../../../config/i18n/config";
 
 interface ICarTable {
   carName: string;
-  daysCount: number;
   price: number;
-  total: number;
 }
 
-export default function CarTable({
-  carName,
-  daysCount,
-  price,
-  total,
-}: ICarTable) {
+export default function CarTable({ carName, price }: ICarTable) {
   const {
     theme: { fontFamily },
+    rental: { daysCount, totalPrice, rentalPrice },
   } = useAppState();
+
   return (
     <Styled.TableContainer>
       <Styled.pricingTable>
@@ -31,7 +26,7 @@ export default function CarTable({
           </Styled.CardRegularText>
           <Styled.Price>
             {" "}
-            {price} {i18n.t("pricPerDay")}{" "}
+            {rentalPrice} {i18n.t("pricPerDay")}{" "}
           </Styled.Price>
         </Styled.FlexTable>
         <Styled.FlexTable>
@@ -46,7 +41,7 @@ export default function CarTable({
             {i18n.t("total")}
           </Styled.CardRegularText>
           <Styled.Price>
-            {total}
+            {totalPrice}
             {i18n.t("pricPerDay")}{" "}
           </Styled.Price>
         </Styled.FlexTable>

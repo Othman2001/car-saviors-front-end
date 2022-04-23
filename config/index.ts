@@ -15,7 +15,6 @@ import * as rentalActions from "../application/rental/action";
 import * as rentalEffects from "../infstracture/rental/effects";
 import { FontsState } from "../application/theme/sate";
 import * as ThemeActions from "../application/theme/actions";
-
 const authentication = {
   state,
   effects: authenticationEffects,

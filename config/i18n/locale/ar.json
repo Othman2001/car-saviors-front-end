@@ -29,7 +29,8 @@
   "Automatic": "تلقائي",
   "carDetails": {
     "moreImages": "المزيد من الصور",
-    "title": "ملخص"
+    "title": "ملخص",
+    "alert": "الرجاء تحديد التواريخ"
   },
   "days": "أيام",
   "pricPerDay": "جنيه",

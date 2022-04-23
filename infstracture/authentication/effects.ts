@@ -21,16 +21,22 @@ export const createUser = async (
   );
   return user.data;
 };
-export const userSignIn = async (email: string, password: string) => {
+export const userSignIn = async (
+  email: string,
+  password: string,
+  setError: (params: any) => void
+) => {
   if (Firebase) {
     const app = getApp();
     const auth = getAuth(app);
 
-    return signInWithEmailAndPassword(auth, email, password).then(
-      async (userCredential) => {
+    return signInWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
         return userCredential.user;
-      }
-    );
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   }
 };
 

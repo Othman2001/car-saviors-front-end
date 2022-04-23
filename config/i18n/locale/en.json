@@ -29,7 +29,8 @@
   "Automatic": "Automatic",
   "carDetails": {
     "moreImages": "More Images",
-    "title": "Summary"
+    "title": "Summary",
+    "alert": "please select dates"
   },
   "days": "Days",
   "pricPerDay": "L.E",

@@ -2,7 +2,25 @@ import { useAppState } from "../../config";
 
 export const useRentalState = () => {
   const {
-    rental: { cars, loading },
+    rental: {
+      cars,
+      loading,
+      message,
+      totalPrice,
+      startDate,
+      endDate,
+      daysCount,
+      rentalPrice,
+    },
   } = useAppState();
-  return { cars, loading };
+  return {
+    cars,
+    loading,
+    message,
+    totalPrice,
+    startDate,
+    endDate,
+    daysCount,
+    rentalPrice,
+  };
 };

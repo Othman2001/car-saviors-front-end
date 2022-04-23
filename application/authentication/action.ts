@@ -26,15 +26,23 @@ export const signUp: AsyncAction<{
 };
 
 export const logIn: AsyncAction<{ email: string; password: string }> = async (
-  { state, effects },
+  { state, effects, actions },
   { email, password }
 ) => {
   state.authentication.loading = true;
   state.authentication.error = "";
   state.authentication.user = await effects.authentication.userSignIn(
     email,
-    password
+    password,
+    setError
   );
   state.authentication.currentUserRole =
     await effects.authentication.authroizeUser(email);
+};
+
+export const setError: AsyncAction<string> = async (
+  { state, effects },
+  error
+) => {
+  state.authentication.error = error;
 };
