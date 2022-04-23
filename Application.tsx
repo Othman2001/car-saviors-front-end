@@ -1,24 +1,32 @@
-import { View, Image, KeyboardAvoidingView, Platform } from "react-native";
-import Login from "./presantion/screens/LoginScreen/Login";
+import {
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  I18nManager,
+} from "react-native";
 import { useFonts, OpenSans_700Bold } from "@expo-google-fonts/open-sans";
 import { createStackNavigator } from "@react-navigation/stack";
 // @ts-ignore
-import React from "react";
-import Register from "./presantion/screens/RegisterScreen/RegisterScreen";
+import React, { useEffect } from "react";
 import { useAppState } from "./config";
-import HomeScreen from "./presantion/screens/HomeScreen/HomeScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import WorkShopScreen from "./presantion/screens/WorkShopsScreen/WorkShopScreen";
-import RentScreen from "./presantion/screens/RentScreen/RentScreen";
-import WinchScreen from "./presantion/screens/WinchScreen/WinchScreen";
+import AuthStack from "./presantion/navigations/authStack";
+import UserNavigation from "./presantion/navigations/userNavigation";
+import i18next from "./config/i18n/config";
+import i18n from "./config/i18n/config";
 
 const Taps = createBottomTabNavigator();
+
 const Application = () => {
-  const Stack = createStackNavigator();
-  let [fontsLoaded] = useFonts({ OpenSans_700Bold });
   const {
     authentication: { user },
+    theme: { lng },
   } = useAppState();
+  useEffect(() => {
+    lng === "ar" ? I18nManager.forceRTL(true) : I18nManager.forceRTL(false);
+    I18nManager.forceRTL(true);
+    i18n.locale = lng;
+  }, [lng]);
   return (
     <View
       style={{
@@ -33,56 +41,11 @@ const Application = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         {user ? (
-          <Taps.Navigator
-            tabBarOptions={{
-              activeTintColor: "#265A60",
-              inactiveTintColor: "#000",
-              style: {
-                backgroundColor: "#fff",
-              },
-            }}
-            screenOptions={({ route }) => ({
-              headerShown: false,
-              tabBarIcon: ({ focused, color, size }) => {
-                let IconName;
-                let rn = route.name;
-                if (rn === "Home") {
-                  IconName = focused
-                    ? require("./assets/home_active.png")
-                    : require("./assets/home.png");
-                } else if (rn === "Rent") {
-                  IconName = focused
-                    ? require("./assets/rent_active.png")
-                    : require("./assets/rent.png");
-                } else if (rn === "WorkShops") {
-                  IconName = focused
-                    ? require("./assets/workshop-active.png")
-                    : require("./assets/workshop.png");
-                } else if (rn === "Winch") {
-                  IconName = focused
-                    ? require("./assets/winch.png")
-                    : require("./assets/winch.png");
-                }
-                return (
-                  <Image source={IconName} style={{ width: 20, height: 20 }} />
-                );
-              },
-            })}
-          >
-            <Taps.Screen name="Home" component={HomeScreen} />
-            <Taps.Screen name="WorkShops" component={WorkShopScreen} />
-            <Taps.Screen name="Rent" component={RentScreen} />
-            <Taps.Screen name="Winch" component={WinchScreen} />
-          </Taps.Navigator>
+          <>
+            <UserNavigation />
+          </>
         ) : (
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
-          </Stack.Navigator>
+          <AuthStack />
         )}
       </KeyboardAvoidingView>
     </View>

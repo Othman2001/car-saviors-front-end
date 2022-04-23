@@ -1,21 +1,24 @@
 import styled from "styled-components/native";
+// fonts done
 
 interface IFormLabel {
   vertical?: number;
   horizontal?: number;
+  fontFamily: string;
 }
 interface ISmallText {
   color: string;
+  fontFamily: string;
 }
 interface ITextProps {
-  spaceTop: number;
+  spaceTop?: number;
+  fontFamily: string;
 }
 
 export const Title = styled.Text<ITextProps>`
-  font-family: "OpenSans_700Bold";
+  font-family: ${(props) => props.fontFamily + "700Bold"};
   font-style: normal;
   padding-top: ${(props) => props.spaceTop}px;
-  font-weight: 700;
   font-size: 20px;
   line-height: 27px;
   text-align: center;
@@ -25,11 +28,11 @@ export const Title = styled.Text<ITextProps>`
 
 export const FormLabel = styled.Text<IFormLabel>`
   font-style: normal;
-  font-weight: 700;
   font-size: 16px;
   line-height: 22px;
   color: #000000;
   padding-left: 39px;
+  font-family: ${(props) => props.fontFamily + "700Bold"};
   padding-top: ${(props: any) => (props.horizontal ? props.horizontal : 26)}px;
   padding-bottom: ${(props: any) => (props.vertical ? props.vertical : 0)}px;
 `;
@@ -51,9 +54,9 @@ export const CommonButton = styled.TouchableOpacity`
   margin-top: 60px;
 `;
 
-export const ButtonText = styled.Text`
+export const ButtonText = styled.Text<ITextProps>`
   text-align: center;
-  font-weight: 700;
+  font-family: ${(props) => props.fontFamily + "700Bold"};
   font-size: 16px;
   line-height: 22px;
   /* identical to box height */
@@ -62,13 +65,12 @@ export const ButtonText = styled.Text`
 `;
 
 export const SmallText = styled.Text<ISmallText>`
-  font-weight: 700;
   font-size: 14px;
   line-height: 19px;
   /* identical to box height */
   margin-top: 12px;
   color: ${(props: any) => props.color};
-
+  font-family: ${(props) => props.fontFamily + "700Bold"};
   text-align: center;
 `;
 
@@ -76,10 +78,9 @@ export const Span = styled.Text<ISmallText>`
   color: ${(props: any) => props.color};
 `;
 
-export const ErrorText = styled.Text`
+export const ErrorText = styled.Text<ITextProps>`
   font-size: 14px;
   color: red;
-  font-weight: bold;
   text-align: center;
-  padding-top: 20px;
+  font-family: ${(props) => props.fontFamily + "700Bold"};
 `;

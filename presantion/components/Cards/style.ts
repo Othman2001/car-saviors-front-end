@@ -1,4 +1,7 @@
 import styled from "styled-components/native";
+import { ITextProps } from "../../../types";
+
+// fonts done
 
 export const CardContainer = styled.View`
   margin-top: 10px;
@@ -31,14 +34,12 @@ export const CardImage = styled.Image`
   height: 70px;
   margin-bottom: 15px;
 `;
-export const CardTitle = styled.Text`
-  font-family: "OpenSans_700Bold";
+export const CardTitle = styled.Text<ITextProps>`
+  font-family: ${(props) => props.fontFamily + "700Bold"};
   font-style: normal;
-  font-weight: 700;
   font-size: 14px;
   text-align: center;
   line-height: 17px;
   /* identical to box height */
-
   color: #000000;
 `;

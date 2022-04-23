@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 
 interface ITextProps {
   left?: number;
+  fontFamily: string;
 }
 export const Container = styled.View`
   background: #265a60;
@@ -24,9 +25,8 @@ export const userInfoContainer = styled.View`
   margin-top: 40px;
 `;
 
-export const userName = styled.Text`
-  font-weight: 700;
-  font-family: "OpenSans_700Bold";
+export const userName = styled.Text<ITextProps>`
+  font-family: ${(props) => props.fontFamily + "600SemiBold"};
   font-size: 16px;
   line-height: 22px;
   margin-bottom: 20px;
@@ -48,19 +48,17 @@ export const userMetricNumberContainer = styled.View`
 `;
 export const userMetricNumber = styled.Text<ITextProps>`
   font-style: normal;
-  font-weight: 700;
   font-size: 14px;
-  font-family: "OpenSans_700Bold";
+  font-family: ${(props) => props.fontFamily + "600SemiBold"};
   color: #ffffff;
   line-height: 22px;
   position: relative;
   left: ${(props) => (props.left ? props.left : 62)}px;
   margin-bottom: 20px;
 `;
-export const userMetricsText = styled.Text`
+export const userMetricsText = styled.Text<ITextProps>`
   font-style: normal;
-  font-family: "OpenSans_700Bold";
-  font-weight: 700;
+  font-family: ${(props) => props.fontFamily + "600SemiBold"};
   font-size: 14px;
   line-height: 45px;
   margin-top: 15px;
