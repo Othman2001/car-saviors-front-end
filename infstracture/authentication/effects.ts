@@ -19,7 +19,7 @@ export const createUser = async (
       lastName,
     }
   );
-  return user.data;
+  return user;
 };
 export const userSignIn = async (
   email: string,
@@ -47,5 +47,5 @@ export const authroizeUser = async (email: string) => {
       email,
     }
   );
-  userRole.data;
+  return userRole;
 };

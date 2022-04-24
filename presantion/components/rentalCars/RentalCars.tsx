@@ -1,6 +1,6 @@
 import { View, ScrollView } from "react-native";
 // @ts-ignore
-import React from "react";
+import React, { useState } from "react";
 import * as Styled from "./style";
 import { carSchema } from "../../../application/rental/state";
 import { StyleSheet } from "react-native";
@@ -20,18 +20,28 @@ interface IRentalCars {
 
 export default function RentalCars({ cars }: IRentalCars) {
   const navigation = useNavigation();
+  // @ts-ignore
+  const [filterdCars, setFilterdCars] = useState<[carSchema] | undefined>(cars);
   const {
     theme: { fontFamily },
   } = useAppState();
+  const handleSearch = (text: string) => {
+    const newCars = cars?.filter((car) =>
+      car.carBrand.toLowerCase().includes(text.toLowerCase())
+    );
+    // @ts-ignore
+    setFilterdCars(newCars);
+  };
   return (
     <View>
       <Styled.RentalTitle fontFamily={fontFamily}>
         {" "}
         {i18n.t("AvaliableForRental")}
       </Styled.RentalTitle>
+      <Styled.SearchInput onChangeText={(text) => handleSearch(text)} />
       <ScrollView>
         {cars ? (
-          cars.map((car: carSchema) => (
+          filterdCars.map((car: carSchema) => (
             <Styled.RentalCarCard
               onPress={() => navigation.navigate("RentalCarDetails", { car })}
               key={car.carId}

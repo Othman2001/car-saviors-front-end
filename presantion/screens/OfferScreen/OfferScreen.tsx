@@ -146,7 +146,6 @@ export default function OfferScreen() {
           />
 
           <Button
-            accessoryLeft={loading === true ? <Spinner /> : null}
             style={styles.button}
             onPress={() => {
               handleSubmit();

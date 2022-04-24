@@ -16,7 +16,6 @@ export default function RentScreen() {
       }}
     >
       <TopHeader />
-      <RentalSearch />
       <RentalCars />
     </Layout>
   );

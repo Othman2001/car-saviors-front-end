@@ -53,14 +53,6 @@ const carOwnerSchema = [
     arText: "معاينة الصيانة",
     route: "WorkShops",
   },
-
-  {
-    id: "offer your car for rental",
-    icon: require("../../../assets/contract.png"),
-    text: "Become a renter ",
-    arText: "عرض سيارتك للايجار",
-    route: "Offer",
-  },
 ];
 
 export default function Cards() {

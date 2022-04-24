@@ -3,10 +3,12 @@ import { Text } from "@ui-kitten/components";
 import * as Styled from "./style";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 // @ts-ignore
-import React from "react";
+import React, { useEffect } from "react";
+import { db } from "../../../infstracture/firebase";
 import { useAppState } from "../../../config";
 import { IUserData } from "../../../application/authentication/state";
 import i18n from "../../../config/i18n/config";
+import { collection, onSnapshot } from "firebase/firestore";
 
 interface IUserHeader {
   user: IUserData | null;
@@ -25,6 +27,7 @@ export default function UserHeader({
     authentication,
     theme: { fontFamily },
   } = useAppState();
+
   return (
     <Styled.Container>
       <Styled.userInfoContainer>

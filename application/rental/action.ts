@@ -70,6 +70,7 @@ export const rentCar: AsyncAction<{
       .then((res) => {
         console.log(res, "REs");
         state.rental.message = "car is booked successfully";
+        state.authentication.rentingCar++;
       })
       .catch((error) => {
         state.rental.error = "car is already booked in this date";

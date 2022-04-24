@@ -14,15 +14,19 @@ export const signUp: AsyncAction<{
   authentication.error = "";
   //   @ts-ignore
 
-  const userData = await effects.authentication.createUser(
-    email,
-    password,
-    firstName,
-    lastName,
-    role
-  );
-  authentication.user = userData.user;
-  authentication.currentUserRole = userData.role;
+  await effects.authentication
+    .createUser(email, password, firstName, lastName, role)
+    .then((res) => {
+      console.log(res);
+      authentication.user = res.data.user;
+      authentication.currentUserRole = res.data.role;
+      authentication.rentedCar = res.data.rentedCar;
+      authentication.rentingCar = res.data.rentingCar;
+      authentication.visitedWorkShops = res.data.visitedWorkShops;
+    })
+    .catch((error) => {
+      authentication.error = error.message;
+    });
 };
 
 export const logIn: AsyncAction<{ email: string; password: string }> = async (
@@ -36,8 +40,13 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
     password,
     setError
   );
-  state.authentication.currentUserRole =
-    await effects.authentication.authroizeUser(email);
+
+  await effects.authentication.authroizeUser(email).then((res) => {
+    state.authentication.currentUserRole = res.data.role;
+    state.authentication.rentedCar = res.data.rentedCar;
+    state.authentication.rentingCar = res.data.rentingCar;
+    state.authentication.visitedWorkShops = res.data.visitedWorkShops;
+  });
 };
 
 export const setError: AsyncAction<string> = async (

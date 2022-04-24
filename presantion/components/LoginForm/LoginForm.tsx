@@ -43,6 +43,7 @@ export default function LoginForm({ logIn, loading }: ILoginForm) {
         {i18n.t("login.email")}:
       </Styled.FormLabel>
       <Input
+        autoCapitalize={false}
         textStyle={{
           color: "#000",
         }}
@@ -56,6 +57,8 @@ export default function LoginForm({ logIn, loading }: ILoginForm) {
         textStyle={{
           color: "#000",
         }}
+        placeholder="*******"
+        secureTextEntry={true}
         style={styles.input}
         value={password}
         onChangeText={(text) => setPassword(text)}
