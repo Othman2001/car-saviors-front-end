@@ -1,31 +1,34 @@
 import axios from "axios";
 export const rentCar = async ({
   total,
-  startDate,
-  endDate,
+  dates,
   daysCount,
   userId,
   carOwnerId,
   carId,
+  endDate,
+  startDate,
 }: {
   total: number;
-  startDate: string;
-  endDate: string;
+  dates: string[];
   daysCount: number;
   userId: string;
   carOwnerId: string;
   carId: string;
+  endDate: string;
+  startDate: string;
 }) => {
   const message = await axios.post(
     "http://localhost:5001/car-saviors/us-central1/rentCar",
     {
       total,
-      startDate,
-      endDate,
+      dates,
       userId,
       daysCount,
       carOwnerId,
       carId,
+      startDate,
+      endDate,
     }
   );
   return message.data;

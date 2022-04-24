@@ -1,5 +1,16 @@
 import { Action, AsyncAction } from "../../config";
 
+var getDaysArray = function (start: string, end: string) {
+  for (
+    var arr = [], dt = new Date(start);
+    dt <= new Date(end);
+    dt.setDate(dt.getDate() + 1)
+  ) {
+    arr.push(dt.toISOString());
+  }
+  return arr;
+};
+
 export const fetchCars: AsyncAction = async ({ state, effects }) => {
   state.rental.loading = true;
   state.rental.cars = await effects.rental.fetchCars();
@@ -43,18 +54,20 @@ export const rentCar: AsyncAction<{
     state.authentication.user &&
     state.rental.cars
   ) {
+    const startDate = state.rental.startDate.toISOString();
+    const endDate = state.rental.endDate.toISOString();
     state.rental.message = await effects.rental.rentCar({
       total: state.rental.totalPrice,
-      startDate: state.rental.startDate.toISOString(),
-      endDate: state.rental.endDate.toISOString(),
+      dates: getDaysArray(startDate, endDate),
+      startDate,
+      endDate,
       daysCount: state.rental.daysCount,
       userId: state.authentication.user?.uid,
       carOwnerId,
       carId,
     });
+
     state.rental.totalPrice = 0;
     state.rental.daysCount = 0;
-    state.rental.startDate = null;
-    state.rental.endDate = null;
   }
 };

@@ -20,8 +20,7 @@ export const ImagesContainer = styled.View`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-left: 20px;
-  justify-content: center;
+  margin-left: 30px;
 `;
 export const CardTitle = styled.Text<ITextProps>`
   font-style: normal;
@@ -67,9 +66,10 @@ export const CardRegularText = styled.Text<ITextProps>`
 `;
 
 export const CardPreview = styled.Image`
-  width: 100px;
-  height: 100px;
+  width: 77px;
+  height: 77px;
   margin-right: 36px;
+  margin-bottom: 10px;
 `;
 
 export const TableContainer = styled.View`
