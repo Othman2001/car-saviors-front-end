@@ -16,12 +16,13 @@ import DrawerComponent from "./presantion/components/common/Drawer";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import DrawerNavigation from "./presantion/navigations/DrawerNavigation";
+import CarOwnerNavigation from "./presantion/navigations/CarOwnerNavigation";
 
 const Taps = createBottomTabNavigator();
 
 const Application = () => {
   const {
-    authentication: { user, error },
+    authentication: { user, error, currentUserRole },
     theme: { lng },
   } = useAppState();
   const navigation = useNavigation();
@@ -45,7 +46,11 @@ const Application = () => {
       >
         {user ? (
           <>
-            <UserNavigation />
+            {currentUserRole === "car-owner" ? (
+              <CarOwnerNavigation />
+            ) : (
+              <UserNavigation />
+            )}
           </>
         ) : (
           <AuthStack />

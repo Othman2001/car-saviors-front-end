@@ -1,4 +1,4 @@
-import { AsyncAction } from "../../config";
+import { Action, AsyncAction } from "../../config";
 
 export const signUp: AsyncAction<{
   email: string;
@@ -45,4 +45,8 @@ export const setError: AsyncAction<string> = async (
   error
 ) => {
   state.authentication.error = error;
+};
+
+export const setRoleToCarOwner: Action = ({ state }) => {
+  state.authentication.currentUserRole = "car-owner";
 };

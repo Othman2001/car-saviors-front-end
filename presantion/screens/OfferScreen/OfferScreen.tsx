@@ -24,6 +24,7 @@ export default function OfferScreen() {
   const [thirdImageUrl, setThirdImageUrl] = React.useState("");
 
   const {
+    authentication: { setRoleToCarOwner },
     rental: { registerAsCarOwner },
   } = useActions();
 
@@ -31,6 +32,7 @@ export default function OfferScreen() {
   const {
     authentication: { user },
   } = useAppState();
+
   const handleSubmit = () => {
     registerAsCarOwner({
       phoneNumber: phoneNumber,
@@ -41,6 +43,7 @@ export default function OfferScreen() {
       // @ts-ignore
       userId: user?.uid,
     });
+    setRoleToCarOwner();
     navigation.navigate("Welcome");
   };
   useEffect(() => {
