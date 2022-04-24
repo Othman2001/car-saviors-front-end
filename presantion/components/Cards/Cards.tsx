@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 // @ts-ignore
 import React from "react";
 import * as Styled from "./style";
@@ -29,6 +29,14 @@ const cardsSchema = [
     arText: "معاينة الصيانة",
     route: "WorkShops",
   },
+
+  {
+    id: "offer your car for rental",
+    icon: require("../../../assets/contract.png"),
+    text: "Become a renter ",
+    arText: "عرض سيارتك للايجار",
+    route: "Offer",
+  },
 ];
 
 export default function Cards() {
@@ -37,24 +45,26 @@ export default function Cards() {
     theme: { fontFamily },
   } = useAppState();
   return (
-    <Styled.CardContainer>
-      {cardsSchema.map((feat) => (
-        <Styled.Card
-          key={feat.id}
-          onPress={() => {
-            navigate(feat.route);
-          }}
-        >
-          <Styled.CardImage source={feat.icon} />
-          <FlexContainer>
-            <Styled.CardTitle fontFamily={fontFamily}>
-              {" "}
-              {i18n.currentLocale() === "ar" ? feat.arText : feat.text}
-            </Styled.CardTitle>
-          </FlexContainer>
-        </Styled.Card>
-      ))}
-    </Styled.CardContainer>
+    <ScrollView>
+      <Styled.CardContainer>
+        {cardsSchema.map((feat) => (
+          <Styled.Card
+            key={feat.id}
+            onPress={() => {
+              navigate(feat.route);
+            }}
+          >
+            <Styled.CardImage source={feat.icon} />
+            <FlexContainer>
+              <Styled.CardTitle fontFamily={fontFamily}>
+                {" "}
+                {i18n.currentLocale() === "ar" ? feat.arText : feat.text}
+              </Styled.CardTitle>
+            </FlexContainer>
+          </Styled.Card>
+        ))}
+      </Styled.CardContainer>
+    </ScrollView>
   );
 }
 

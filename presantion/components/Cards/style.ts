@@ -16,8 +16,7 @@ export const Card = styled.TouchableOpacity`
   padding-top: 24px;
   padding-bottom: 30px;
   padding-right: 40px;
-  padding-left: 40px;
-  margin-right: 15px;
+  padding-left: 50px;
   margin-left: 15px;
   margin-bottom: 20px;
   max-width: 170px;
@@ -30,8 +29,8 @@ export const CardImageContainer = styled.View`
   align-items: center;
 `;
 export const CardImage = styled.Image`
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   margin-bottom: 15px;
 `;
 export const CardTitle = styled.Text<ITextProps>`
@@ -39,6 +38,7 @@ export const CardTitle = styled.Text<ITextProps>`
   font-style: normal;
   font-size: 14px;
   text-align: center;
+
   line-height: 17px;
   /* identical to box height */
   color: #000000;

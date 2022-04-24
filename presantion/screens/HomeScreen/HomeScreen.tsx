@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import { View, ScrollView, SafeAreaView, StyleSheet } from "react-native";
 // @ts-ignore
 import React from "react";
 import { Platform } from "react-native";
@@ -19,9 +19,7 @@ export default function HomeScreen() {
           <UserHeader />
         </View>
 
-        <View>
-          <Cards />
-        </View>
+        <Cards />
       </SafeAreaView>
     </Layout>
   );

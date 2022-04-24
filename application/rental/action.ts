@@ -56,18 +56,63 @@ export const rentCar: AsyncAction<{
   ) {
     const startDate = state.rental.startDate.toISOString();
     const endDate = state.rental.endDate.toISOString();
-    state.rental.message = await effects.rental.rentCar({
-      total: state.rental.totalPrice,
-      dates: getDaysArray(startDate, endDate),
-      startDate,
-      endDate,
-      daysCount: state.rental.daysCount,
-      userId: state.authentication.user?.uid,
-      carOwnerId,
-      carId,
-    });
-
+    await effects.rental
+      .rentCar({
+        total: state.rental.totalPrice,
+        dates: getDaysArray(startDate, endDate),
+        startDate,
+        endDate,
+        daysCount: state.rental.daysCount,
+        userId: state.authentication.user?.uid,
+        carOwnerId,
+        carId,
+      })
+      .then((res) => {
+        console.log(res, "REs");
+        state.rental.message = "car is booked successfully";
+      })
+      .catch((error) => {
+        state.rental.error = "car is already booked in this date";
+      });
+    state.rental.rentalPrice = 0;
     state.rental.totalPrice = 0;
     state.rental.daysCount = 0;
   }
+};
+
+export const registerAsCarOwner: AsyncAction<{
+  phoneNumber: string;
+  carModel: string;
+  carColor: string;
+  carNumber: string;
+  images: any;
+  userId: string;
+}> = async (
+  { state, effects },
+  { phoneNumber, carModel, carColor, carNumber, images, userId }
+) => {
+  state.rental.loading = true;
+  effects.rental
+    .registerAsCarOwner({
+      phoneNumber,
+      carModel,
+      carColor,
+      carNumber,
+      images,
+      userId,
+    })
+    .then((res) => {
+      console.log(res, "res");
+      // @ts-ignore
+      state.rental.message = res.message;
+    })
+    .catch((error) => {
+      state.rental.error = error.message;
+    });
+  state.rental.loading = false;
+};
+
+export const resetState: Action = ({ state }) => {
+  state.rental.error = null;
+  state.rental.message = null;
 };

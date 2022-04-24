@@ -6,6 +6,7 @@ import WorkShopScreen from "../screens/WorkShopsScreen/WorkShopScreen";
 import WinchScreen from "../screens/WinchScreen/WinchScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import RentalNavigation from "./RentalNavigation";
+import OfferScreen from "../screens/OfferScreen/OfferScreen";
 
 const Taps = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -27,6 +28,10 @@ export default function UserNavigation() {
     Rental: {
       en: "Rental",
       ar: "احجز",
+    },
+    OFFER: {
+      en: "Offer",
+      ar: "عرض",
     },
   };
   return (
@@ -61,6 +66,10 @@ export default function UserNavigation() {
             IconName = focused
               ? require("../../assets/winch.png")
               : require("../../assets/winch.png");
+          } else if (rn === "Offer") {
+            IconName = focused
+              ? require("../../assets/offer_active.png")
+              : require("../../assets/offer.png");
           }
           return <Image source={IconName} style={{ width: 20, height: 20 }} />;
         },
@@ -70,6 +79,7 @@ export default function UserNavigation() {
       <Taps.Screen name="WorkShops" component={WorkShopScreen} />
       <Taps.Screen name="Rent" component={RentalNavigation} />
       <Taps.Screen name="Winch" component={WinchScreen} />
+      <Taps.Screen name="Offer" component={OfferScreen} />
     </Taps.Navigator>
   );
 }

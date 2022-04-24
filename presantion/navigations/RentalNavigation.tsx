@@ -2,8 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import CarDetails from "../screens/CarDetails/CarDetails";
 import RentScreen from "../screens/RentScreen/RentScreen";
-import Booking from "../screens/Booking";
 import Confirm from "../screens/ConfirmationScreen/ConfirmationScreen";
+import Thanks from "../components/ThanksS/Thanks";
 
 export default function RentalNavigation() {
   const Stack = createStackNavigator();
@@ -26,6 +26,13 @@ export default function RentalNavigation() {
       <Stack.Screen
         name="Confirm"
         component={Confirm}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Welcome"
+        component={Thanks}
         options={{
           headerShown: false,
         }}

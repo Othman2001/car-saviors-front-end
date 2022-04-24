@@ -17,19 +17,33 @@ export default class Success extends React.Component {
   render() {
     return (
       <View style={styles.animationContainer}>
-        <LottieView
-          ref={(animation) => {
-            this.animation = animation;
-          }}
-          style={{
-            width: 300,
-            height: 300,
-            backgroundColor: "#eee",
-          }}
-          source={require("./animation.json")}
-          // OR find more Lottie files @ https://lottiefiles.com/featured
-          // Just click the one you like, place that file in the 'assets' folder to the left, and replace the above 'require' statement
-        />
+        {this.props.isError ? (
+          <LottieView
+            ref={(animation) => {
+              this.animation = animation;
+            }}
+            style={{
+              width: 300,
+              height: 300,
+              backgroundColor: "#eee",
+            }}
+            source={require("./error.json")}
+          />
+        ) : (
+          <LottieView
+            ref={(animation) => {
+              this.animation = animation;
+            }}
+            style={{
+              width: 300,
+              height: 300,
+              backgroundColor: "#eee",
+            }}
+            source={require("./animation.json")}
+            // OR find more Lottie files @ https://lottiefiles.com/featured
+            // Just click the one you like, place that file in the 'assets' folder to the left, and replace the above 'require' statement
+          />
+        )}
       </View>
     );
   }

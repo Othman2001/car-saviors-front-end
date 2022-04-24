@@ -1,25 +1,38 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import Success from "./Sucess";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRentalState } from "../../../application/custom-hooks/useRentalState";
+import { useActions } from "../../../config";
 
 export default function Confirm() {
   const [animationVisitable, setAnimationVisitable] = useState(true);
   const navigation = useNavigation();
-  const { message } = useRentalState();
+  const { message, error } = useRentalState();
+  const {
+    rental: { resetState },
+  } = useActions();
 
   useEffect(() => {
     // @ts-ignore
-    alert(message.message);
+    if (error) {
+      alert(error);
+    }
+    if (message) {
+      alert(message);
+    }
+
     setTimeout(() => {
       setAnimationVisitable(false);
       navigation.navigate("Rent");
-    }, 10000);
+      resetState();
+    }, 7000);
   }, [message]);
 
   return (
-    <View style={{ flex: 1 }}>{animationVisitable ? <Success /> : null}</View>
+    <View style={{ flex: 1 }}>
+      {animationVisitable ? <Success isError={error ? true : false} /> : null}
+    </View>
   );
 }
 

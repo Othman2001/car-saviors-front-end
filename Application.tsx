@@ -12,6 +12,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AuthStack from "./presantion/navigations/authStack";
 import UserNavigation from "./presantion/navigations/userNavigation";
 import i18n from "./config/i18n/config";
+import DrawerComponent from "./presantion/components/common/Drawer";
+import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import DrawerNavigation from "./presantion/navigations/DrawerNavigation";
 
 const Taps = createBottomTabNavigator();
 
@@ -20,6 +24,7 @@ const Application = () => {
     authentication: { user, error },
     theme: { lng },
   } = useAppState();
+  const navigation = useNavigation();
   useEffect(() => {
     lng === "ar" ? I18nManager.forceRTL(true) : I18nManager.forceRTL(false);
     i18n.locale = lng;

@@ -18,8 +18,8 @@ export const rentCar = async ({
   endDate: string;
   startDate: string;
 }) => {
-  const message = await axios.post(
-    "http://localhost:5001/car-saviors/us-central1/rentCar",
+  const res = axios.post(
+    "https://us-central1-car-saviors.cloudfunctions.net/rentCar",
     {
       total,
       dates,
@@ -31,7 +31,7 @@ export const rentCar = async ({
       endDate,
     }
   );
-  return message.data;
+  return res;
 };
 
 export const fetchCars = async () => {
@@ -41,4 +41,32 @@ export const fetchCars = async () => {
       return res.data.cars;
     });
   return cars;
+};
+
+export const registerAsCarOwner = async ({
+  phoneNumber,
+  carModel,
+  carColor,
+  carNumber,
+  images,
+  userId,
+}: {
+  phoneNumber: string;
+  carModel: string;
+  carColor: string;
+  carNumber: string;
+  images: string[];
+  userId: string;
+}) => {
+  axios.post(
+    "http://localhost:5001/car-saviors/us-central1/registerAsCarOwner",
+    {
+      phoneNumber,
+      carModel,
+      carColor,
+      carNumber,
+      images,
+      userId,
+    }
+  );
 };

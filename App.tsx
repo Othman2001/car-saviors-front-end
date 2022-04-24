@@ -3,10 +3,11 @@ import { config } from "./config";
 import { Provider } from "overmind-react";
 import AppLoading from "expo-app-loading";
 import * as eva from "@eva-design/eva";
-import { ApplicationProvider, Layout, Button } from "@ui-kitten/components";
+import { ApplicationProvider } from "@ui-kitten/components";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { default as theme } from "./theme.json";
+
 // @ts-ignore
 import React, { useEffect } from "react";
 import { createOvermind } from "overmind";
@@ -23,6 +24,7 @@ import {
   Cairo_600SemiBold,
   Cairo_700Bold,
 } from "@expo-google-fonts/cairo";
+import { StatusBar } from "react-native";
 
 const overmind = createOvermind(config, {
   devtools: "localhost:3031",

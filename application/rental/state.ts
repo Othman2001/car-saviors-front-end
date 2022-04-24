@@ -23,9 +23,8 @@ interface IRentalState {
   endDate: Date | null;
   daysCount: number;
   rentalPrice: number;
-  message: {
-    message: string;
-  };
+  error: string | null;
+  message: string | null;
 }
 
 export const rentalState: IRentalState = {
@@ -37,7 +36,6 @@ export const rentalState: IRentalState = {
   endDate: null,
   daysCount: 0,
   rentalPrice: 0,
-  message: {
-    message: "",
-  },
+  error: null,
+  message: null,
 };
