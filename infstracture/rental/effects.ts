@@ -59,7 +59,7 @@ export const registerAsCarOwner = async ({
   userId: string;
 }) => {
   axios.post(
-    "http://localhost:5001/car-saviors/us-central1/registerAsCarOwner",
+    "https://us-central1-car-saviors.cloudfunctions.net/registerAsCarOwner",
     {
       phoneNumber,
       carModel,
