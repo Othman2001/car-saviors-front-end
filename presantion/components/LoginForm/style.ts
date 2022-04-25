@@ -32,6 +32,8 @@ export const FormLabel = styled.Text<IFormLabel>`
   line-height: 22px;
   color: #000000;
   padding-left: 39px;
+  padding-right: 20px;
+
   font-family: ${(props) => props.fontFamily + "700Bold"};
   padding-top: ${(props: any) => (props.horizontal ? props.horizontal : 26)}px;
   padding-bottom: ${(props: any) => (props.vertical ? props.vertical : 0)}px;

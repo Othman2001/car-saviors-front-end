@@ -19,7 +19,7 @@ export const rentCar = async ({
   startDate: string;
 }) => {
   const res = axios.post(
-    "https://us-central1-car-saviors.cloudfunctions.net/rentCar",
+    "http://localhost:5001/car-saviors/us-central1/rentCar",
     {
       total,
       dates,

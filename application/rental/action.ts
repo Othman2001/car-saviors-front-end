@@ -68,16 +68,22 @@ export const rentCar: AsyncAction<{
         carId,
       })
       .then((res) => {
-        console.log(res, "REs");
-        state.rental.message = "car is booked successfully";
-        state.authentication.rentingCar++;
+        if (res.status === 200) {
+          console.log(res, "REs");
+          state.rental.message = res.data.message;
+          state.authentication.rentingCar = state.authentication.rentingCar + 1;
+        } else {
+          state.rental.error = res.data.message;
+        }
       })
       .catch((error) => {
-        state.rental.error = "car is already booked in this date";
+        state.rental.error = error.message;
       });
     state.rental.rentalPrice = 0;
     state.rental.totalPrice = 0;
     state.rental.daysCount = 0;
+    state.rental.error = "";
+    state.rental.message = "";
   }
 };
 

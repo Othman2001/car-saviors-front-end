@@ -1,11 +1,12 @@
 import * as Styled from "../loginForm/style";
-import { ScrollView, StyleSheet, Text } from "react-native";
-import React from "react";
+import { Alert, ScrollView, StyleSheet, Text } from "react-native";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Spinner from "../common/Spinner";
 import { Button, Input } from "@ui-kitten/components";
 import { useAppState } from "../../../config";
 import i18n from "./../../../config/i18n/config";
+import { useTheme } from "../../../application/custom-hooks/useTheme";
 interface IRegisterForm {
   signUp: (payload: {
     email: string;
@@ -15,18 +16,22 @@ interface IRegisterForm {
     role: string;
   }) => Promise<void>;
   loading: boolean;
+  error: string;
 }
 
-export default function RegisterForm({ signUp, loading }: IRegisterForm) {
+export default function RegisterForm({
+  signUp,
+  loading,
+  error,
+}: IRegisterForm) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { fontFamily } = useTheme();
 
-  const {
-    theme: { fontFamily },
-  } = useAppState();
+  useEffect(() => {}, []);
 
   return (
     <ScrollView>
@@ -36,6 +41,10 @@ export default function RegisterForm({ signUp, loading }: IRegisterForm) {
         {" "}
         Car Saviors{" "}
       </Styled.Title>
+      {error ? (
+        <Styled.ErrorText fontFamily={fontFamily}> {error} </Styled.ErrorText>
+      ) : null}
+
       <Styled.FormLabel fontFamily={fontFamily}>
         {" "}
         {i18n.t("register.firstName")}{" "}

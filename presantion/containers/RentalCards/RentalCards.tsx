@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
-// @ts-ignore
+import { Text, View } from "react-native";
 import React from "react";
 
 export default function RentalCards() {

@@ -34,6 +34,7 @@
     "expo-media-library": "~14.0.0",
     "expo-status-bar": "~1.2.0",
     "firebase": "^9.6.11",
+    "formik": "^2.2.9",
     "i18n-js": "^3.9.2",
     "i18next": "^21.6.16",
     "lottie-ios": "3.2.3",
@@ -60,7 +61,8 @@
     "react-native-table-component": "^1.2.2",
     "react-native-web": "0.17.1",
     "react-rating-stars-component": "^2.2.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

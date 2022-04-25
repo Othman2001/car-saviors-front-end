@@ -8,7 +8,7 @@ export const RentalTitle = styled.Text<ITextProps>`
   margin-bottom: 8px;
   color: #000000;
   margin-left: 30px;
-  margin-top: 4px;
+  margin-top: 60px;
 `;
 
 export const RentalCarCardContainer = styled.View`

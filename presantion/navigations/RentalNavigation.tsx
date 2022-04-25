@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CarDetails from "../screens/CarDetails/CarDetails";
 import RentScreen from "../screens/RentScreen/RentScreen";
 import Confirm from "../screens/ConfirmationScreen/ConfirmationScreen";
+import Error from "../screens/Error/Error";
 import Thanks from "../components/ThanksS/Thanks";
 
 export default function RentalNavigation() {
@@ -26,6 +27,13 @@ export default function RentalNavigation() {
       <Stack.Screen
         name="Confirm"
         component={Confirm}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Error"
+        component={Error}
         options={{
           headerShown: false,
         }}

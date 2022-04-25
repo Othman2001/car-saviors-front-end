@@ -1,70 +1,25 @@
-import { StyleSheet, ScrollView } from "react-native";
-// @ts-ignore
+import { ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Styled from "./style";
 import { FlexContainer } from "../common/style";
 import { useNavigation } from "@react-navigation/native";
-import { useAppState } from "../../../config";
 import i18n from "../../../config/i18n/config";
 
-const cardsSchema = [
-  {
-    id: "rent",
-    icon: require("../../../assets/rentalkey.png"),
-    text: "Rent a car",
-    arText: "احجز سيارة",
-    route: "Rent",
-  },
-  {
-    id: "winch",
-    icon: require("../../../assets/cane.png"),
-    text: "Request a winch",
-    arText: "طلب ونش",
-    route: "Winch",
-  },
-  {
-    id: "workshops",
-    icon: require("../../../assets/work.png"),
-    text: "see workshops",
-    arText: "معاينة الصيانة",
-    route: "WorkShops",
-  },
-
-  {
-    id: "offer your car for rental",
-    icon: require("../../../assets/contract.png"),
-    text: "Become a renter ",
-    arText: "عرض سيارتك للايجار",
-    route: "Offer",
-  },
-];
-const carOwnerSchema = [
-  {
-    id: "winch",
-    icon: require("../../../assets/cane.png"),
-    text: "Request a winch",
-    arText: "طلب ونش",
-    route: "Winch",
-  },
-  {
-    id: "workshops",
-    icon: require("../../../assets/work.png"),
-    text: "see workshops",
-    arText: "معاينة الصيانة",
-    route: "WorkShops",
-  },
-];
-
-export default function Cards() {
+interface ICardsProps {
+  currentUserRole: string;
+  fontFamily: string;
+  carOwnerSchema: Object;
+  cardsSchema: Object;
+}
+export default function Cards({
+  currentUserRole,
+  fontFamily,
+  carOwnerSchema,
+  cardsSchema,
+}: ICardsProps) {
   const { navigate } = useNavigation();
   const [schemaType, setSchema] = useState<any>();
 
-  const {
-    authentication: { currentUserRole },
-  } = useAppState();
-  const {
-    theme: { fontFamily },
-  } = useAppState();
   useEffect(() => {
     if (currentUserRole === "car-owner") {
       setSchema(carOwnerSchema);
@@ -95,5 +50,3 @@ export default function Cards() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({});

@@ -11,26 +11,20 @@ import { useAppState } from "./config";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AuthStack from "./presantion/navigations/authStack";
 import UserNavigation from "./presantion/navigations/userNavigation";
-import i18n from "./config/i18n/config";
-import DrawerComponent from "./presantion/components/common/Drawer";
-import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import DrawerNavigation from "./presantion/navigations/DrawerNavigation";
 import CarOwnerNavigation from "./presantion/navigations/CarOwnerNavigation";
 
 const Taps = createBottomTabNavigator();
 
 const Application = () => {
   const {
-    authentication: { user, error, currentUserRole },
+    authentication: { user, currentUserRole },
     theme: { lng },
   } = useAppState();
   const navigation = useNavigation();
   useEffect(() => {
     lng === "ar" ? I18nManager.forceRTL(true) : I18nManager.forceRTL(false);
-    i18n.locale = lng;
-    error && Alert.alert(error);
-  }, [lng]);
+  }, []);
   return (
     <View
       style={{

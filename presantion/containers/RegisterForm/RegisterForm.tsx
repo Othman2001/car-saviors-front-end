@@ -1,18 +1,21 @@
 import { StyleSheet } from "react-native";
 import RegisterFormComponent from "../../components/registerForm/RegisterForm";
-// @ts-ignore
 import React from "react";
-import { useActions, useAppState } from "../../../config";
+import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
+import { useUserActions } from "../../../application/custom-hooks/useUserActions";
 
 export default function RegisterForm() {
-  const {
-    authentication: { signUp },
-  } = useActions();
-  const {
-    authentication: { loading },
-  } = useAppState();
+  const { loading } = useUserInfo();
+  const { signUp } = useUserActions();
+  const { error, signUpError } = useUserInfo();
 
-  return <RegisterFormComponent loading={loading} signUp={signUp} />;
+  return (
+    <RegisterFormComponent
+      loading={loading}
+      signUp={signUp}
+      error={signUpError}
+    />
+  );
 }
 
 const styles = StyleSheet.create({});

@@ -1,9 +1,8 @@
-import { View, ScrollView, SafeAreaView, StyleSheet } from "react-native";
-// @ts-ignore
+import { View, SafeAreaView, StyleSheet } from "react-native";
 import React from "react";
 import { Platform } from "react-native";
 import UserHeader from "../../containers/UserHeader/UserHeader";
-import Cards from "../../components/Cards/Cards";
+import Cards from "../../containers/Cards/Cards";
 import { Layout } from "@ui-kitten/components";
 
 export default function HomeScreen() {

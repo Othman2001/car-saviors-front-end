@@ -2,13 +2,10 @@ import { StyleSheet } from "react-native";
 import { Text } from "@ui-kitten/components";
 import * as Styled from "./style";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
-// @ts-ignore
-import React, { useEffect } from "react";
-import { db } from "../../../infstracture/firebase";
-import { useAppState } from "../../../config";
+import React from "react";
 import { IUserData } from "../../../application/authentication/state";
 import i18n from "../../../config/i18n/config";
-import { collection, onSnapshot } from "firebase/firestore";
+import { useTheme } from "../../../application/custom-hooks/useTheme";
 
 interface IUserHeader {
   user: IUserData | null;
@@ -23,11 +20,7 @@ export default function UserHeader({
   rentingCar,
   visitedWorkshops,
 }: IUserHeader) {
-  const {
-    authentication,
-    theme: { fontFamily },
-  } = useAppState();
-
+  const { fontFamily } = useTheme();
   return (
     <Styled.Container>
       <Styled.userInfoContainer>

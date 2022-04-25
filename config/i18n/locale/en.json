@@ -35,5 +35,16 @@
   "days": "Days",
   "pricPerDay": "L.E",
   "total": "Total",
-  "insurance": "Extra insurance"
+  "insurance": "Extra insurance",
+  "offer": {
+    "title": "Fill this form to offer your car for rent",
+    "phoneNumber": "phone number",
+    "carModel": "car Model",
+    "carColor": "car color",
+    "carNumber": " car license number",
+    "firstImage": " car first imageURl",
+    "secondImage": "Second Image Url",
+    "thirdImage": "Third Image Url",
+    "submit": "Sumbit"
+  }
 }

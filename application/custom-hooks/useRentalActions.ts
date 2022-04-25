@@ -2,7 +2,7 @@ import { useActions } from "../../config";
 
 export const useRentalActions = () => {
   const {
-    rental: { fetchCars },
+    rental: { fetchCars, registerAsCarOwner, setDates, setTotal, rentCar },
   } = useActions();
-  return { fetchCars };
+  return { fetchCars, registerAsCarOwner, setDates, setTotal, rentCar };
 };

@@ -4,6 +4,18 @@ import * as Styled from "./style";
 import { carSchema } from "../../../application/rental/state";
 import { useAppState } from "../../../config";
 import i18n from "../../../config/i18n/config";
+
+interface ICarDetailsCardProps {
+  images: [string];
+  carBrand: string;
+  carModel: string;
+  carModelYear: string;
+  pricePerDay: number;
+  location: string;
+  motorType: string;
+  fontFamily: string;
+}
+
 export default function CarDetailsCard({
   images,
   carBrand,
@@ -12,7 +24,7 @@ export default function CarDetailsCard({
   pricePerDay,
   location,
   motorType,
-}: carSchema) {
+}: ICarDetailsCardProps) {
   const {
     theme: { fontFamily },
   } = useAppState();

@@ -9,7 +9,7 @@ import Spinner from "../../components/common/Spinner";
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { useRentalState } from "../../../application/custom-hooks/useRentalState";
-
+import i18n from "../../../config/i18n/config";
 export default function OfferScreen() {
   const {
     theme: { fontFamily },
@@ -56,10 +56,10 @@ export default function OfferScreen() {
       <ScrollView>
         <Styled.Container>
           <Styled.Title fontFamily={fontFamily}>
-            Fill this form to offer your car for rent
+            {i18n.t("offer.title")}
           </Styled.Title>
           <FormStyled.FormLabel fontFamily={fontFamily}>
-            phone number
+            {i18n.t("offer.phoneNumber")}:
           </FormStyled.FormLabel>
           <Input
             textStyle={{
@@ -71,7 +71,7 @@ export default function OfferScreen() {
             }}
           />
           <FormStyled.FormLabel fontFamily={fontFamily}>
-            car model
+            {i18n.t("offer.carModel")}:
           </FormStyled.FormLabel>
           <Input
             textStyle={{
@@ -83,7 +83,7 @@ export default function OfferScreen() {
             style={styles.input}
           />
           <FormStyled.FormLabel fontFamily={fontFamily}>
-            car color
+            {i18n.t("offer.carColor")}:
           </FormStyled.FormLabel>
           <Input
             textStyle={{
@@ -95,7 +95,7 @@ export default function OfferScreen() {
             style={styles.input}
           />
           <FormStyled.FormLabel fontFamily={fontFamily}>
-            car license number
+            {i18n.t("offer.carNumber")}:
           </FormStyled.FormLabel>
           <Input
             textStyle={{
@@ -108,7 +108,7 @@ export default function OfferScreen() {
           />
 
           <FormStyled.FormLabel fontFamily={fontFamily}>
-            car first imageURl
+            {i18n.t("offer.firstImage")}:
           </FormStyled.FormLabel>
           <Input
             textStyle={{
@@ -121,7 +121,7 @@ export default function OfferScreen() {
           />
 
           <FormStyled.FormLabel fontFamily={fontFamily}>
-            car second image URl
+            {i18n.t("offer.secondImage")}
           </FormStyled.FormLabel>
           <Input
             textStyle={{
@@ -133,7 +133,7 @@ export default function OfferScreen() {
             style={styles.input}
           />
           <FormStyled.FormLabel fontFamily={fontFamily}>
-            car third imageURl
+            {i18n.t("offer.thirdImage")}
           </FormStyled.FormLabel>
           <Input
             textStyle={{
@@ -151,8 +151,7 @@ export default function OfferScreen() {
               handleSubmit();
             }}
           >
-            {" "}
-            Submit{" "}
+            {i18n.t("offer.submit")}
           </Button>
         </Styled.Container>
       </ScrollView>

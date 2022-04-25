@@ -2,9 +2,11 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import LottieView from "lottie-react-native";
 
-export default class Success extends React.Component {
+export default class LottieWrapper extends React.Component {
   componentDidMount() {
     this.animation.play();
+    // Or set a specific startFrame and endFrame with:
+    // this.animation.play(30, 120);
   }
 
   resetAnimation = () => {
@@ -24,7 +26,9 @@ export default class Success extends React.Component {
             height: 300,
             backgroundColor: "#eee",
           }}
-          source={require("./animation.json")}
+          source={require("./error.json")}
+          // OR find more Lottie files @ https://lottiefiles.com/featured
+          // Just click the one you like, place that file in the 'assets' folder to the left, and replace the above 'require' statement
         />
       </View>
     );

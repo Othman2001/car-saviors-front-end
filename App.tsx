@@ -24,7 +24,8 @@ import {
   Cairo_600SemiBold,
   Cairo_700Bold,
 } from "@expo-google-fonts/cairo";
-import { StatusBar } from "react-native";
+import { I18nManager, StatusBar } from "react-native";
+import i18n from "./config/i18n/config";
 
 const overmind = createOvermind(config, {
   devtools: "localhost:3031",

@@ -35,5 +35,16 @@
   "days": "أيام",
   "pricPerDay": "جنيه",
   "total": "المجموع",
-  "insurance": "تأمين إضافي"
+  "insurance": "تأمين إضافي",
+  "offer": {
+    "title": "املأ هذا النموذج لعرض تأجير سيارتك",
+    "phoneNumber": "رقم الهاتف",
+    "carModel": "طراز السيارة",
+    "carColor": "لون السيارة",
+    "carNumber": "رقم رخصة السيارة",
+    "firstImage": "أول صورة للسيارة",
+    "secondImage": "عنوان URL للصورة الثانية",
+    "thirdImage": "عنوان URL للصورة الثالثة",
+    "submit": "سومبيت"
+  }
 }

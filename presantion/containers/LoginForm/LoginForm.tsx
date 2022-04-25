@@ -1,19 +1,16 @@
 import { View, Text } from "react-native";
 import React from "react";
 import LoginFormComponent from "../../components/loginForm/LoginForm";
-import { useActions, useAppState } from "../../../config";
+import { useUserActions } from "../../../application/custom-hooks/useUserActions";
+import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
 
 export default function LoginForm() {
-  const {
-    authentication: { logIn },
-  } = useActions();
+  const { logIn } = useUserActions();
+  const { loading, error, logInError } = useUserInfo();
 
-  const {
-    authentication: { loading },
-  } = useAppState();
   return (
     <View>
-      <LoginFormComponent logIn={logIn} loading={loading} />
+      <LoginFormComponent error={logInError} logIn={logIn} loading={loading} />
     </View>
   );
 }
