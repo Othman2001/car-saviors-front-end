@@ -1,12 +1,14 @@
 import * as Styled from "../loginForm/style";
-import { Alert, ScrollView, StyleSheet, Text } from "react-native";
-import React, { useEffect } from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import React from "react";
 import { useState } from "react";
 import Spinner from "../common/Spinner";
 import { Button, Input } from "@ui-kitten/components";
-import { useAppState } from "../../../config";
 import i18n from "./../../../config/i18n/config";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
+import { Formik } from "formik";
+import registerSchema from "./registrSchema";
+
 interface IRegisterForm {
   signUp: (payload: {
     email: string;
@@ -31,8 +33,15 @@ export default function RegisterForm({
   const [confirmPassword, setConfirmPassword] = useState("");
   const { fontFamily } = useTheme();
 
-  useEffect(() => {}, []);
-
+  const onSubmit = (values: any) => {
+    signUp({
+      email: values.email,
+      password: values.password,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      role: "user",
+    });
+  };
   return (
     <ScrollView>
       {/* create form using the form object schema */}
@@ -41,97 +50,134 @@ export default function RegisterForm({
         {" "}
         Car Saviors{" "}
       </Styled.Title>
-      {error ? (
-        <Styled.ErrorText fontFamily={fontFamily}> {error} </Styled.ErrorText>
-      ) : null}
 
-      <Styled.FormLabel fontFamily={fontFamily}>
-        {" "}
-        {i18n.t("register.firstName")}{" "}
-      </Styled.FormLabel>
-      <Input
-        textStyle={{
-          color: "#000",
+      <Formik
+        validationSchema={registerSchema}
+        onSubmit={(values) =>
+          signUp({
+            email: values.email,
+            password: values.password,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            role: "user",
+          })
+        }
+        initialValues={{
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
         }}
-        style={styles.input}
-        value={firstName}
-        // onChangeText={(text) => setFirstName(text)}
-        onChangeText={(value) => setFirstName(value)}
-      />
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          isValid,
+        }) => (
+          <>
+            <Styled.FormLabel fontFamily={fontFamily}>
+              {" "}
+              {i18n.t("register.firstName")}{" "}
+            </Styled.FormLabel>
+            <Input
+              textStyle={{
+                color: "#000",
+              }}
+              style={styles.input}
+              value={values.firstName}
+              onChangeText={handleChange("firstName")}
+            />
 
-      <Styled.FormLabel fontFamily={fontFamily}>
-        {i18n.t("register.lastName")}{" "}
-      </Styled.FormLabel>
-      <Input
-        textStyle={{
-          color: "#000",
-        }}
-        style={styles.input}
-        value={lastName}
-        onChangeText={(value) => setLastName(value)}
-      />
+            <Styled.FormLabel fontFamily={fontFamily}>
+              {i18n.t("register.lastName")}{" "}
+            </Styled.FormLabel>
+            <Input
+              textStyle={{
+                color: "#000",
+              }}
+              style={styles.input}
+              value={values.lastName}
+              onChangeText={handleChange("lastName")}
+            />
 
-      <Styled.FormLabel fontFamily={fontFamily}>
-        {i18n.t("register.Email")}{" "}
-      </Styled.FormLabel>
-      <Input
-        textStyle={{
-          color: "#000",
-        }}
-        style={styles.input}
-        autoCapitalize="none"
-        value={email}
-        onChangeText={(value) => setEmail(value)}
-      />
+            <Styled.FormLabel fontFamily={fontFamily}>
+              {i18n.t("register.Email")}{" "}
+            </Styled.FormLabel>
+            {errors.email ? (
+              <Styled.ErrorText fontFamily={fontFamily}>
+                {errors.email}
+              </Styled.ErrorText>
+            ) : null}
 
-      <Styled.FormLabel fontFamily={fontFamily}>
-        {" "}
-        {i18n.t("register.password")}{" "}
-      </Styled.FormLabel>
-      <Input
-        textStyle={{
-          color: "#000",
-        }}
-        style={styles.input}
-        secureTextEntry={true}
-        autoCapitalize="none"
-        value={password}
-        placeholder="*******"
-        onChangeText={(value) => setPassword(value)}
-      />
+            <Input
+              textStyle={{
+                color: "#000",
+              }}
+              value={values.email}
+              onChangeText={handleChange("email")}
+              style={styles.input}
+              autoCapitalize="none"
+            />
 
-      <Styled.FormLabel fontFamily={fontFamily}>
-        {" "}
-        {i18n.t("register.confirmPassword")}
-      </Styled.FormLabel>
-      <Input
-        textStyle={{
-          color: "#000",
-        }}
-        style={styles.input}
-        secureTextEntry={true}
-        autoCapitalize="none"
-        value={confirmPassword}
-        placeholder="*******"
-        onChangeText={(value) => setConfirmPassword(value)}
-      />
+            <Styled.FormLabel fontFamily={fontFamily}>
+              {" "}
+              {i18n.t("register.password")}{" "}
+            </Styled.FormLabel>
+            {errors.password ? (
+              <Styled.ErrorText fontFamily={fontFamily}>
+                {errors.password}
+              </Styled.ErrorText>
+            ) : null}
+            <Input
+              textStyle={{
+                color: "#000",
+              }}
+              value={values.password}
+              onChangeText={handleChange("password")}
+              style={styles.input}
+              secureTextEntry={true}
+              autoCapitalize="none"
+              placeholder="*******"
+            />
 
-      <Styled.CommonButton>
-        <Button
-          accessoryLeft={loading && <Spinner />}
-          onPress={() => {
-            signUp({
-              email,
-              password,
-              firstName,
-              lastName,
-              role: "user",
-            });
-          }}
-        >
-          Sign Up
-        </Button>
-      </Styled.CommonButton>
+            <Styled.FormLabel fontFamily={fontFamily}>
+              {" "}
+              {i18n.t("register.confirmPassword")}
+            </Styled.FormLabel>
+            {errors.confirmPassword ? (
+              <Styled.ErrorText fontFamily={fontFamily}>
+                {errors.confirmPassword}
+              </Styled.ErrorText>
+            ) : null}
+
+            <Input
+              textStyle={{
+                color: "#000",
+              }}
+              value={values.confirmPassword}
+              onChangeText={handleChange("confirmPassword")}
+              style={styles.input}
+              secureTextEntry={true}
+              autoCapitalize="none"
+              placeholder="*******"
+            />
+
+            <Styled.CommonButton>
+              <Button
+                accessoryLeft={loading && <Spinner />}
+                onPress={handleSubmit}
+                disabled={!isValid}
+              >
+                Sign Up
+              </Button>
+            </Styled.CommonButton>
+          </>
+        )}
+      </Formik>
     </ScrollView>
   );
 }
