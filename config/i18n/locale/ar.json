@@ -1,0 +1,50 @@
+{
+  "login": {
+    "welcome": "مرحبًا بكم في Car Saviors",
+    "email": "بريد الالكتروني",
+    "password": "كلمه السر",
+    "login": "تسجيل دخول",
+    "noAccount": "ليس لديك حساب؟",
+    "register": "اشتراك ؟"
+  },
+  "register": {
+    "firstName": "الاسم الأول",
+    "lastName": "الكنية",
+    "Email": "بريد الالكتروني",
+    "password": "كلمه السر",
+    "confirmPassword": "تأكيد كلمة المرور"
+  },
+  "rental": {
+    "pricePerDay": "جنيه"
+  },
+  "userHeader": {
+    "welcome": "أهلا بك",
+    "rentedCar": "سيارة مستأجرة",
+    "rentingCar": "تأجير السيارات",
+    "visitedWorkshops": "تمت الزيارة ورش العمل"
+  },
+  "search Here": "ابحث هنا",
+  "AvaliableForRental": "متوافرة للإيجار",
+  "manual": "منوال",
+  "Automatic": "تلقائي",
+  "carDetails": {
+    "moreImages": "المزيد من الصور",
+    "title": "ملخص",
+    "alert": "الرجاء تحديد التواريخ"
+  },
+  "days": "أيام",
+  "pricPerDay": "جنيه",
+  "total": "المجموع",
+  "insurance": "تأمين إضافي",
+  "offer": {
+    "title": "املأ هذا النموذج لعرض تأجير سيارتك",
+    "phoneNumber": "رقم الهاتف",
+    "carModel": "طراز السيارة",
+    "carColor": "لون السيارة",
+    "carNumber": "رقم رخصة السيارة",
+    "firstImage": "أول صورة للسيارة",
+    "secondImage": "عنوان URL للصورة الثانية",
+    "thirdImage": "عنوان URL للصورة الثالثة",
+    "submit": "سومبيت"
+  }
+}

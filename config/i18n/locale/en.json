@@ -1,0 +1,50 @@
+{
+  "login": {
+    "welcome": "Welcome To Car Saviors",
+    "email": "Email",
+    "password": "Password",
+    "login": "Log In",
+    "noAccount": "Don't have an account ? ",
+    "register": "Sign Up ? "
+  },
+  "register": {
+    "firstName": "First Name",
+    "lastName": "lastName",
+    "Email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password"
+  },
+  "rental": {
+    "pricePerDay": "L.E"
+  },
+  "userHeader": {
+    "welcome": "welcome",
+    "rentedCar": "Rented Car",
+    "rentingCar": "Renting car",
+    "visitedWorkshops": "VisitedWorkshops"
+  },
+  "search Here": "Search Here",
+  "AvaliableForRental": "Avaliable For Rental",
+  "manual": "Mnaual",
+  "Automatic": "Automatic",
+  "carDetails": {
+    "moreImages": "More Images",
+    "title": "Summary",
+    "alert": "please select dates"
+  },
+  "days": "Days",
+  "pricPerDay": "L.E",
+  "total": "Total",
+  "insurance": "Extra insurance",
+  "offer": {
+    "title": "Fill this form to offer your car for rent",
+    "phoneNumber": "phone number",
+    "carModel": "car Model",
+    "carColor": "car color",
+    "carNumber": " car license number",
+    "firstImage": " car first imageURl",
+    "secondImage": "Second Image Url",
+    "thirdImage": "Third Image Url",
+    "submit": "Sumbit"
+  }
+}
