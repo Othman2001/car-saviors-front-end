@@ -36,7 +36,6 @@ export const setTotal: Action<{ pricePerDay: number }> = (
   { pricePerDay }
 ) => {
   const price = pricePerDay * rental.daysCount;
-  console.log(price, "price");
   const insurance = 1000;
   rental.rentalPrice = price;
   const total = price + insurance;
@@ -69,7 +68,6 @@ export const rentCar: AsyncAction<{
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res, "REs");
           state.rental.message = res.data.message;
           state.authentication.rentingCar = state.authentication.rentingCar + 1;
         } else {
@@ -94,9 +92,10 @@ export const registerAsCarOwner: AsyncAction<{
   carNumber: string;
   images: any;
   userId: string;
+  imageUrl: string;
 }> = async (
   { state, effects },
-  { phoneNumber, carModel, carColor, carNumber, images, userId }
+  { phoneNumber, carModel, carColor, carNumber, images, userId, imageUrl }
 ) => {
   state.rental.loading = true;
   effects.rental
@@ -107,9 +106,9 @@ export const registerAsCarOwner: AsyncAction<{
       carNumber,
       images,
       userId,
+      imageUrl,
     })
     .then((res) => {
-      console.log(res, "res");
       // @ts-ignore
       state.rental.message = res.message;
     })

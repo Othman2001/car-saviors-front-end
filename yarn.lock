@@ -2946,6 +2946,13 @@ bl@^4.1.0:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
+blob-to-base64@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/blob-to-base64/-/blob-to-base64-1.0.2.tgz#806a2b78b389153d6fc193bc369a6cd80ea645cf"
+  integrity sha512-R46jVNdr4wX2rSRo/UoJuHgK9J0q7Gq/m0Y5drahZKouspb19Oezy7Ynx6H2UGBGyuUA68Gt8VQvUh1q24jJ+g==
+  dependencies:
+    is-blob "^2.0.1"
+
 blueimp-md5@^2.10.0:
   version "2.19.0"
   resolved "https://registry.npmjs.org/blueimp-md5/-/blueimp-md5-2.19.0.tgz"
@@ -4860,6 +4867,11 @@ is-arrayish@^0.3.1:
   version "0.3.2"
   resolved "https://registry.npmjs.org/is-arrayish/-/is-arrayish-0.3.2.tgz"
   integrity sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==
+
+is-blob@^2.0.1:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/is-blob/-/is-blob-2.1.0.tgz#e36cd82c90653f1e1b930f11baf9c64216a05385"
+  integrity sha512-SZ/fTft5eUhQM6oF/ZaASFDEdbFVe89Imltn9uZr03wdKMcWNVYSMjQPFtg05QuNkt5l5c135ElvXEQG0rk4tw==
 
 is-buffer@^1.1.5:
   version "1.1.6"

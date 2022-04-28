@@ -1,7 +1,10 @@
 import * as firebase from "firebase/app";
 import { getApp } from "firebase/app";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+import { connectFirestoreEmulator } from "firebase/firestore";
+
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB42ab0qD3LOTsL5aIrj_jA6XiH5JC32vc",
@@ -25,5 +28,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
 }
 
 export let db = getFirestore();
+connectFirestoreEmulator(db, "localhost", 3000);
+export const storage = getStorage(Firebase);
 
 export default Firebase;

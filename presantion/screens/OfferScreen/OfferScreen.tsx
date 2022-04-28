@@ -1,27 +1,50 @@
-import { SafeAreaView, StyleSheet } from "react-native";
+import { Platform, SafeAreaView, StyleSheet } from "react-native";
 import * as Styled from "./style";
 import * as FormStyled from "../../components/loginForm/style";
 import React, { useEffect } from "react";
 import { useActions, useAppState } from "../../../config";
+import * as ImagePicker from "expo-image-picker";
 import TopHeader from "../../components/common/topHeader";
 import { Input, Button } from "@ui-kitten/components";
-import Spinner from "../../components/common/Spinner";
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { useRentalState } from "../../../application/custom-hooks/useRentalState";
 import i18n from "../../../config/i18n/config";
+import { Text } from "react-native-paper";
+import getBlobFroUri from "../../../helpers/getBlob";
+import mangeUpload from "../../../helpers/FileUpload";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import Firebase from "../../../infstracture/firebase";
+const blobToBase64 = require("blob-to-base64");
+
 export default function OfferScreen() {
   const {
     theme: { fontFamily },
   } = useAppState();
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      const storage = getStorage(Firebase);
+      const reference = ref(storage, "image.jpg");
+      //  convert image to array of bytes
+      const img = await fetch(result.uri);
+      const bytes = await img.blob();
+      await uploadBytes(reference, bytes);
+    }
+  };
   const { loading } = useRentalState();
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [model, setModel] = React.useState("");
   const [color, setColor] = React.useState("");
   const [licenseNumber, setLicenseNumber] = React.useState("");
-  const [firstImageUrl, setFirstImageUrl] = React.useState("");
-  const [secondImageUrl, setSecondImageUrl] = React.useState("");
-  const [thirdImageUrl, setThirdImageUrl] = React.useState("");
+  const [image, setImage] = React.useState("");
 
   const {
     authentication: { setRoleToCarOwner },
@@ -39,16 +62,15 @@ export default function OfferScreen() {
       carModel: model,
       carColor: color,
       carNumber: licenseNumber,
-      images: [firstImageUrl, secondImageUrl, thirdImageUrl],
+      images: ["", "", ""],
       // @ts-ignore
       userId: user?.uid,
+      imageUrl: image,
     });
     setRoleToCarOwner();
-    navigation.navigate("Welcome");
+    // navigation.navigate("Welcome");
   };
-  useEffect(() => {
-    console.log(loading, "loading");
-  });
+  useEffect(() => {});
 
   return (
     <SafeAreaView>
@@ -106,44 +128,9 @@ export default function OfferScreen() {
             }}
             style={styles.input}
           />
-
-          <FormStyled.FormLabel fontFamily={fontFamily}>
-            {i18n.t("offer.firstImage")}:
-          </FormStyled.FormLabel>
-          <Input
-            textStyle={{
-              color: "#000",
-            }}
-            onChangeText={(text) => {
-              setFirstImageUrl(text);
-            }}
-            style={styles.input}
-          />
-
-          <FormStyled.FormLabel fontFamily={fontFamily}>
-            {i18n.t("offer.secondImage")}
-          </FormStyled.FormLabel>
-          <Input
-            textStyle={{
-              color: "#000",
-            }}
-            onChangeText={(text) => {
-              setSecondImageUrl(text);
-            }}
-            style={styles.input}
-          />
-          <FormStyled.FormLabel fontFamily={fontFamily}>
-            {i18n.t("offer.thirdImage")}
-          </FormStyled.FormLabel>
-          <Input
-            textStyle={{
-              color: "#000",
-            }}
-            onChangeText={(text) => {
-              setThirdImageUrl(text);
-            }}
-            style={styles.input}
-          />
+          <Button onPress={pickImage}>
+            <Text> Upload Car Image </Text>
+          </Button>
 
           <Button
             style={styles.button}

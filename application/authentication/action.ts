@@ -19,7 +19,6 @@ export const signUp: AsyncAction<{
   await effects.authentication
     .createUser(email, password, firstName, lastName, role)
     .then((res) => {
-      console.log(res);
       authentication.user = res.data.user;
       authentication.currentUserRole = res.data.role;
       if (
@@ -66,7 +65,6 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
   state.authentication.loading = false;
 
   await effects.authentication.authroizeUser(email).then((res) => {
-    console.log(res.data, "res data");
     state.authentication.currentUserRole = res.data.role;
     state.authentication.rentedCar = res.data.rentedCar;
     state.authentication.rentingCar = res.data.rentingCar;

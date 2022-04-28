@@ -50,6 +50,7 @@ export const registerAsCarOwner = async ({
   carNumber,
   images,
   userId,
+  imageUrl,
 }: {
   phoneNumber: string;
   carModel: string;
@@ -57,6 +58,7 @@ export const registerAsCarOwner = async ({
   carNumber: string;
   images: string[];
   userId: string;
+  imageUrl: string;
 }) => {
   axios.post(
     "https://us-central1-car-saviors.cloudfunctions.net/registerAsCarOwner",
@@ -67,6 +69,7 @@ export const registerAsCarOwner = async ({
       carNumber,
       images,
       userId,
+      imageUrl,
     }
   );
 };
