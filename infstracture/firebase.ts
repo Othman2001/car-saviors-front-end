@@ -3,16 +3,11 @@ import { getApp } from "firebase/app";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 import { connectFirestoreEmulator } from "firebase/firestore";
 
-
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 export const firebaseConfig = {
-  apiKey: "",
-
-const firebaseConfig = {
-  apiKey: "",
-
+  apiKey: "AIzaSyB42ab0qD3LOTsL5aIrj_jA6XiH5JC32vc",
   authDomain: "car-saviors.firebaseapp.com",
   projectId: "car-saviors",
   storageBucket: "car-saviors.appspot.com",

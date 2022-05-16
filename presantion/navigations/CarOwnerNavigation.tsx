@@ -2,14 +2,10 @@ import { Image } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
-import WorkShopScreen from "../screens/WorkShopsScreen/WorkShopScreen";
 import WinchScreen from "../screens/WinchScreen/WinchScreen";
-import { createStackNavigator } from "@react-navigation/stack";
-import RentalNavigation from "./RentalNavigation";
-import OfferScreen from "../screens/OfferScreen/OfferScreen";
+import CarWorkshopsNavigation from "./CarWorkshopsNavigation";
 
 const Taps = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
 export default function CarOwnerNavigation() {
   const routesNames = {
@@ -36,10 +32,10 @@ export default function CarOwnerNavigation() {
   };
   return (
     <Taps.Navigator
+      // @ts-ignore
       tabBarOptions={{
         activeTintColor: "#265A60",
         inactiveTintColor: "#000",
-
         style: {
           backgroundColor: "#fff",
         },
@@ -72,10 +68,8 @@ export default function CarOwnerNavigation() {
       })}
     >
       <Taps.Screen name="Home" component={HomeScreen} />
-      <Taps.Screen name="WorkShops" component={WorkShopScreen} />
-      <Taps.Screen name="Rent" component={RentalNavigation} />
+      <Taps.Screen name="WorkShops" component={CarWorkshopsNavigation} />
       <Taps.Screen name="Winch" component={WinchScreen} />
-      <Taps.Screen name="Offer" component={OfferScreen} />
     </Taps.Navigator>
   );
 }

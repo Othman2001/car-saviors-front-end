@@ -1,4 +1,4 @@
-import * as Styled from "../loginForm/style";
+import * as Styled from "../../components/LoginForm/style";
 import { ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import { useState } from "react";

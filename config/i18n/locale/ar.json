@@ -45,6 +45,16 @@
     "firstImage": "أول صورة للسيارة",
     "secondImage": "عنوان URL للصورة الثانية",
     "thirdImage": "عنوان URL للصورة الثالثة",
-    "submit": "سومبيت"
+    "submit": "سومبيت",
+    "carBrand": "ماركة السيارة",
+    "carModelYear": "موديل السيارة",
+    "carType": "نوع جسم السيارة",
+    "location": "عنوان السيارة",
+    "motorType": "نوع المحرك",
+    "uploadImage": "تحميل الصور",
+    "pricePerDay": "السعر في اليوم"
+  },
+  "workshops": {
+    "brandsTitle": "العلامات التجارية"
   }
 }

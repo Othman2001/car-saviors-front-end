@@ -1,57 +1,53 @@
-import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
-import { Calendar, defaultStyle } from "react-native-calendars";
 import moment from "moment";
+import React, { Component } from "react";
+import { Calendar } from "react-native-calendars";
+
 const XDate = require("xdate");
 
 type Props = {
   initialRange: React.PropTypes.array.isRequired;
   onSuccess: React.PropTypes.func.isRequired;
+  handleChange: React.PropTypes.func.isRequired;
 };
 export default class DateRangePicker extends Component<Props> {
-  state = { isFromDatePicked: false, isToDatePicked: false, markedDates: {} };
+  state = {
+    isFromDatePicked: false,
+    isToDatePicked: false,
+    markedDates: {},
+  };
 
   componentDidMount() {
     this.setupInitialRange();
   }
 
   onDayPress = (day) => {
-    if (
-      !this.state.isFromDatePicked ||
-      (this.state.isFromDatePicked && this.state.isToDatePicked)
-    ) {
-      this.setupStartMarker(day);
-    } else if (!this.state.isToDatePicked) {
-      let markedDates = { ...this.state.markedDates };
-      let [mMarkedDates, range] = this.setupMarkedDates(
-        this.state.fromDate,
-        day.dateString,
-        markedDates
-      );
-      if (range >= 0) {
-        this.setState({
-          isFromDatePicked: true,
-          isToDatePicked: true,
-          markedDates: mMarkedDates,
-        });
-        this.props.onSuccess(this.state.fromDate, day.dateString);
-      } else {
-        this.setupStartMarker(day);
-      }
-    }
+    let markedDates = {
+      [day.dateString]: {
+        endingDate: true,
+        startingDate: true,
+        color: this.props.theme.markColor,
+        textColor: this.props.theme.markTextColor,
+      },
+    };
+    this.setState({
+      markedDates,
+      isFromDatePicked: true,
+      isToDatePicked: true,
+    });
+    this.props.handleChange(day.dateString);
   };
 
   setupStartMarker = (day) => {
     let markedDates = {
       [day.dateString]: {
-        startingDay: true,
+        endingDate: true,
         color: this.props.theme.markColor,
         textColor: this.props.theme.markTextColor,
       },
     };
     this.setState({
       isFromDatePicked: true,
-      isToDatePicked: false,
+      isToDatePicked: true,
       fromDate: day.dateString,
       markedDates: markedDates,
     });
@@ -70,21 +66,6 @@ export default class DateRangePicker extends Component<Props> {
           },
         };
       } else {
-        for (var i = 1; i <= range; i++) {
-          let tempDate = mFromDate.addDays(1).toString("yyyy-MM-dd");
-          if (i < range) {
-            markedDates[tempDate] = {
-              color: this.props.theme.markColor,
-              textColor: this.props.theme.markTextColor,
-            };
-          } else {
-            markedDates[tempDate] = {
-              endingDay: true,
-              color: this.props.theme.markColor,
-              textColor: this.props.theme.markTextColor,
-            };
-          }
-        }
       }
     }
     return [markedDates, range];
@@ -112,7 +93,7 @@ export default class DateRangePicker extends Component<Props> {
     return (
       <Calendar
         {...this.props}
-        markingType={"period"}
+        markingType="period"
         current={this.state.fromDate}
         markedDates={this.state.markedDates}
         disableMonthChange={true}
@@ -123,6 +104,7 @@ export default class DateRangePicker extends Component<Props> {
         onDayPress={(day) => {
           this.onDayPress(day);
         }}
+        onDayLongPress={(day) => this.onDayPress(day)}
       />
     );
   }

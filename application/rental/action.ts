@@ -90,12 +90,30 @@ export const registerAsCarOwner: AsyncAction<{
   carModel: string;
   carColor: string;
   carNumber: string;
-  images: any;
   userId: string;
   imageUrl: string;
+  address: string;
+  bodyType: string;
+  modelYear: string;
+  motorType: string;
+  carBrand: string;
+  pricePerDay: number;
 }> = async (
   { state, effects },
-  { phoneNumber, carModel, carColor, carNumber, images, userId, imageUrl }
+  {
+    phoneNumber,
+    carModel,
+    carColor,
+    carNumber,
+    userId,
+    imageUrl,
+    address,
+    bodyType,
+    modelYear,
+    motorType,
+    carBrand,
+    pricePerDay,
+  }
 ) => {
   state.rental.loading = true;
   effects.rental
@@ -104,12 +122,16 @@ export const registerAsCarOwner: AsyncAction<{
       carModel,
       carColor,
       carNumber,
-      images,
       userId,
       imageUrl,
+      address,
+      bodyType,
+      modelYear,
+      motorType,
+      carBrand,
+      pricePerDay,
     })
     .then((res) => {
-      // @ts-ignore
       state.rental.message = res.message;
     })
     .catch((error) => {

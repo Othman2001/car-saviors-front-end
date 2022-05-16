@@ -1,6 +1,7 @@
 import { getApp } from "firebase/app";
 import axios from "axios";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// @ts-ignore
 import Firebase from "../firebase";
 
 export const createUser = async (
@@ -26,6 +27,7 @@ export const userSignIn = async (
   password: string,
   setError: (params: any) => void
 ) => {
+  // @ts-ignore
   if (Firebase) {
     const app = getApp();
     const auth = getAuth(app);
@@ -42,7 +44,7 @@ export const userSignIn = async (
 
 export const authroizeUser = async (email: string) => {
   const userRole = await axios.post(
-    "https://us-central1-car-saviors.cloudfunctions.net/authorize",
+    "http://localhost:5001/car-saviors/us-central1/authorize",
     {
       email,
     }

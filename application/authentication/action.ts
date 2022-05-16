@@ -29,10 +29,12 @@ export const signUp: AsyncAction<{
         authentication.rentedCar = res.data.rentedCar;
         authentication.rentingCar = res.data.rentingCar;
         authentication.visitedWorkShops = res.data.visitedWorkShops;
+        authentication.currentUserRole = "user";
       } else {
         authentication.rentedCar = 0;
         authentication.rentingCar = 0;
         authentication.visitedWorkShops = 0;
+        authentication.currentUserRole = "user";
       }
     })
     .catch((error) => {
@@ -71,15 +73,4 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
     state.authentication.visitedWorkShops = res.data.visitedWorkShops;
   });
   state.authentication.loading = false;
-};
-
-export const setError: AsyncAction<string> = async (
-  { state, effects },
-  error
-) => {
-  state.authentication.error = error;
-};
-
-export const setRoleToCarOwner: Action = ({ state }) => {
-  state.authentication.currentUserRole = "car-owner";
 };

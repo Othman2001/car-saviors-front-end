@@ -48,28 +48,44 @@ export const registerAsCarOwner = async ({
   carModel,
   carColor,
   carNumber,
-  images,
   userId,
   imageUrl,
+  address,
+  bodyType,
+  modelYear,
+  motorType,
+  carBrand,
+  pricePerDay,
 }: {
   phoneNumber: string;
   carModel: string;
   carColor: string;
   carNumber: string;
-  images: string[];
   userId: string;
   imageUrl: string;
+  address: string;
+  bodyType: string;
+  modelYear: string;
+  motorType: string;
+  carBrand: string;
+  pricePerDay: number;
 }) => {
   axios.post(
-    "https://us-central1-car-saviors.cloudfunctions.net/registerAsCarOwner",
+    "http://localhost:5001/car-saviors/us-central1/registerAsCarOwner",
     {
       phoneNumber,
       carModel,
       carColor,
       carNumber,
-      images,
       userId,
+      images: [imageUrl],
       imageUrl,
+      address,
+      bodyType,
+      modelYear,
+      motorType,
+      carBrand,
+      pricePerDay,
     }
   );
 };

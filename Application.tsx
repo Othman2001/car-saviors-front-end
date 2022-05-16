@@ -3,18 +3,14 @@ import {
   KeyboardAvoidingView,
   Platform,
   I18nManager,
-  Alert,
 } from "react-native";
 // @ts-ignore
 import React, { useEffect } from "react";
 import { useAppState } from "./config";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AuthStack from "./presantion/navigations/authStack";
 import UserNavigation from "./presantion/navigations/userNavigation";
 import { useNavigation } from "@react-navigation/native";
 import CarOwnerNavigation from "./presantion/navigations/CarOwnerNavigation";
-
-const Taps = createBottomTabNavigator();
 
 const Application = () => {
   const {

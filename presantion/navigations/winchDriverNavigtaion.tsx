@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
-// @ts-ignore
 import React from "react";
 
-export default function WorkShopScreen() {
+export default function winchDriverNavigation() {
   return (
     <View>
-      <Text>WorkShopScreen</Text>
+      <Text>winchDriverNavigation</Text>
     </View>
   );
 }

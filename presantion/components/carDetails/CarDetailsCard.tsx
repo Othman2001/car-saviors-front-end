@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import * as Styled from "./style";
-import { carSchema } from "../../../application/rental/state";
 import { useAppState } from "../../../config";
 import i18n from "../../../config/i18n/config";
 

@@ -102,9 +102,6 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
             <Styled.CommonButton>
               <Button
                 accessoryLeft={loading && <Spinner />}
-                // onPress={() => {
-                //   logIn({ email, password });
-                // }}
                 onPress={handleSubmit}
                 disabled={!isValid}
               >

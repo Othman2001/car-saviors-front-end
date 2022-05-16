@@ -14,7 +14,10 @@ import { rentalState } from "../application/rental/state";
 import * as rentalActions from "../application/rental/action";
 import * as rentalEffects from "../infstracture/rental/effects";
 import { FontsState } from "../application/theme/sate";
+import * as WorkshopState from "../application/workshops/state";
 import * as ThemeActions from "../application/theme/actions";
+import * as workshopsEffects from "../infstracture/workshops/effects";
+import * as workshopsActions from "../application/workshops/action";
 const authentication = {
   state,
   effects: authenticationEffects,
@@ -29,11 +32,17 @@ const theme = {
   state: FontsState,
   actions: ThemeActions,
 };
+const workshops = {
+  state: WorkshopState,
+  actions: workshopsActions,
+  effects: workshopsEffects,
+};
 
 export const config = namespaced({
   authentication,
   rental,
   theme,
+  workshops,
 });
 
 export type Context = IContext<typeof config>;

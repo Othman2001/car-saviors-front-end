@@ -45,6 +45,16 @@
     "firstImage": " car first imageURl",
     "secondImage": "Second Image Url",
     "thirdImage": "Third Image Url",
-    "submit": "Sumbit"
+    "submit": "Sumbit",
+    "carBrand": "Car Brand",
+    "carModelYear": "Car Model Year",
+    "carType": "Car Body Type",
+    "location": "Car Adress ",
+    "motorType": "Motor Type",
+    "uploadImage": "Upload Image",
+    "pricePerDay": "Price Per Day"
+  },
+  "workshops": {
+    "brandsTitle": "Brands"
   }
 }
