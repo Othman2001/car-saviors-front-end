@@ -1,6 +1,10 @@
 import { Action, AsyncAction } from "../../config";
 import { uid } from "uid";
 import { getDistanceFromLatLonInKm } from "../utlitls/calcDistance";
+import { getFirestore, setDoc, doc, onSnapshot } from "firebase/firestore";
+// @ts-ignore
+import { db } from "../../infstracture/firebase";
+// @ts-ignore
 
 export const fetchDrivers: AsyncAction<{ lat: any; lng: any }> = async (
   { state, effects },
@@ -48,8 +52,38 @@ export const setTravelTimeInformation: AsyncAction = async ({
   }
 };
 
-export const getTheNextDriver: Action = ({ state, effects }) => {
-  state.winch.winchDrivers.shift();
+export const getTheNextDriver: Action = ({
+  state: {
+    authentication: { user },
+    winch: { winchDrivers, currentDriverIndex, destination, origin },
+  },
+  effects,
+}) => {
+  winchDrivers.shift();
+  // @ts-ignore
+  const Id = winchDrivers[0]?.id;
+  // @ts-ignore
+  setDoc(doc(db, "PendingRequets", Id), {
+    //  @ts-ignore
+    winchDriverId: winchDrivers[currentDriverIndex].id,
+    //  @ts-ignore
+    winchDriverName:
+      //  @ts-ignore
+      winchDrivers[0].firstName + " " + winchDrivers[0].lastName,
+    //  @ts-ignore
+    winchDriverPhone: winchDrivers[0].phoneNumber,
+    userName: user?.displayName,
+    userId: user?.uid,
+    id: Id,
+    userDestination: {
+      latitude: destination.lat,
+      longitude: destination.lng,
+    },
+    destination: {
+      latitude: origin.lat,
+      longitude: origin.lng,
+    },
+  });
 };
 
 export const setDriverData: Action<{}> = ({
