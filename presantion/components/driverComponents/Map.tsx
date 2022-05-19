@@ -6,7 +6,7 @@ import { uid } from "uid";
 import { onSnapshot, doc } from "firebase/firestore";
 // @ts-ignore
 import { db } from "../../../infstracture/firebase";
-import { IUserData } from "../../../application/authentication/state";
+import { IUserData } from "../../../appliction/authentication/state";
 import { LocationObject } from "expo-location";
 
 interface IMapComponentProps {
@@ -100,7 +100,15 @@ export default function MapComponent({
               longitude: driverOrigin.longitude || driverOrigin._longitude,
             }}
             identifier="origin"
-          />
+          >
+            <Image
+              source={require("./winch.png")}
+              style={{
+                width: 40,
+                height: 40,
+              }}
+            />
+          </Marker>
         </MapView>
       </View>
     </View>

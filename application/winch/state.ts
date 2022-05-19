@@ -12,6 +12,7 @@ interface IWinchState {
   driverDestination: any;
   online: boolean;
   userOrigin: any;
+  userDestination: any;
 }
 
 export const winchState: IWinchState = {
@@ -26,4 +27,5 @@ export const winchState: IWinchState = {
   driverOrigin: "",
   online: false,
   userOrigin: "",
+  userDestination: "",
 };

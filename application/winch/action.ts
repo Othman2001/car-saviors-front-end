@@ -81,3 +81,22 @@ export const setDriverDestination: Action<{ driverDestination: any }> = (
 ) => {
   state.winch.driverDestination = driverDestination;
 };
+
+export const setUserDestination: Action<{ userDestination: any }> = (
+  { state },
+  { userDestination }
+) => {
+  state.winch.userDestination = userDestination;
+};
+
+export const rejectRequest: Action = ({ state, effects }) => {
+  state.winch.userDestination = "";
+  state.winch.driverDestination = "";
+  state.winch.userOrigin = "";
+  state.winch.driverOrigin = "";
+  state.winch.destination = "";
+  state.winch.origin = "";
+  state.winch.travelTimeInformation = "";
+  state.winch.currentDriverIndex = 0;
+  state.winch.winchDrivers = [];
+};

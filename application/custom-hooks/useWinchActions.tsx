@@ -15,6 +15,8 @@ export const useWinchActions = () => {
       setOrigin,
       setTravelTimeInformation,
       setUserOrigin,
+      setUserDestination,
+      rejectRequest,
     },
   } = useActions();
 
@@ -31,5 +33,7 @@ export const useWinchActions = () => {
     setOrigin,
     setTravelTimeInformation,
     setUserOrigin,
+    setUserDestination,
+    rejectRequest,
   };
 };

@@ -100,7 +100,7 @@ export default function MapComponent() {
             identifier="destination"
           >
             <Image
-              source={require("../../../assets/tow-truck 1.png")}
+              source={require("../../../assets/tow-truck.png")}
               style={{
                 width: 40,
                 height: 40,
