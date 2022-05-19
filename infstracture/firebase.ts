@@ -1,9 +1,5 @@
 import * as firebase from "firebase/app";
-import { getApp } from "firebase/app";
-import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
-import { connectFirestoreEmulator } from "firebase/firestore";
-
-import { getFirestore } from "firebase/firestore";
+import { Firestore, getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 export const firebaseConfig = {
@@ -16,19 +12,13 @@ export const firebaseConfig = {
   measurementId: "G-XBHM1FK1L2",
 };
 
-let Firebase;
+let Firebase, db, storage;
 
 if (firebase.getApps().length === 0) {
   Firebase = firebase.initializeApp(firebaseConfig);
+  db = getFirestore(Firebase);
+  storage = getStorage(Firebase);
 }
-
-if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
-  const functions = getFunctions(getApp());
-  connectFunctionsEmulator(functions, "localhost", 5001);
-}
-
-export let db = getFirestore();
-connectFirestoreEmulator(db, "localhost", 3000);
-export const storage = getStorage(Firebase);
+export { db };
 
 export default Firebase;

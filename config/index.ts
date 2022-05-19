@@ -18,6 +18,10 @@ import * as WorkshopState from "../application/workshops/state";
 import * as ThemeActions from "../application/theme/actions";
 import * as workshopsEffects from "../infstracture/workshops/effects";
 import * as workshopsActions from "../application/workshops/action";
+import { winchState } from "../application/winch/state";
+import * as winchEffects from "../infstracture/winch/effects";
+import * as winchActions from "../application/winch/action";
+
 const authentication = {
   state,
   effects: authenticationEffects,
@@ -37,12 +41,18 @@ const workshops = {
   actions: workshopsActions,
   effects: workshopsEffects,
 };
+const winch = {
+  state: winchState,
+  actions: winchActions,
+  effects: winchEffects,
+};
 
 export const config = namespaced({
   authentication,
   rental,
   theme,
   workshops,
+  winch,
 });
 
 export type Context = IContext<typeof config>;

@@ -63,8 +63,6 @@ export default function OfferForm({
         reader.onerror = (error) => reject(error);
       });
       // upload base64 to firebase storage
-
-      console.log(image, "iimamamsmsmsmsmsmsmm");
     }
   };
   useEffect(() => {

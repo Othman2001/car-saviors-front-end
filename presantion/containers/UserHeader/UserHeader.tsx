@@ -3,7 +3,10 @@ import React from "react";
 import UserHeaderComponent from "../../components/userHeader/UserHeader";
 import { useAppState } from "../../../config";
 
-export default function UserHeader() {
+interface IUserHeaderProps {
+  isDriver?: boolean;
+}
+export default function UserHeader({ isDriver }: IUserHeaderProps) {
   const {
     authentication: { user, rentedCar, rentingCar, visitedWorkShops },
   } = useAppState();
@@ -13,6 +16,7 @@ export default function UserHeader() {
       rentedCar={rentedCar}
       visitedWorkshops={visitedWorkShops}
       rentingCar={rentingCar}
+      isDriver={isDriver}
     />
   );
 }

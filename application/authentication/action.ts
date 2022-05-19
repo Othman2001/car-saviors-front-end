@@ -1,6 +1,6 @@
 import { getApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Action, AsyncAction } from "../../config";
+import { AsyncAction } from "../../config";
 
 export const signUp: AsyncAction<{
   email: string;
@@ -50,7 +50,6 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
   { state, effects, actions },
   { email, password }
 ) => {
-  state.authentication.loading = true;
   state.authentication.error = "";
   const app = getApp();
   const auth = getAuth(app);
@@ -59,18 +58,15 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
       state.authentication.user = userCredential.user;
       return userCredential.user;
     })
-    .catch((error) => {
-      state.authentication.loading = false;
-      state.authentication.logInError = error.code;
-    });
-
-  state.authentication.loading = false;
+    .catch((error) => {});
 
   await effects.authentication.authroizeUser(email).then((res) => {
     state.authentication.currentUserRole = res.data.role;
     state.authentication.rentedCar = res.data.rentedCar;
     state.authentication.rentingCar = res.data.rentingCar;
     state.authentication.visitedWorkShops = res.data.visitedWorkShops;
+    state.winch.driverOrigin = res.data.geopoint;
   });
+
   state.authentication.loading = false;
 };

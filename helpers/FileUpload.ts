@@ -18,8 +18,6 @@ const mangeUpload = async (fileBlob: any) => {
     (error) => {},
     async () => {
       const logoUrl = await getDownloadURL(uploadTask.snapshot.ref);
-      console.log(logoUrl, "logourl");
-      console.log("logoUrl", "logourl");
     }
   );
 };

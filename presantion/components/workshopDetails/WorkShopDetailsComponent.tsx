@@ -31,7 +31,6 @@ export default function WorkShopDetailsComponent({
   const route = useRoute();
   // @ts-ignore
   const workshop: workshopSchema = route?.params?.workshop;
-  console.log(workshop, "workshop");
   const handleConfirmation = () => {
     if (!date) {
       alert("Please select a date");

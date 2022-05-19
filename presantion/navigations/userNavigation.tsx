@@ -2,12 +2,12 @@ import { Image } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
-import WinchScreen from "../screens/WinchScreen/WinchScreen";
-import { createStackNavigator } from "@react-navigation/stack";
+
 import RentalNavigation from "./RentalNavigation";
 import OfferScreen from "../screens/OfferScreen/OfferScreen";
 import Profile from "../screens/Profile/Profile";
 import CarWorkshopsNavigation from "./CarWorkshopsNavigation";
+import WinchNavigation from "./winchNavigation";
 
 const Taps = createBottomTabNavigator();
 
@@ -79,7 +79,7 @@ export default function UserNavigation() {
       <Taps.Screen name="Home" component={HomeScreen} />
       <Taps.Screen name="WorkShops" component={CarWorkshopsNavigation} />
       <Taps.Screen name="Rent" component={RentalNavigation} />
-      <Taps.Screen name="Winch" component={WinchScreen} />
+      <Taps.Screen name="Winch" component={WinchNavigation} />
       <Taps.Screen name="Offer" component={OfferScreen} />
       <Taps.Screen name="Profile" component={Profile} />
     </Taps.Navigator>

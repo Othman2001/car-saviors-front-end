@@ -44,7 +44,7 @@ export const userSignIn = async (
 
 export const authroizeUser = async (email: string) => {
   const userRole = await axios.post(
-    "http://localhost:5001/car-saviors/us-central1/authorize",
+    "https://us-central1-car-saviors.cloudfunctions.net/authorize",
     {
       email,
     }

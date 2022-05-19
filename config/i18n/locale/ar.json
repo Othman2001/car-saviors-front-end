@@ -56,5 +56,10 @@
   },
   "workshops": {
     "brandsTitle": "العلامات التجارية"
+  },
+  "location": {
+    "destination": "أدخل وجهتك",
+    "location": "أدخل موقعك",
+    "confirm": "يتأكد"
   }
 }

@@ -1,5 +1,5 @@
 import { Action, AsyncAction } from "../../config";
-import { getDistanceFromLatLonInKm } from "./utlitls/calcDistance";
+import { getDistanceFromLatLonInKm } from "../utlitls/calcDistance";
 
 export const fetchBrands: AsyncAction = async ({ state, effects }) => {
   state.workshops.WorkshopState.loading = true;
@@ -45,7 +45,6 @@ export const setDistance: Action = ({ state, effects }) => {
         state.workshops.WorkshopState.workshops[i].geopoint._latitude,
         state.workshops.WorkshopState.workshops[i].geopoint._longitude
       );
-      console.log(distance, "distance");
       state.workshops.WorkshopState.workshops[i].distance = distance;
     }
     state.workshops.WorkshopState.workshops =

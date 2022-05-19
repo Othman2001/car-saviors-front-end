@@ -4,8 +4,11 @@ interface ITextProps {
   left?: number;
   fontFamily: string;
 }
-export const Container = styled.View`
-  background: #265a60;
+interface IContainerProps {
+  backgroundColor: string;
+}
+export const Container = styled.View<IContainerProps>`
+  background-color: #${(props) => props.backgroundColor};
   margin-bottom: 56px;
 `;
 export const userAvatar = styled.View`

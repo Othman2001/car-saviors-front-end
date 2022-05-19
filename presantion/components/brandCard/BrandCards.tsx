@@ -21,7 +21,6 @@ export default function BrandCards({ brands }: IBrandCardProps) {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      console.log(location);
       setLocation(location);
     })();
   }, []);

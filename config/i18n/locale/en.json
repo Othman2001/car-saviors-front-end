@@ -56,5 +56,10 @@
   },
   "workshops": {
     "brandsTitle": "Brands"
+  },
+  "location": {
+    "destination": "Enter Your Destination",
+    "location": "Enter Your Location",
+    "confirm": "Confirm"
   }
 }
