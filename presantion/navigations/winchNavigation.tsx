@@ -3,6 +3,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Location from "../components/LocationComponent/Location";
 import Map from "../screens/Map/Map";
+import Rejected from "../screens/Rejected/Rejected";
 
 export default function WinchNavigation() {
   const Stack = createStackNavigator();
@@ -22,7 +23,14 @@ export default function WinchNavigation() {
       />
       <Stack.Screen
         component={Map}
-        name="Map"
+        name="MapUser"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        component={Rejected}
+        name="Rejected"
         options={{
           headerShown: false,
         }}

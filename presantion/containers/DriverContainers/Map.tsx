@@ -37,7 +37,6 @@ export default function Map() {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
           //   @ts-ignore
-          alert("error");
           return;
         }
         let location = await Location.getCurrentPositionAsync({});

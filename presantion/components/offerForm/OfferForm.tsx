@@ -71,7 +71,6 @@ export default function OfferForm({
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
-          alert("you need to allow access to media library to upload image");
         }
       }
     };

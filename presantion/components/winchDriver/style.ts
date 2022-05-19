@@ -4,8 +4,6 @@ import { ITextProps } from "../../../types";
 export const CardsContainer = styled.View`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
   padding-top: 40px;
 `;
 
@@ -16,13 +14,15 @@ export const Card = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100px;
+  height: 100px;
   margin-left: 10px;
   margin-right: 10px;
 `;
 
 export const CardText = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
   color: #000000;
   margin-bottom: 15px;

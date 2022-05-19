@@ -4,13 +4,11 @@ import MapComponent from "../../components/map/MapComponent";
 import WinchDriver from "../../components/winchDriver/WinchDriver";
 import { useActions, useAppState } from "../../../config";
 import WinchDriverMap from "../DriverScreens/WinchDriverMap";
+import UserData from "../../components/driverComponents/userData/UserData";
 
 export default function Map() {
   const {
-    winch: { fetchDrivers },
-  } = useActions();
-  const {
-    winch: { origin, userType },
+    winch: { userType },
   } = useAppState();
   useEffect(() => {
     // calculateTheDistance({ long: origin.long, lat: origin.lat });
@@ -23,6 +21,7 @@ export default function Map() {
 
       <View style={{ flex: 1 }}>
         {userType === "driver" && <WinchDriverMap />}
+        <WinchDriver />
       </View>
     </SafeAreaView>
   );

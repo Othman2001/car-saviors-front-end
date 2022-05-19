@@ -66,6 +66,11 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
     state.authentication.rentingCar = res.data.rentingCar;
     state.authentication.visitedWorkShops = res.data.visitedWorkShops;
     state.winch.driverOrigin = res.data.geopoint;
+    if (res.data.role === "driver") {
+      state.winch.userType = "driver";
+    } else {
+      state.winch.userType = "user";
+    }
   });
 
   state.authentication.loading = false;

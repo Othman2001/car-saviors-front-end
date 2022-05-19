@@ -15,6 +15,7 @@ export const useWinchState = () => {
       userType,
       winchDrivers,
       userDestination,
+      price,
     },
   } = useAppState();
 
@@ -31,5 +32,6 @@ export const useWinchState = () => {
     userType,
     winchDrivers,
     userDestination,
+    price,
   };
 };

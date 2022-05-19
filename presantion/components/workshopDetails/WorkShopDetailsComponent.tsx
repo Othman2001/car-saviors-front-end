@@ -33,7 +33,6 @@ export default function WorkShopDetailsComponent({
   const workshop: workshopSchema = route?.params?.workshop;
   const handleConfirmation = () => {
     if (!date) {
-      alert("Please select a date");
     }
     bookDate({
       workshopId: workshop.id,
@@ -45,7 +44,6 @@ export default function WorkShopDetailsComponent({
   };
   const handleChange = (date: string) => {
     setDate(date);
-    alert(date);
   };
   return (
     <Styled.WorkshopDetailsContainer>

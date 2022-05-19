@@ -1,13 +1,15 @@
 import { Action, AsyncAction } from "../../config";
-import { doc, setDoc, getFirestore } from "firebase/firestore";
-// import { db } from "../../infstracture/firebase";
 import { uid } from "uid";
+import { getDistanceFromLatLonInKm } from "../utlitls/calcDistance";
 
 export const fetchDrivers: AsyncAction<{ lat: any; lng: any }> = async (
   { state, effects },
   { lat, lng }
 ) => {
-  const drivers = await effects.winch.fetchDrivers({ lat, lng });
+  const drivers: [] = await effects.winch.fetchDrivers({ lat, lng });
+
+  for (let i = 0; i < drivers.length; i++) {}
+
   state.winch.winchDrivers = drivers;
   state.winch.currentDriverIndex = 0;
 
@@ -46,7 +48,9 @@ export const setTravelTimeInformation: AsyncAction = async ({
   }
 };
 
-export const getTheNextDriver: Action = ({ state, effects }) => {};
+export const getTheNextDriver: Action = ({ state, effects }) => {
+  state.winch.winchDrivers.shift();
+};
 
 export const setDriverData: Action<{}> = ({
   state: { authentication, winch },
@@ -99,4 +103,7 @@ export const rejectRequest: Action = ({ state, effects }) => {
   state.winch.travelTimeInformation = "";
   state.winch.currentDriverIndex = 0;
   state.winch.winchDrivers = [];
+};
+export const setPrice: Action<{ price: number }> = ({ state }, { price }) => {
+  state.winch.price = price;
 };

@@ -29,7 +29,6 @@ export default function CarDetails() {
   const handleConfirmation = () => {
     if (!startDate || !endDate) {
       // @ts-ignore
-      alert(i18n.t("carDetails.alert"));
       return;
     } else {
       message === "car rented successfully"

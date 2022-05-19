@@ -26,7 +26,6 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
   const { fontFamily } = useTheme();
   useEffect(() => {
     if (user) {
-      alert("user is logged in");
     }
   }, [user]);
 

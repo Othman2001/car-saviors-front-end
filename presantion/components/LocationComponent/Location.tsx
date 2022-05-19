@@ -120,7 +120,7 @@ export default function Location() {
         <Button
           disabled={!origin || !destination}
           // @ts-ignore
-          onPress={() => navigation.navigate("Map")}
+          onPress={() => navigation.navigate("MapUser")}
         >
           {i18n.t("location.confirm")}
         </Button>

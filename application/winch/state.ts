@@ -13,6 +13,7 @@ interface IWinchState {
   online: boolean;
   userOrigin: any;
   userDestination: any;
+  price: number;
 }
 
 export const winchState: IWinchState = {
@@ -22,10 +23,11 @@ export const winchState: IWinchState = {
   destination: "",
   travelTimeInformation: "",
   currentDriverIndex: 0,
-  userType: "driver",
+  userType: "user",
   driverDestination: "",
   driverOrigin: "",
   online: false,
   userOrigin: "",
   userDestination: "",
+  price: 0,
 };

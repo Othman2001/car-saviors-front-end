@@ -1,11 +1,12 @@
-import { Dimensions, StyleSheet, Text, View, Image, Alert } from "react-native";
+import { Dimensions, StyleSheet, Text, View, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import React, { useEffect, useRef, useState } from "react";
-import { useAppState } from "../../../config";
+import { useActions, useAppState } from "../../../config";
 import MapViewDirections from "react-native-maps-directions";
 import * as Styled from "./style";
-import { uid } from "uid";
 import { getFirestore, setDoc, doc, onSnapshot } from "firebase/firestore";
+import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
+import { useNavigation } from "@react-navigation/native";
 
 export default function MapComponent() {
   const [googleApiKey, setGoogleApiKey] = useState(
@@ -15,42 +16,86 @@ export default function MapComponent() {
     authentication: { user },
     winch: { origin, destination, currentDriverIndex, winchDrivers },
   } = useAppState();
+  const {
+    winch: { getTheNextDriver, setPrice },
+  } = useActions();
+
+  const { setTravelTimeInformation } = useWinchActions();
 
   const mapRef = useRef(null);
+  const navigation = useNavigation();
   useEffect(() => {
     if (!origin || !destination) return;
     // @ts-ignore
     mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
       edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
     });
+    setTravelTimeInformation();
 
-    if (winchDrivers.length > 0) {
-      // @ts-ignore
-      const Id = winchDrivers[0]?.id;
-      const db = getFirestore();
-      setDoc(doc(db, "PendingRequets", Id), {
+    setTravelTimeInformation();
+    // @ts-ignore
+    const Id = winchDrivers[0]?.id;
+    const db = getFirestore();
+    // @ts-ignore
+    setPrice({ price: winchDrivers[currentDriverIndex].price });
+    setDoc(doc(db, "PendingRequets", Id), {
+      //  @ts-ignore
+      winchDriverId: winchDrivers[currentDriverIndex].id,
+      //  @ts-ignore
+      winchDriverName:
         //  @ts-ignore
-        winchDriverId: winchDrivers[0].id,
-        //  @ts-ignore
-        winchDriverName:
+        winchDrivers[0].firstName + " " + winchDrivers[0].lastName,
+      //  @ts-ignore
+      winchDriverPhone: winchDrivers[0].phoneNumber,
+      userName: user?.displayName,
+      userId: user?.uid,
+      id: Id,
+      userDestination: {
+        latitude: destination.lat,
+        longitude: destination.lng,
+      },
+      destination: {
+        latitude: origin.lat,
+        longitude: origin.lng,
+      },
+    });
+
+    const unSub = onSnapshot(doc(db, "PendingRequets", Id), async (doc) => {
+      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+      if (!doc.exists()) {
+        navigation.navigate("Rejected");
+
+        // @ts-ignore
+        // @ts-ignore
+        setDoc(doc(db, "PendingRequets", Id), {
           //  @ts-ignore
-          winchDrivers[0].firstName + " " + winchDrivers[0].lastName,
-        //  @ts-ignore
-        winchDriverPhone: winchDrivers[0].phoneNumber,
-        userName: user?.displayName,
-        userId: user?.uid,
-        id: Id,
-      });
-      onSnapshot(doc(db, "PendingRequets", Id), (doc) => {
-        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        if (!doc.exists()) {
-          alert(
-            "winch driver have rjected the request we will call anthor one for you"
-          );
-        }
-      });
-    }
-  }, [origin, destination]);
+          winchDriverId: winchDrivers[0].id,
+          //  @ts-ignore
+          winchDriverName:
+            //  @ts-ignore
+            winchDrivers[0].firstName + " " + winchDrivers[0].lastName,
+          //  @ts-ignore
+          winchDriverPhone: winchDrivers[0].phoneNumber,
+          userName: user?.displayName,
+          userId: user?.uid,
+          id: Id,
+          userDestination: {
+            latitude: destination.lat,
+            longitude: destination.lng,
+          },
+          destination: {
+            latitude: origin.lat,
+            longitude: origin.lng,
+          },
+        });
+      }
+    });
+
+    setTravelTimeInformation();
+    return () => {
+      unSub();
+    };
+  }, [winchDrivers]);
 
   return (
     <View style={styles.container}>
@@ -66,11 +111,17 @@ export default function MapComponent() {
           }}
         >
           <MapViewDirections
-            origin={origin.description}
+            origin={{
+              latitude: origin?.lat,
+              longitude: origin?.lng,
+            }}
             destination={{
-              latitude: winchDrivers?.[currentDriverIndex]?.geopoint._latitude,
+              latitude:
+                winchDrivers?.[currentDriverIndex]?.geopoint._latitude ||
+                winchDrivers?.[currentDriverIndex]?.geopoint.latitude,
               longitude:
-                winchDrivers?.[currentDriverIndex]?.geopoint._longitude,
+                winchDrivers?.[currentDriverIndex]?.geopoint._longitude ||
+                winchDrivers?.[currentDriverIndex]?.geopoint.longitude,
             }}
             apikey={googleApiKey}
             strokeWidth={3}
@@ -93,9 +144,12 @@ export default function MapComponent() {
           </Marker>
           <Marker
             coordinate={{
-              latitude: winchDrivers?.[currentDriverIndex]?.geopoint._latitude,
+              latitude:
+                winchDrivers?.[currentDriverIndex]?.geopoint._latitude ||
+                winchDrivers?.[currentDriverIndex]?.geopoint.latitude,
               longitude:
-                winchDrivers?.[currentDriverIndex]?.geopoint._longitude,
+                winchDrivers?.[currentDriverIndex]?.geopoint._longitude ||
+                winchDrivers?.[currentDriverIndex]?.geopoint.longitude,
             }}
             identifier="destination"
           >
