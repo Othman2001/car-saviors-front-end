@@ -1,6 +1,7 @@
 import { getApp } from "firebase/app";
 import axios from "axios";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signOut } from "firebase/auth";
 // @ts-ignore
 import Firebase from "../firebase";
 
@@ -50,4 +51,16 @@ export const authroizeUser = async (email: string) => {
     }
   );
   return userRole;
+};
+
+export const userSignOut = async () => {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      console.log("signed out");
+    })
+    .catch((error) => {
+      // An error happened.
+    });
 };

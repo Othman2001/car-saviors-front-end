@@ -33,7 +33,7 @@ export default function WorkshopCard({ workshops, brandImage }: IWorkshopCard) {
   useEffect(() => {
     setDistance();
     setFilteredWorkshops(workshops);
-  }, []);
+  }, [workshops]);
   return (
     <View>
       <Styled.SearchInput
@@ -42,9 +42,10 @@ export default function WorkshopCard({ workshops, brandImage }: IWorkshopCard) {
         }}
       />
       <ScrollView>
-        {filteredWorkshops?.map((workshop) => {
+        {filteredWorkshops?.map((workshop, index) => {
           return (
             <Styled.CardContainer
+              key={index}
               onPress={() => {
                 navigation.navigate("WorkshopsDetails", {
                   workshop,

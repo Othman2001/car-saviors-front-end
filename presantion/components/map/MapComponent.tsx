@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View, Image } from "react-native";
+import { Dimensions, StyleSheet, Text, View, Image, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import React, { useEffect, useRef, useState } from "react";
 import { useActions, useAppState } from "../../../config";
@@ -36,8 +36,11 @@ export default function MapComponent() {
     // @ts-ignore
     const Id = winchDrivers[0]?.id;
     const db = getFirestore();
+    if (winchDrivers.length) {
+      // @ts-ignore
+      setPrice({ price: winchDrivers[0].price });
+    }
     // @ts-ignore
-    setPrice({ price: winchDrivers[currentDriverIndex].price });
     setDoc(doc(db, "PendingRequets", Id), {
       //  @ts-ignore
       winchDriverId: winchDrivers[currentDriverIndex].id,
@@ -90,6 +93,9 @@ export default function MapComponent() {
         });
       }
     });
+    if (!winchDrivers.length) {
+      alert("no drivers available");
+    }
 
     setTravelTimeInformation();
     return () => {

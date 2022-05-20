@@ -33,10 +33,6 @@ const Application = () => {
 
   const [location, setLocation] = useState<any>();
 
-  useEffect(() => {
-    lng === "ar" ? I18nManager.forceRTL(true) : I18nManager.forceRTL(false);
-  }, []);
-
   return (
     <View
       style={{

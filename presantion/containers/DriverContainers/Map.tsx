@@ -4,10 +4,7 @@ import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 import MapComponent from "../../components/driverComponents/Map";
 import * as Location from "expo-location";
 import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
-import * as TaskManager from "expo-task-manager";
 import { LocationObject } from "expo-location";
-import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../../../infstracture/firebase";
 
 const LOCATION_TRACKING = "location-tracking";
 
@@ -28,40 +25,40 @@ export default function Map() {
   const [location, setLocation] = useState<LocationObject>();
 
   useEffect(() => {
-    TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
-      (async () => {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== "granted") {
-          //   @ts-ignore
-          return;
-        }
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
-      })();
-      if (data) {
-        // @ts-ignore
-        const { locations } = data;
-        let lat = locations[0].coords.latitude;
-        let long = locations[0].coords.longitude;
-        console.log(locations, "locations");
-        if (user?.uid) {
-          // @ts-ignore
-          const winchDriversRef = doc(db, "winchDrivers", user?.uid);
-          console.log("reached");
-          updateDoc(winchDriversRef, {
-            geopoint: {
-              latitude: lat,
-              longitude: long,
-            },
-          });
-        }
-        console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`);
-      }
-    });
+    // TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
+    //   if (error) {
+    //     console.log(error);
+    //     return;
+    //   }
+    //   (async () => {
+    //     let { status } = await Location.requestForegroundPermissionsAsync();
+    //     if (status !== "granted") {
+    //       //   @ts-ignore
+    //       return;
+    //     }
+    //     let location = await Location.getCurrentPositionAsync({});
+    //     setLocation(location);
+    //   })();
+    //   if (data) {
+    //     // @ts-ignore
+    //     const { locations } = data;
+    //     let lat = locations[0].coords.latitude;
+    //     let long = locations[0].coords.longitude;
+    //     console.log(locations, "locations");
+    //     if (user?.uid) {
+    //       // @ts-ignore
+    //       const winchDriversRef = doc(db, "winchDrivers", user?.uid);
+    //       console.log("reached");
+    //       updateDoc(winchDriversRef, {
+    //         geopoint: {
+    //           latitude: lat,
+    //           longitude: long,
+    //         },
+    //       });
+    //     }
+    //     console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`);
+    //   }
+    // });
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from "react-native";
+import { Image, Platform, StyleSheet } from "react-native";
 import * as Styled from "./style";
 import * as FormStyled from "../../components/LoginForm/style";
 import React, { useEffect } from "react";
@@ -10,6 +10,7 @@ import { Text } from "react-native-paper";
 import { IUserData } from "../../../application/authentication/state";
 import { Formik } from "formik";
 import OfferSchema from "./formValdtion";
+import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
 
 interface IOfferFormProps {
   registerAsCarOwner: (payload: {
@@ -65,12 +66,19 @@ export default function OfferForm({
       // upload base64 to firebase storage
     }
   };
+  // const upload = ()=>{
+  //   const storageRef = ref(getStorage(), "image_name");
+
+  //   console.log("uploading image");
+  //   const uploadTask = uploadBytesResumable(storageRef, "");
+  // }
   useEffect(() => {
     async () => {
       if (Platform.OS === "web") {
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
+          alert("you need to allow access to media library to upload image");
         }
       }
     };
@@ -301,6 +309,9 @@ export default function OfferForm({
           </>
         )}
       </Formik>
+      {image && (
+        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      )}
     </Styled.Container>
   );
 }

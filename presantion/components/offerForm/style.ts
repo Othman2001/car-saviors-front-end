@@ -19,6 +19,5 @@ export const Title = styled.Text<ITextProps>`
 
 export const UploadButton = styled.View`
   margin-left: 60px;
-  display: none;
   margin-right: 60px;
 `;

@@ -75,3 +75,14 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
 
   state.authentication.loading = false;
 };
+
+export const SignOut: AsyncAction = async ({ state, effects }) => {
+  await effects.authentication.userSignOut();
+  state.authentication.user = null;
+  state.authentication.currentUserRole = "";
+  state.authentication.rentedCar = 0;
+  state.authentication.rentingCar = 0;
+  state.authentication.visitedWorkShops = 0;
+  state.winch.driverOrigin = null;
+  state.winch.userType = "";
+};

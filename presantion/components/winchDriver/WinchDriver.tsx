@@ -17,12 +17,14 @@ export default function WinchDriver() {
       <Styled.Card>
         <Styled.CardImage source={require("../../../assets/time.png")} />
         <Styled.CardText fontFamily={fontFamily}>
-          {/* {travelTimeInformation?.duration.text} */}
+          {travelTimeInformation && travelTimeInformation?.duration.text}
         </Styled.CardText>
       </Styled.Card>
       <Styled.Card>
         <Styled.CardImage source={require("../../../assets/cost.jpg")} />
-        <Styled.CardText fontFamily={fontFamily}>{price}</Styled.CardText>
+        <Styled.CardText fontFamily={fontFamily}>
+          {price && price}
+        </Styled.CardText>
       </Styled.Card>
     </Styled.CardsContainer>
   );

@@ -5,7 +5,7 @@ interface IWinchState {
   nearestDriver: WinchDriverSchema | undefined;
   origin: any;
   destination: any;
-  travelTimeInformation: any;
+  travelTimeInformation: any | null;
   currentDriverIndex: number;
   userType: string;
   driverOrigin: any;
@@ -21,7 +21,7 @@ export const winchState: IWinchState = {
   nearestDriver: undefined,
   origin: "",
   destination: "",
-  travelTimeInformation: "",
+  travelTimeInformation: null,
   currentDriverIndex: 0,
   userType: "user",
   driverDestination: "",
