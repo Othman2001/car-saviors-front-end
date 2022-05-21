@@ -1,7 +1,6 @@
 import { Action, AsyncAction } from "../../config";
 import { uid } from "uid";
-import { getDistanceFromLatLonInKm } from "../utlitls/calcDistance";
-import { getFirestore, setDoc, doc, onSnapshot } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 // @ts-ignore
 import { db } from "../../infstracture/firebase";
 // @ts-ignore
@@ -21,7 +20,6 @@ export const fetchDrivers: AsyncAction<{ lat: any; lng: any }> = async (
 };
 
 // @ts-ignore
-export const requestWinchDriver: AsyncAction = ({ state, effects }) => {};
 
 export const setOrigin: Action<{
   origin: {
@@ -49,6 +47,7 @@ export const setTravelTimeInformation: AsyncAction = async ({
         origin: state.winch.origin,
         destination: state.winch.destination,
       });
+    state.winch.price = state.winch.travelTimeInformation.distance.value * 200;
   }
 };
 
@@ -86,9 +85,7 @@ export const getTheNextDriver: Action = ({
   });
 };
 
-export const setDriverData: Action<{}> = ({
-  state: { authentication, winch },
-}) => {
+export const setDriverData: Action<{}> = ({ state: { authentication } }) => {
   if (authentication.currentUserRole === "driver") {
   }
 };

@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
-import MapComponent from "../../components/map/MapComponent";
+import MapContainer from "../../containers/Map/Map";
 import WinchDriver from "../../components/winchDriver/WinchDriver";
 import { useActions, useAppState } from "../../../config";
 import WinchDriverMap from "../DriverScreens/WinchDriverMap";
@@ -16,7 +16,7 @@ export default function Map() {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <MapComponent />
+        <MapContainer />
       </View>
 
       <View style={{ flex: 1 }}>

@@ -1,55 +1,56 @@
-import { Dimensions, StyleSheet, Text, View, Image, Alert } from "react-native";
+import { Dimensions, StyleSheet, View, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import React, { useEffect, useRef, useState } from "react";
-import { useActions, useAppState } from "../../../config";
 import MapViewDirections from "react-native-maps-directions";
 import * as Styled from "./style";
 import { getFirestore, setDoc, doc, onSnapshot } from "firebase/firestore";
-import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
 import { useNavigation } from "@react-navigation/native";
+import { IUserData } from "../../../application/authentication/state";
+import { WinchDriverSchema } from "../../../application/winch/types";
+import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 
-export default function MapComponent() {
+interface IMapComponentProps {
+  user: IUserData | null;
+  origin: any;
+  destination: any;
+  currentDriverIndex: number;
+  winchDrivers: [WinchDriverSchema] | [];
+  setTravelTimeInformation: () => Promise<void>;
+  getTheNextDriver: () => void;
+}
+
+export default function MapComponent({
+  user,
+  origin,
+  destination,
+  currentDriverIndex,
+  winchDrivers,
+  setTravelTimeInformation,
+}: IMapComponentProps) {
   const [googleApiKey, setGoogleApiKey] = useState(
     "AIzaSyBEI5mJ_Yga3K4lnZRIWzvk8JEm4WaFWrA"
   );
-  const {
-    authentication: { user },
-    winch: { origin, destination, currentDriverIndex, winchDrivers },
-  } = useAppState();
-  const {
-    winch: { getTheNextDriver, setPrice },
-  } = useActions();
-
-  const { setTravelTimeInformation } = useWinchActions();
-
-  const mapRef = useRef(null);
+  const mapRef = useRef<MapView | undefined>(undefined);
   const navigation = useNavigation();
+  const { driverOrigin } = useWinchState();
+
   useEffect(() => {
     if (!origin || !destination) return;
-    // @ts-ignore
-    mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
-      edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-    });
+    mapRef &&
+      mapRef?.current?.fitToSuppliedMarkers(["origin", "destination"], {
+        edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+      });
     setTravelTimeInformation();
-
-    setTravelTimeInformation();
-    // @ts-ignore
     const Id = winchDrivers[0]?.id;
     const db = getFirestore();
     if (winchDrivers.length) {
-      // @ts-ignore
-      setPrice({ price: winchDrivers[0].price });
     }
     // @ts-ignore
     setDoc(doc(db, "PendingRequets", Id), {
-      //  @ts-ignore
       winchDriverId: winchDrivers[currentDriverIndex].id,
-      //  @ts-ignore
       winchDriverName:
-        //  @ts-ignore
-        winchDrivers[0].firstName + " " + winchDrivers[0].lastName,
-      //  @ts-ignore
-      winchDriverPhone: winchDrivers[0].phoneNumber,
+        winchDrivers[0]?.firstName + " " + winchDrivers[0]?.lastName,
+      winchDriverPhone: winchDrivers[0]?.phoneNumber,
       userName: user?.displayName,
       userId: user?.uid,
       id: Id,
@@ -63,22 +64,18 @@ export default function MapComponent() {
       },
     });
 
+    //  @ts-ignore
     const unSub = onSnapshot(doc(db, "PendingRequets", Id), async (doc) => {
       const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
       if (!doc.exists()) {
+        //  @ts-ignore
         navigation.navigate("Rejected");
-
-        // @ts-ignore
-        // @ts-ignore
+        //  @ts-ignore
         setDoc(doc(db, "PendingRequets", Id), {
-          //  @ts-ignore
-          winchDriverId: winchDrivers[0].id,
-          //  @ts-ignore
+          winchDriverId: winchDrivers[0]?.id,
           winchDriverName:
-            //  @ts-ignore
-            winchDrivers[0].firstName + " " + winchDrivers[0].lastName,
-          //  @ts-ignore
-          winchDriverPhone: winchDrivers[0].phoneNumber,
+            winchDrivers[0]?.firstName + " " + winchDrivers[0]?.lastName,
+          winchDriverPhone: winchDrivers[0]?.phoneNumber,
           userName: user?.displayName,
           userId: user?.uid,
           id: Id,
@@ -94,19 +91,21 @@ export default function MapComponent() {
       }
     });
     if (!winchDrivers.length) {
+      // @ts-ignore
       alert("no drivers available");
     }
-
     setTravelTimeInformation();
+    console.log("rendered");
     return () => {
       unSub();
     };
-  }, [winchDrivers]);
+  }, [winchDrivers, driverOrigin]);
 
   return (
     <View style={styles.container}>
       <Styled.MapContainer>
         <MapView
+          // @ts-ignore
           ref={mapRef}
           style={styles.map}
           initialRegion={{
@@ -122,12 +121,8 @@ export default function MapComponent() {
               longitude: origin?.lng,
             }}
             destination={{
-              latitude:
-                winchDrivers?.[currentDriverIndex]?.geopoint._latitude ||
-                winchDrivers?.[currentDriverIndex]?.geopoint.latitude,
-              longitude:
-                winchDrivers?.[currentDriverIndex]?.geopoint._longitude ||
-                winchDrivers?.[currentDriverIndex]?.geopoint.longitude,
+              latitude: driverOrigin?._latitude || driverOrigin?.latitude,
+              longitude: driverOrigin?._longitude || driverOrigin?.longitude,
             }}
             apikey={googleApiKey}
             strokeWidth={3}
@@ -150,12 +145,8 @@ export default function MapComponent() {
           </Marker>
           <Marker
             coordinate={{
-              latitude:
-                winchDrivers?.[currentDriverIndex]?.geopoint._latitude ||
-                winchDrivers?.[currentDriverIndex]?.geopoint.latitude,
-              longitude:
-                winchDrivers?.[currentDriverIndex]?.geopoint._longitude ||
-                winchDrivers?.[currentDriverIndex]?.geopoint.longitude,
+              latitude: driverOrigin?._latitude || driverOrigin?.latitude,
+              longitude: driverOrigin?._longitude || driverOrigin?.longitude,
             }}
             identifier="destination"
           >
