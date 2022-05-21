@@ -36,3 +36,7 @@ export const CardImage = styled.Image`
   margin-bottom: 5px;
   margin-top: 17px;
 `;
+
+export const ButtonContainer = styled.View`
+  margin-top: 30px;
+`;
