@@ -1,5 +1,4 @@
 import { Action, AsyncAction } from "../../config";
-import { uid } from "uid";
 import { setDoc, doc } from "firebase/firestore";
 // @ts-ignore
 import { db } from "../../infstracture/firebase";
@@ -20,7 +19,6 @@ export const fetchDrivers: AsyncAction<{ lat: any; lng: any }> = async (
 };
 
 // @ts-ignore
-
 export const setOrigin: Action<{
   origin: {
     location: { lat: number; lng: number };
@@ -44,8 +42,14 @@ export const setTravelTimeInformation: AsyncAction = async ({
   if (state.winch.origin && state.winch.destination) {
     state.winch.travelTimeInformation =
       await effects.winch.getTravelDistanceInformation({
-        origin: state.winch.origin,
-        destination: state.winch.destination,
+        origin: {
+          lat: state.winch.driverOrigin.latitude,
+          lng: state.winch.driverOrigin.longitude,
+        },
+        destination: {
+          lat: state.winch.origin.lat,
+          lng: state.winch.origin.lng,
+        },
       });
     state.winch.price = state.winch.travelTimeInformation.distance.value * 200;
   }
@@ -59,30 +63,38 @@ export const getTheNextDriver: Action = ({
   effects,
 }) => {
   winchDrivers.shift();
-  // @ts-ignore
-  const Id = winchDrivers[0]?.id;
-  // @ts-ignore
-  setDoc(doc(db, "PendingRequets", Id), {
-    //  @ts-ignore
-    winchDriverId: winchDrivers[currentDriverIndex].id,
-    //  @ts-ignore
-    winchDriverName:
+  if (winchDrivers.length > 0) {
+    // @ts-ignore
+    const Id = winchDrivers[0]?.id;
+    setDoc(doc(db, "winchDrivers", Id), {
+      availability: false,
+    });
+    // @ts-ignore
+    setDoc(doc(db, "PendingRequets", Id), {
       //  @ts-ignore
-      winchDrivers[0].firstName + " " + winchDrivers[0].lastName,
-    //  @ts-ignore
-    winchDriverPhone: winchDrivers[0].phoneNumber,
-    userName: user?.displayName,
-    userId: user?.uid,
-    id: Id,
-    userDestination: {
-      latitude: destination.lat,
-      longitude: destination.lng,
-    },
-    destination: {
-      latitude: origin.lat,
-      longitude: origin.lng,
-    },
-  });
+      winchDriverId: winchDrivers[currentDriverIndex].id,
+      //  @ts-ignore
+      winchDriverName:
+        //  @ts-ignore
+        winchDrivers[0].firstName + " " + winchDrivers[0].lastName,
+      //  @ts-ignore
+      winchDriverPhone: winchDrivers[0].phoneNumber,
+      userName: user?.displayName,
+      userId: user?.uid,
+      id: Id,
+      userDestination: {
+        latitude: destination.lat,
+        longitude: destination.lng,
+      },
+      destination: {
+        latitude: origin.lat,
+        longitude: origin.lng,
+      },
+    });
+  } else {
+    origin = null;
+    destination = null;
+  }
 };
 
 export const setDriverData: Action<{}> = ({ state: { authentication } }) => {

@@ -1,4 +1,4 @@
-import { View, ScrollView } from "react-native";
+import { View } from "react-native";
 import React, { useEffect } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useActions, useAppState } from "../../../config";
@@ -17,13 +17,18 @@ export default function Location() {
   } = useAppState();
   const navigation = useNavigation();
   const { fontFamily } = useTheme();
+
   useEffect(() => {
     if (origin && destination) {
       fetchDrivers({ lat: origin.lat, lng: origin.lng });
     }
   }, [origin, destination]);
   return (
-    <ScrollView>
+    <View
+      style={{
+        paddingTop: 60,
+      }}
+    >
       <Styled.Title fontFamily={fontFamily}>
         {" "}
         {i18n.t("location.location")}{" "}
@@ -86,7 +91,7 @@ export default function Location() {
           styles={{
             container: {
               marginLeft: 20,
-
+              flex: 1,
               marginRight: 50,
             },
             textInput: {
@@ -125,6 +130,6 @@ export default function Location() {
           {i18n.t("location.confirm")}
         </Button>
       </Styled.ButtonContainer>
-    </ScrollView>
+    </View>
   );
 }

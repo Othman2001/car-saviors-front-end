@@ -49,7 +49,8 @@ export default function MapComponent({
         }
       });
     }
-  }, []);
+    console.log("renderd");
+  }, [driverDestination]);
 
   return (
     <View style={styles.container}>

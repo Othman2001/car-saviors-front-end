@@ -12,6 +12,7 @@ export const useUserInfo = () => {
       error,
       signUpError,
       logInError,
+      loginLoading,
     },
   } = useAppState();
   return {
@@ -24,5 +25,6 @@ export const useUserInfo = () => {
     error,
     logInError,
     signUpError,
+    loginLoading,
   };
 };

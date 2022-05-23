@@ -51,6 +51,7 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
   { email, password }
 ) => {
   state.authentication.error = "";
+  state.authentication.loginLoading = true;
   const app = getApp();
   const auth = getAuth(app);
   signInWithEmailAndPassword(auth, email, password)
@@ -58,8 +59,11 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
       state.authentication.user = userCredential.user;
       return userCredential.user;
     })
-    .catch((error) => {});
+    .catch((error) => {
+      state.authentication.logInError = error.message;
+    });
 
+  state.authentication.loginLoading = false;
   await effects.authentication.authroizeUser(email).then((res) => {
     state.authentication.currentUserRole = res.data.role;
     state.authentication.rentedCar = res.data.rentedCar;
@@ -85,4 +89,7 @@ export const SignOut: AsyncAction = async ({ state, effects }) => {
   state.authentication.visitedWorkShops = 0;
   state.winch.driverOrigin = null;
   state.winch.userType = "";
+  state.winch.driverOrigin = null;
+  state.winch.userOrigin = null;
+  state.winch.userDestination = null;
 };

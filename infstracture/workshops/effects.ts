@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchBrands = async () => {
   const brands = axios
-    .get("http://localhost:5001/car-saviors/us-central1/fetchBrands")
+    .get("https://us-central1-car-saviors.cloudfunctions.net/fetchBrands")
     .then((res) => {
       return res.data.brands;
     });
@@ -11,7 +11,7 @@ export const fetchBrands = async () => {
 
 export const fetchWorkshops = async ({ brandName }: { brandName: string }) => {
   const workshops = axios
-    .post("http://localhost:5001/car-saviors/us-central1/fetchWorkshops", {
+    .post("https://us-central1-car-saviors.cloudfunctions.net/fetchWorkshops", {
       brandName,
     })
     .then((res) => {
@@ -34,7 +34,7 @@ export const bookDate = async ({
   pickedDate: string | Date;
 }) => {
   const visitId = axios.post(
-    "http://localhost:5001/car-saviors/us-central1/bookDate",
+    "https://us-central1-car-saviors.cloudfunctions.net/bookDate",
     {
       workshopId,
       workshopName,

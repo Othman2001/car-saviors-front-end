@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { IUserData } from "../../../application/authentication/state";
 import { WinchDriverSchema } from "../../../application/winch/types";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
+import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
 
 interface IMapComponentProps {
   user: IUserData | null;
@@ -33,6 +34,7 @@ export default function MapComponent({
   const mapRef = useRef<MapView | undefined>(undefined);
   const navigation = useNavigation();
   const { driverOrigin } = useWinchState();
+  const { setPrice } = useWinchActions();
 
   useEffect(() => {
     if (!origin || !destination) return;
@@ -65,11 +67,12 @@ export default function MapComponent({
     });
 
     //  @ts-ignore
-    const unSub = onSnapshot(doc(db, "PendingRequets", Id), async (doc) => {
+    const unSub = onSnapshot(doc(db, "PendingRequets", Id), (doc) => {
       const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
       if (!doc.exists()) {
         //  @ts-ignore
         navigation.navigate("Rejected");
+
         //  @ts-ignore
         setDoc(doc(db, "PendingRequets", Id), {
           winchDriverId: winchDrivers[0]?.id,

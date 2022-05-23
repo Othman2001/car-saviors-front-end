@@ -9,7 +9,8 @@ interface IContainerProps {
 }
 export const Container = styled.View<IContainerProps>`
   background-color: #${(props) => props.backgroundColor};
-  margin-bottom: 56px;
+  padding-bottom: 60px;
+  margin-bottom: 20px;
 `;
 export const userAvatar = styled.View`
   display: flex;

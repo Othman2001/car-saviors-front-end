@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import React from "react";
 import * as Styled from "./style";
-import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Input } from "@ui-kitten/components";
 import { StyleSheet } from "react-native";
@@ -19,15 +18,9 @@ interface ILoginForm {
 }
 
 export default function LoginForm({ logIn, loading, error }: ILoginForm) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const navigation = useNavigation();
-  const { user } = useUserInfo();
   const { fontFamily } = useTheme();
-  useEffect(() => {
-    if (user) {
-    }
-  }, [user]);
+  const { loginLoading } = useUserInfo();
 
   return (
     <View>
@@ -122,7 +115,6 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
                 color="
 #265A60"
               >
-                {" "}
                 {i18n.t("login.register")}
               </Styled.Span>{" "}
             </Styled.SmallText>

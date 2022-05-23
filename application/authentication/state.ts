@@ -12,6 +12,7 @@ export interface IState {
   signUpError: string;
   logInError: string;
   error: string;
+  loginLoading: boolean;
 }
 export const state: IState = {
   user: null,
@@ -23,4 +24,5 @@ export const state: IState = {
   rentingCar: 0,
   signUpError: "",
   logInError: "",
+  loginLoading: false,
 };

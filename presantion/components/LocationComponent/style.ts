@@ -4,7 +4,6 @@ import { ITextProps } from "../../../types";
 export const Title = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
   font-size: 20px;
-  padding-top: 90px;
   margin-left: 20px;
 `;
 
@@ -17,8 +16,8 @@ export const FormLabel = styled.Text<ITextProps>`
 
 export const FormInputContainer = styled.View`
   display: flex;
-  padding-top: 120px;
   margin-right: 30px;
+  height: 70%;
 `;
 
 export const ButtonContainer = styled.View`

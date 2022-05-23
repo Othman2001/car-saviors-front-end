@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchDrivers = async ({ lat, lng }: { lat: any; lng: any }) => {
   const drivers = axios.post(
-    "http://localhost:5001/car-saviors/us-central1/fetchDrivers",
+    "https://us-central1-car-saviors.cloudfunctions.net/fetchDrivers",
     { lat, lng }
   );
 
@@ -17,7 +17,7 @@ export const getTravelDistanceInformation = async ({
   destination: any;
 }) => {
   const data = fetch(
-    `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin.description}&destinations=${destination.description},${destination.lng}&key=AIzaSyCh07Xx1h5-SiFb9OrA_d8I5KApcdAAN_I`
+    `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin.lat},${origin.lng}&destinations=${destination.lat},${destination.lng}&key=AIzaSyCh07Xx1h5-SiFb9OrA_d8I5KApcdAAN_I`
   )
     .then((res) => res.json())
     .then((data) => {

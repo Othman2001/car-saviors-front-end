@@ -3,11 +3,13 @@ export type WinchDriverSchema = {
   firstName: string;
   phoneNumber: string;
   geopoint: {
-    latitude: number;
-    longitude: number;
+    latitude?: number;
+    longitude?: number;
+    _latitude?: number;
+    _longitude?: number;
   };
   lastName: string;
   role: string;
-  userId: string;
+  id: string;
   distance: number;
 };
