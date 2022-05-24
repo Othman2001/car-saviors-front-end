@@ -14,7 +14,8 @@ export const fetchDrivers: AsyncAction<{ lat: any; lng: any }> = async (
 
   state.winch.winchDrivers = drivers;
   state.winch.currentDriverIndex = 0;
-
+  // @ts-ignore
+  state.winch.currentWinchDriverId = drivers[0].id;
   return drivers;
 };
 
@@ -58,21 +59,24 @@ export const setTravelTimeInformation: AsyncAction = async ({
 export const getTheNextDriver: Action = ({
   state: {
     authentication: { user },
-    winch: { winchDrivers, currentDriverIndex, destination, origin },
+    winch: {
+      winchDrivers,
+      currentDriverIndex,
+      currentWinchDriverId,
+      destination,
+      origin,
+    },
   },
   effects,
 }) => {
-  winchDrivers.shift();
   if (winchDrivers.length > 0) {
+    winchDrivers.shift();
+    //  @ts-ignore
+    currentWinchDriverId = winchDrivers[0].id;
     // @ts-ignore
-    const Id = winchDrivers[0]?.id;
-    setDoc(doc(db, "winchDrivers", Id), {
-      availability: false,
-    });
-    // @ts-ignore
-    setDoc(doc(db, "PendingRequets", Id), {
+    setDoc(doc(db, "PendingRequets", currentWinchDriverId), {
       //  @ts-ignore
-      winchDriverId: winchDrivers[currentDriverIndex].id,
+      winchDriverId: currentWinchDriverId,
       //  @ts-ignore
       winchDriverName:
         //  @ts-ignore
@@ -81,7 +85,7 @@ export const getTheNextDriver: Action = ({
       winchDriverPhone: winchDrivers[0].phoneNumber,
       userName: user?.displayName,
       userId: user?.uid,
-      id: Id,
+      id: currentDriverIndex,
       userDestination: {
         latitude: destination.lat,
         longitude: destination.lng,
@@ -92,19 +96,14 @@ export const getTheNextDriver: Action = ({
       },
     });
   } else {
-    origin = null;
-    destination = null;
-  }
-};
-
-export const setDriverData: Action<{}> = ({ state: { authentication } }) => {
-  if (authentication.currentUserRole === "driver") {
+    currentWinchDriverId = "fake";
   }
 };
 
 export const goOnline: Action = ({ state }) => {
   state.winch.online = true;
 };
+
 export const goOffline: Action = ({ state }) => {
   state.winch.online = false;
 };
@@ -147,6 +146,15 @@ export const rejectRequest: Action = ({ state, effects }) => {
   state.winch.currentDriverIndex = 0;
   state.winch.winchDrivers = [];
 };
-export const setPrice: Action<{ price: number }> = ({ state }, { price }) => {
-  state.winch.price = price;
+export const setPrice: Action = ({ state }) => {
+  if (state.winch.winchDrivers[0]) {
+    state.winch.price = state.winch.winchDrivers[0].price;
+  }
+};
+
+export const setWinchDriverId: Action<{ winchDriverId: string }> = (
+  { state },
+  { winchDriverId }
+) => {
+  state.winch.currentWinchDriverId = winchDriverId;
 };

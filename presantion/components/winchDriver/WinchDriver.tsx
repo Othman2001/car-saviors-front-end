@@ -3,7 +3,6 @@ import * as Styled from "./style";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 import { ScrollView } from "react-native";
-import { Button } from "@ui-kitten/components";
 
 export default function WinchDriver() {
   const { fontFamily } = useTheme();

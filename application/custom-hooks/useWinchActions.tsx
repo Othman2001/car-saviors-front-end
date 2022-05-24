@@ -7,9 +7,7 @@ export const useWinchActions = () => {
       getTheNextDriver,
       goOffline,
       goOnline,
-
       setDestination,
-      setDriverData,
       setDriverDestination,
       setDriverOrigin,
       setOrigin,
@@ -18,6 +16,7 @@ export const useWinchActions = () => {
       setUserDestination,
       rejectRequest,
       setPrice,
+      setWinchDriverId,
     },
   } = useActions();
 
@@ -27,7 +26,6 @@ export const useWinchActions = () => {
     goOffline,
     goOnline,
     setDestination,
-    setDriverData,
     setDriverDestination,
     setDriverOrigin,
     setOrigin,
@@ -36,5 +34,6 @@ export const useWinchActions = () => {
     setUserDestination,
     rejectRequest,
     setPrice,
+    setWinchDriverId,
   };
 };

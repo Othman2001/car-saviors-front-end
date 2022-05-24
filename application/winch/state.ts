@@ -14,6 +14,7 @@ interface IWinchState {
   userOrigin: any;
   userDestination: any;
   price: number;
+  currentWinchDriverId: string;
 }
 
 export const winchState: IWinchState = {
@@ -30,4 +31,5 @@ export const winchState: IWinchState = {
   userOrigin: "",
   userDestination: "",
   price: 0,
+  currentWinchDriverId: "fake",
 };

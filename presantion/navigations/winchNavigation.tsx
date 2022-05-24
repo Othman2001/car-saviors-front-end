@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Location from "../components/LocationComponent/Location";
 import Map from "../screens/Map/Map";
 import Rejected from "../screens/Rejected/Rejected";
+import Loading from "../screens/Loading/Loading";
 
 export default function WinchNavigation() {
   const Stack = createStackNavigator();
@@ -31,6 +32,13 @@ export default function WinchNavigation() {
       <Stack.Screen
         component={Rejected}
         name="Rejected"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        component={Loading}
+        name="Loading"
         options={{
           headerShown: false,
         }}

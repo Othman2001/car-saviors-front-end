@@ -3,12 +3,14 @@ import MapView, { Marker } from "react-native-maps";
 import React, { useEffect, useRef, useState } from "react";
 import MapViewDirections from "react-native-maps-directions";
 import * as Styled from "./style";
-import { getFirestore, setDoc, doc, onSnapshot } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { IUserData } from "../../../application/authentication/state";
 import { WinchDriverSchema } from "../../../application/winch/types";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
+import { setDoc, doc } from "firebase/firestore";
+import { db } from "../../../infstracture/firebase";
+import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
 
 interface IMapComponentProps {
   user: IUserData | null;
@@ -21,10 +23,8 @@ interface IMapComponentProps {
 }
 
 export default function MapComponent({
-  user,
   origin,
   destination,
-  currentDriverIndex,
   winchDrivers,
   setTravelTimeInformation,
 }: IMapComponentProps) {
@@ -33,8 +33,44 @@ export default function MapComponent({
   );
   const mapRef = useRef<MapView | undefined>(undefined);
   const navigation = useNavigation();
-  const { driverOrigin } = useWinchState();
-  const { setPrice } = useWinchActions();
+  const { driverOrigin, currentWinchDriverId, currentDriverIndex } =
+    useWinchState();
+  const { getTheNextDriver } = useWinchActions();
+  const { user } = useUserInfo();
+
+  const setData = async ({
+    firstName,
+    lastName,
+    winchDriverId,
+    userName,
+    userId,
+    userDestination,
+    destination,
+  }: {
+    firstName: string;
+    lastName: string;
+    winchDriverId: string;
+    userName: string | undefined | null;
+    userId: string | undefined | null;
+    userDestination: {
+      latitude: number;
+      longitude: number;
+    };
+    destination: {
+      latitude: number;
+      longitude: number;
+    };
+  }) => {
+    await setDoc(doc(db, "PendingRequets", winchDriverId), {
+      firstName,
+      lastName,
+      winchDriverId,
+      userName,
+      userId,
+      userDestination,
+      destination,
+    });
+  };
 
   useEffect(() => {
     if (!origin || !destination) return;
@@ -42,20 +78,12 @@ export default function MapComponent({
       mapRef?.current?.fitToSuppliedMarkers(["origin", "destination"], {
         edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
       });
-    setTravelTimeInformation();
-    const Id = winchDrivers[0]?.id;
-    const db = getFirestore();
-    if (winchDrivers.length) {
-    }
-    // @ts-ignore
-    setDoc(doc(db, "PendingRequets", Id), {
-      winchDriverId: winchDrivers[currentDriverIndex].id,
-      winchDriverName:
-        winchDrivers[0]?.firstName + " " + winchDrivers[0]?.lastName,
-      winchDriverPhone: winchDrivers[0]?.phoneNumber,
+    setData({
+      firstName: winchDrivers[currentDriverIndex]?.firstName,
+      lastName: winchDrivers[currentDriverIndex]?.lastName,
+      winchDriverId: winchDrivers[currentDriverIndex]?.id,
       userName: user?.displayName,
       userId: user?.uid,
-      id: Id,
       userDestination: {
         latitude: destination.lat,
         longitude: destination.lng,
@@ -65,43 +93,8 @@ export default function MapComponent({
         longitude: origin.lng,
       },
     });
-
-    //  @ts-ignore
-    const unSub = onSnapshot(doc(db, "PendingRequets", Id), (doc) => {
-      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      if (!doc.exists()) {
-        //  @ts-ignore
-        navigation.navigate("Rejected");
-
-        //  @ts-ignore
-        setDoc(doc(db, "PendingRequets", Id), {
-          winchDriverId: winchDrivers[0]?.id,
-          winchDriverName:
-            winchDrivers[0]?.firstName + " " + winchDrivers[0]?.lastName,
-          winchDriverPhone: winchDrivers[0]?.phoneNumber,
-          userName: user?.displayName,
-          userId: user?.uid,
-          id: Id,
-          userDestination: {
-            latitude: destination.lat,
-            longitude: destination.lng,
-          },
-          destination: {
-            latitude: origin.lat,
-            longitude: origin.lng,
-          },
-        });
-      }
-    });
-    if (!winchDrivers.length) {
-      // @ts-ignore
-      alert("no drivers available");
-    }
+    console.log(driverOrigin, "driverOrigin");
     setTravelTimeInformation();
-    console.log("rendered");
-    return () => {
-      unSub();
-    };
   }, [winchDrivers, driverOrigin]);
 
   return (
@@ -148,8 +141,8 @@ export default function MapComponent({
           </Marker>
           <Marker
             coordinate={{
-              latitude: driverOrigin?._latitude || driverOrigin?.latitude,
-              longitude: driverOrigin?._longitude || driverOrigin?.longitude,
+              latitude: driverOrigin?.latitude ? driverOrigin?.latitude : 0,
+              longitude: driverOrigin?.longitude ? driverOrigin?.longitude : 0,
             }}
             identifier="destination"
           >

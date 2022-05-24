@@ -13,7 +13,7 @@ export default function Location() {
     winch: { setDestination, setOrigin, fetchDrivers },
   } = useActions();
   const {
-    winch: { origin, destination },
+    winch: { origin, destination, winchDrivers },
   } = useAppState();
   const navigation = useNavigation();
   const { fontFamily } = useTheme();
@@ -21,6 +21,9 @@ export default function Location() {
   useEffect(() => {
     if (origin && destination) {
       fetchDrivers({ lat: origin.lat, lng: origin.lng });
+      setTimeout(() => {
+        navigation.navigate("MapUser");
+      }, 1500);
     }
   }, [origin, destination]);
   return (
@@ -123,7 +126,7 @@ export default function Location() {
       </Styled.FormInputContainer>
       <Styled.ButtonContainer>
         <Button
-          disabled={!origin || !destination}
+          disabled={!origin || !destination || winchDrivers.length < 0}
           // @ts-ignore
           onPress={() => navigation.navigate("MapUser")}
         >

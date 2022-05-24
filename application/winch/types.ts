@@ -12,4 +12,5 @@ export type WinchDriverSchema = {
   role: string;
   id: string;
   distance: number;
+  price: number;
 };
