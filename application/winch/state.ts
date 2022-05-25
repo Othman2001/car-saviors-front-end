@@ -1,7 +1,7 @@
-import { WinchDriverSchema } from "./types";
+import { RequestSchema, WinchDriverSchema } from "./types";
 
 interface IWinchState {
-  winchDrivers: [WinchDriverSchema] | [];
+  winchDrivers: WinchDriverSchema[] | [];
   nearestDriver: WinchDriverSchema | undefined;
   origin: any;
   destination: any;
@@ -15,6 +15,8 @@ interface IWinchState {
   userDestination: any;
   price: number;
   currentWinchDriverId: string;
+  request: RequestSchema | null;
+  requestState: boolean;
 }
 
 export const winchState: IWinchState = {
@@ -32,4 +34,6 @@ export const winchState: IWinchState = {
   userDestination: "",
   price: 0,
   currentWinchDriverId: "fake",
+  request: null,
+  requestState: true,
 };

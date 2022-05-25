@@ -17,6 +17,9 @@ export const useWinchActions = () => {
       rejectRequest,
       setPrice,
       setWinchDriverId,
+      setRequest,
+      setRequestState,
+      resetTheStore,
     },
   } = useActions();
 
@@ -35,5 +38,8 @@ export const useWinchActions = () => {
     rejectRequest,
     setPrice,
     setWinchDriverId,
+    setRequest,
+    setRequestState,
+    resetTheStore,
   };
 };

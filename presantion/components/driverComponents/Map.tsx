@@ -3,9 +3,7 @@ import MapView, { Marker } from "react-native-maps";
 import React, { useEffect, useRef, useState } from "react";
 import MapViewDirections from "react-native-maps-directions";
 import { uid } from "uid";
-import { onSnapshot, doc } from "firebase/firestore";
 // @ts-ignore
-import { db } from "../../../infstracture/firebase";
 import { IUserData } from "../../../appliction/authentication/state";
 import { LocationObject } from "expo-location";
 
@@ -21,7 +19,6 @@ interface IMapComponentProps {
 export default function MapComponent({
   driverDestination,
   driverOrigin,
-  setDriverOrigin,
   startLocationTracking,
   user,
 }: IMapComponentProps) {
@@ -38,19 +35,9 @@ export default function MapComponent({
         edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
       });
     }
-
     startLocationTracking();
-
-    if (user?.uid) {
-      // @ts-ignore
-      onSnapshot(doc(db, "winchDrivers", user.uid), (doc) => {
-        if (doc.exists()) {
-          setDriverOrigin({ driverOrigin: doc.data().geopoint });
-        }
-      });
-    }
     console.log("renderd");
-  }, [driverDestination]);
+  }, [driverDestination, driverOrigin]);
 
   return (
     <View style={styles.container}>

@@ -21,9 +21,6 @@ export default function Location() {
   useEffect(() => {
     if (origin && destination) {
       fetchDrivers({ lat: origin.lat, lng: origin.lng });
-      setTimeout(() => {
-        navigation.navigate("MapUser");
-      }, 1500);
     }
   }, [origin, destination]);
   return (

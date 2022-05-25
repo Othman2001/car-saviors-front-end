@@ -4,45 +4,12 @@ import MapComponent from "../../components/map/MapComponent";
 import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
-import { onSnapshot, doc, setDoc } from "firebase/firestore";
+import { onSnapshot, doc } from "firebase/firestore";
 // @ts-ignore
 import { db } from "../../../infstracture/firebase";
 import { WinchDriverSchema } from "../../../application/winch/types";
 import { useNavigation } from "@react-navigation/native";
-
-const setData = async ({
-  firstName,
-  lastName,
-  winchDriverId,
-  userName,
-  userId,
-  userDestination,
-  destination,
-}: {
-  firstName: string;
-  lastName: string;
-  winchDriverId: string;
-  userName: string;
-  userId: string;
-  userDestination: {
-    latitude: number;
-    longitude: number;
-  };
-  destination: {
-    latitude: number;
-    longitude: number;
-  };
-}) => {
-  await setDoc(doc(db, "PendingRequets", winchDriverId), {
-    firstName,
-    lastName,
-    winchDriverId,
-    userName,
-    userId,
-    userDestination,
-    destination,
-  });
-};
+import { deleteData } from "../../custom/setData";
 
 export default function () {
   const { user } = useUserInfo();
@@ -59,6 +26,7 @@ export default function () {
     setPrice,
     setDriverOrigin,
     setWinchDriverId,
+    resetTheStore,
   } = useWinchActions();
 
   const navigation = useNavigation();
@@ -75,41 +43,21 @@ export default function () {
       (doc) => {
         if (!doc.exists()) {
           setWinchDriverId({ winchDriverId: "fake" });
-          setData({
-            lastName: winchDrivers[currentDriverIndex].lastName,
-            winchDriverId: winchDrivers[currentDriverIndex].id,
-            userName: user?.displayName,
-            userId: user?.uid,
-            userDestination: {
-              latitude: destination.lat,
-              longitude: destination.lng,
-            },
-            destination: {
-              latitude: origin.lat,
-              longitude: origin.lng,
-            },
-          });
           if (winchDrivers[0]) {
-            setData({
-              lastName: winchDrivers[currentDriverIndex].lastName,
-              winchDriverId: winchDrivers[currentDriverIndex].id,
-              userName: user?.displayName,
-              userId: user?.uid,
-              userDestination: {
-                latitude: destination.lat,
-                longitude: destination.lng,
-              },
-              destination: {
-                latitude: origin.lat,
-                longitude: origin.lng,
-              },
-            });
+            navigation.navigate("Loading");
           }
           setTravelTimeInformation();
-
           console.log("driver ");
-
-          // @ts-ignore
+        } else {
+          if (doc.data().isFinished) {
+            navigation.navigate("Home");
+          }
+          if (doc.data().isAcccepted === false) {
+            setWinchDriverId({ winchDriverId: "getTheNextDriver" });
+            deleteData(winchDrivers[0].id);
+            // @ts-ignore
+            navigation.navigate("Loading");
+          }
         }
       }
     );
@@ -131,11 +79,12 @@ export default function () {
     );
     setTravelTimeInformation();
     setPrice();
+    console.log("current winch driver id ");
     return () => {
       winchDriverLocationListener();
       requestListener();
     };
-  }, []);
+  }, [origin, destination, currentWinchDriverId]);
 
   return (
     <View>

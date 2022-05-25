@@ -3,14 +3,14 @@ import MapView, { Marker } from "react-native-maps";
 import React, { useEffect, useRef, useState } from "react";
 import MapViewDirections from "react-native-maps-directions";
 import * as Styled from "./style";
-import { useNavigation } from "@react-navigation/native";
 import { IUserData } from "../../../application/authentication/state";
-import { WinchDriverSchema } from "../../../application/winch/types";
+import {
+  RequestSchema,
+  WinchDriverSchema,
+} from "../../../application/winch/types";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
-import { setDoc, doc } from "firebase/firestore";
-import { db } from "../../../infstracture/firebase";
-import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
+import { setData } from "../../custom/setData";
 
 interface IMapComponentProps {
   user: IUserData | null;
@@ -27,58 +27,27 @@ export default function MapComponent({
   destination,
   winchDrivers,
   setTravelTimeInformation,
+  user,
+  currentDriverIndex,
+  getTheNextDriver,
 }: IMapComponentProps) {
   const [googleApiKey, setGoogleApiKey] = useState(
     "AIzaSyBEI5mJ_Yga3K4lnZRIWzvk8JEm4WaFWrA"
   );
   const mapRef = useRef<MapView | undefined>(undefined);
-  const navigation = useNavigation();
-  const { driverOrigin, currentWinchDriverId, currentDriverIndex } =
+  const { driverOrigin, currentWinchDriverId, request, requestState } =
     useWinchState();
-  const { getTheNextDriver } = useWinchActions();
-  const { user } = useUserInfo();
 
-  const setData = async ({
-    firstName,
-    lastName,
-    winchDriverId,
-    userName,
-    userId,
-    userDestination,
-    destination,
-  }: {
-    firstName: string;
-    lastName: string;
-    winchDriverId: string;
-    userName: string | undefined | null;
-    userId: string | undefined | null;
-    userDestination: {
-      latitude: number;
-      longitude: number;
-    };
-    destination: {
-      latitude: number;
-      longitude: number;
-    };
-  }) => {
-    await setDoc(doc(db, "PendingRequets", winchDriverId), {
-      firstName,
-      lastName,
-      winchDriverId,
-      userName,
-      userId,
-      userDestination,
-      destination,
-    });
-  };
+  const { setRequest, setWinchDriverId } = useWinchActions();
 
   useEffect(() => {
-    if (!origin || !destination) return;
+    if (!origin || !destination || !driverOrigin) return;
     mapRef &&
       mapRef?.current?.fitToSuppliedMarkers(["origin", "destination"], {
         edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
       });
-    setData({
+
+    const Request: RequestSchema = {
       firstName: winchDrivers[currentDriverIndex]?.firstName,
       lastName: winchDrivers[currentDriverIndex]?.lastName,
       winchDriverId: winchDrivers[currentDriverIndex]?.id,
@@ -92,10 +61,26 @@ export default function MapComponent({
         latitude: origin.lat,
         longitude: origin.lng,
       },
-    });
+      isAcccepted: true,
+    };
+    if (Request != request) {
+      setRequest({ request: Request });
+      setData(Request);
+    }
+
     console.log(driverOrigin, "driverOrigin");
     setTravelTimeInformation();
-  }, [winchDrivers, driverOrigin]);
+  }, [
+    winchDrivers,
+    driverOrigin,
+    origin,
+    destination,
+    driverOrigin?._latitude,
+    driverOrigin?._longitude,
+    driverOrigin?.latitude,
+    driverOrigin?.longitude,
+    requestState,
+  ]);
 
   return (
     <View style={styles.container}>
@@ -163,7 +148,7 @@ export default function MapComponent({
 const styles = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height - 400,
+    height: Dimensions.get("window").height - 300,
   },
   container: {
     backgroundColor: "#fff",

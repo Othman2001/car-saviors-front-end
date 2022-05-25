@@ -1,7 +1,7 @@
+import { doc, updateDoc } from "firebase/firestore";
 import { Action, AsyncAction } from "../../config";
-import { setDoc, doc } from "firebase/firestore";
-// @ts-ignore
 import { db } from "../../infstracture/firebase";
+import { RequestSchema } from "./types";
 // @ts-ignore
 
 export const fetchDrivers: AsyncAction<{ lat: any; lng: any }> = async (
@@ -9,8 +9,6 @@ export const fetchDrivers: AsyncAction<{ lat: any; lng: any }> = async (
   { lat, lng }
 ) => {
   const drivers: [] = await effects.winch.fetchDrivers({ lat, lng });
-
-  for (let i = 0; i < drivers.length; i++) {}
 
   state.winch.winchDrivers = drivers;
   state.winch.currentDriverIndex = 0;
@@ -58,46 +56,10 @@ export const setTravelTimeInformation: AsyncAction = async ({
 
 export const getTheNextDriver: Action = ({
   state: {
-    authentication: { user },
-    winch: {
-      winchDrivers,
-      currentDriverIndex,
-      currentWinchDriverId,
-      destination,
-      origin,
-    },
+    winch: { winchDrivers },
   },
-  effects,
 }) => {
-  if (winchDrivers.length > 0) {
-    winchDrivers.shift();
-    //  @ts-ignore
-    currentWinchDriverId = winchDrivers[0].id;
-    // @ts-ignore
-    setDoc(doc(db, "PendingRequets", currentWinchDriverId), {
-      //  @ts-ignore
-      winchDriverId: currentWinchDriverId,
-      //  @ts-ignore
-      winchDriverName:
-        //  @ts-ignore
-        winchDrivers[0].firstName + " " + winchDrivers[0].lastName,
-      //  @ts-ignore
-      winchDriverPhone: winchDrivers[0].phoneNumber,
-      userName: user?.displayName,
-      userId: user?.uid,
-      id: currentDriverIndex,
-      userDestination: {
-        latitude: destination.lat,
-        longitude: destination.lng,
-      },
-      destination: {
-        latitude: origin.lat,
-        longitude: origin.lng,
-      },
-    });
-  } else {
-    currentWinchDriverId = "fake";
-  }
+  winchDrivers.shift();
 };
 
 export const goOnline: Action = ({ state }) => {
@@ -144,7 +106,6 @@ export const rejectRequest: Action = ({ state, effects }) => {
   state.winch.origin = "";
   state.winch.travelTimeInformation = "";
   state.winch.currentDriverIndex = 0;
-  state.winch.winchDrivers = [];
 };
 export const setPrice: Action = ({ state }) => {
   if (state.winch.winchDrivers[0]) {
@@ -157,4 +118,33 @@ export const setWinchDriverId: Action<{ winchDriverId: string }> = (
   { winchDriverId }
 ) => {
   state.winch.currentWinchDriverId = winchDriverId;
+};
+
+export const setRequest: Action<{ request: RequestSchema }> = (
+  { state: { winch } },
+  { request }
+) => {
+  winch.request = request;
+};
+
+export const setRequestState: Action<{ requestState: boolean }> = (
+  { state: { winch } },
+  { requestState }
+) => {
+  winch.requestState = requestState;
+};
+
+export const resetTheStore: Action = ({ state: { winch } }) => {
+  winch.userDestination = "";
+  winch.driverDestination = "";
+  winch.userOrigin = "";
+  winch.driverOrigin = "";
+  winch.destination = "";
+  winch.origin = "";
+  winch.travelTimeInformation = "";
+  winch.currentDriverIndex = 0;
+  winch.currentWinchDriverId = "";
+  winch.price = 0;
+  winch.request = null;
+  winch.requestState = false;
 };

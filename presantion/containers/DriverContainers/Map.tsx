@@ -24,42 +24,7 @@ export default function Map() {
   const { setDestination, setDriverOrigin } = useWinchActions();
   const [location, setLocation] = useState<LocationObject>();
 
-  useEffect(() => {
-    // TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
-    //   if (error) {
-    //     console.log(error);
-    //     return;
-    //   }
-    //   (async () => {
-    //     let { status } = await Location.requestForegroundPermissionsAsync();
-    //     if (status !== "granted") {
-    //       //   @ts-ignore
-    //       return;
-    //     }
-    //     let location = await Location.getCurrentPositionAsync({});
-    //     setLocation(location);
-    //   })();
-    //   if (data) {
-    //     // @ts-ignore
-    //     const { locations } = data;
-    //     let lat = locations[0].coords.latitude;
-    //     let long = locations[0].coords.longitude;
-    //     console.log(locations, "locations");
-    //     if (user?.uid) {
-    //       // @ts-ignore
-    //       const winchDriversRef = doc(db, "winchDrivers", user?.uid);
-    //       console.log("reached");
-    //       updateDoc(winchDriversRef, {
-    //         geopoint: {
-    //           latitude: lat,
-    //           longitude: long,
-    //         },
-    //       });
-    //     }
-    //     console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`);
-    //   }
-    // });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <MapComponent

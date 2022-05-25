@@ -3,7 +3,7 @@ import * as Styled from "./style";
 import { useTheme } from "../../../../application/custom-hooks/useTheme";
 import { Button } from "@ui-kitten/components";
 import { useWinchState } from "../../../../application/custom-hooks/useWinchState";
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useUserInfo } from "../../../../application/custom-hooks/useUserInfo";
 import { db } from "../../../../infstracture/firebase";
 import { useNavigation } from "@react-navigation/native";
@@ -18,18 +18,31 @@ export default function UserData() {
     "AIzaSyBEI5mJ_Yga3K4lnZRIWzvk8JEm4WaFWrA"
   );
   const [userDestinationAddress, setUserDestination] = useState<any>(null);
+  const [isVisible, setIsVisible] = useState<any>(true);
 
   const navigation = useNavigation();
   const { user } = useUserInfo();
 
   const rejectUserRequest = async () => {
     if (user?.uid) {
+      await updateDoc(doc(db, "PendingRequets", user?.uid), {
+        isAcceepted: false,
+        isAcccepted: false,
+      });
       await deleteDoc(doc(db, "PendingRequets", user?.uid));
+      rejectRequest();
       navigation.navigate("Home");
+      setIsVisible(true);
       rejectRequest();
     }
   };
+  const acceptRequest = () => {
+    setIsVisible(false);
+  };
 
+  const finishTrip = () => {
+    navigation.navigate("DriverFinishing");
+  };
   const getUserAddress = async ({
     userDestination,
     setUserDestination,
@@ -90,21 +103,36 @@ export default function UserData() {
       <Styled.UserLocationText fontFamily={fontFamily}>
         The user destination:{userDestinationAddress}
       </Styled.UserLocationText>
-      <Styled.ButtonsContainer>
-        <Styled.ButtonContainer>
-          <Button>Accept </Button>
-        </Styled.ButtonContainer>
-        <Styled.ButtonContainer>
-          <Button
-            status="danger"
-            onPress={() => {
-              rejectUserRequest();
-            }}
-          >
-            Reject{" "}
-          </Button>
-        </Styled.ButtonContainer>
-      </Styled.ButtonsContainer>
+      {isVisible && (
+        <Styled.ButtonsContainer>
+          <Styled.ButtonContainer>
+            <Button
+              onPress={() => {
+                acceptRequest();
+              }}
+            >
+              Accept{" "}
+            </Button>
+          </Styled.ButtonContainer>
+          <Styled.ButtonContainer>
+            <Button
+              status="danger"
+              onPress={() => {
+                rejectUserRequest();
+              }}
+            >
+              Reject
+            </Button>
+          </Styled.ButtonContainer>
+        </Styled.ButtonsContainer>
+      )}
+      {!isVisible && (
+        <Styled.ButtonsContainer>
+          <Styled.ButtonContainer>
+            <Button onPress={finishTrip}> Finish The Trip </Button>
+          </Styled.ButtonContainer>
+        </Styled.ButtonsContainer>
+      )}
     </Styled.Container>
   );
 }

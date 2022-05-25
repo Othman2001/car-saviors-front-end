@@ -1,10 +1,14 @@
 import styled from "styled-components/native";
 import { ITextProps } from "../../../types";
 
+export const Container = styled.View``;
+
 export const CardsContainer = styled.View`
   display: flex;
   flex-direction: row;
   padding-top: 40px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Card = styled.View`

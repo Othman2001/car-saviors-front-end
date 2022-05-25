@@ -57,6 +57,8 @@ export default function HomeScreen() {
                 driverOrigin: driverOrigin,
               });
             }, 4000);
+          } else {
+            console.log("no data");
           }
         });
       }

@@ -1,11 +1,16 @@
 import { View, SafeAreaView, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Platform } from "react-native";
 import UserHeader from "../../containers/UserHeader/UserHeader";
 import Cards from "../../containers/Cards/Cards";
 import { Layout } from "@ui-kitten/components";
+import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
 
 export default function HomeScreen() {
+  const { resetTheStore } = useWinchActions();
+  useEffect(() => {
+    resetTheStore();
+  }, []);
   return (
     <Layout
       style={{

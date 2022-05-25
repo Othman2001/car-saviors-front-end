@@ -14,3 +14,20 @@ export type WinchDriverSchema = {
   distance: number;
   price: number;
 };
+
+export type RequestSchema = {
+  destination: {
+    latitude: number;
+    longitude: number;
+  };
+  firstName: string;
+  lastName: string;
+  userId: string | null | undefined;
+  userName: string | null | undefined;
+  winchDriverId: string;
+  userDestination: {
+    latitude: number;
+    longitude: number;
+  };
+  isAcccepted: boolean;
+};

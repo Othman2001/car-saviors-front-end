@@ -2,13 +2,12 @@ import React from "react";
 import * as Styled from "./style";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
-import { ScrollView } from "react-native";
 
 export default function WinchDriver() {
   const { fontFamily } = useTheme();
   const { travelTimeInformation, winchDrivers, price } = useWinchState();
   return (
-    <ScrollView>
+    <Styled.Container>
       <Styled.CardsContainer>
         <Styled.Card>
           <Styled.CardImage source={require("../../../assets/phone.png")} />
@@ -29,6 +28,6 @@ export default function WinchDriver() {
           </Styled.CardText>
         </Styled.Card>
       </Styled.CardsContainer>
-    </ScrollView>
+    </Styled.Container>
   );
 }
