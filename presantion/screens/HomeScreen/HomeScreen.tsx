@@ -5,12 +5,14 @@ import UserHeader from "../../containers/UserHeader/UserHeader";
 import Cards from "../../containers/Cards/Cards";
 import { Layout } from "@ui-kitten/components";
 import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
+import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 
 export default function HomeScreen() {
   const { resetTheStore } = useWinchActions();
+  const { tripFinished } = useWinchState();
   useEffect(() => {
     resetTheStore();
-  }, []);
+  }, [tripFinished]);
   return (
     <Layout
       style={{

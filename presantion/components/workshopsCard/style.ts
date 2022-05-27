@@ -66,7 +66,7 @@ export const SearchInput = styled.TextInput`
   border-radius: 15px;
   margin-left: 30px;
   margin-right: 30px;
-  margin-top: 50px;
+  margin-top: 70px;
   padding: 10px 80px 10px 20px;
   margin-bottom: 12px;
 `;

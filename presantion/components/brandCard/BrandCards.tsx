@@ -3,6 +3,9 @@ import * as Styled from "./style";
 import { brandSchema } from "../../../application/workshops/types";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
+import { useWorkshopState } from "../../../application/custom-hooks/useWorkshopsState";
+import { View } from "react-native";
+import { Spinner } from "@ui-kitten/components";
 
 interface IBrandCardProps {
   brands: brandSchema[];
@@ -12,6 +15,8 @@ export default function BrandCards({ brands }: IBrandCardProps) {
   const navigation = useNavigation();
   const [location, setLocation] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const { loading } = useWorkshopState();
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -33,25 +38,39 @@ export default function BrandCards({ brands }: IBrandCardProps) {
   }
   return (
     <Styled.BrandCardsContainer>
-      {brands.map((brand, index) => (
-        <>
-          <Styled.BrandCard
-            key={index}
-            onPress={() => {
-              navigation.navigate("Workshops", {
-                brandName: brand.name,
-                brandImage: brand.imageUrl,
-              });
-            }}
-          >
-            <Styled.BrandImage
-              source={{
-                uri: brand.imageUrl,
+      {loading ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 200,
+          }}
+        >
+          <Spinner />
+        </View>
+      ) : (
+        brands.map((brand, index) => (
+          <>
+            {}
+            <Styled.BrandCard
+              key={index}
+              onPress={() => {
+                navigation.navigate("Workshops", {
+                  brandName: brand.name,
+                  brandImage: brand.imageUrl,
+                });
               }}
-            />
-          </Styled.BrandCard>
-        </>
-      ))}
+            >
+              <Styled.BrandImage
+                source={{
+                  uri: brand.imageUrl,
+                }}
+              />
+            </Styled.BrandCard>
+          </>
+        ))
+      )}
     </Styled.BrandCardsContainer>
   );
 }

@@ -8,7 +8,7 @@ import { useActions } from "../../../config";
 import i18n from "../../../config/i18n/config";
 
 export default function Brands() {
-  const { fontFamily } = useTheme();
+  const { fontFamily, lng } = useTheme();
   const {
     workshops: { fetchBrands },
   } = useActions();
@@ -20,7 +20,10 @@ export default function Brands() {
     <View>
       <TopHeader />
       <SafeAreaView>
-        <Styled.Title fontFamily={fontFamily}>
+        <Styled.Title
+          fontFamily={fontFamily}
+          right={lng === "ar" ? true : false}
+        >
           {i18n.t("workshops.brandsTitle")}
         </Styled.Title>
         <BrandCard />

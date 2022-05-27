@@ -89,7 +89,16 @@ export default function RentalCars({ cars }: IRentalCars) {
             </Styled.RentalCarCard>
           ))
         ) : (
-          <Spinner />
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 200,
+            }}
+          >
+            <Spinner />
+          </View>
         )}
       </ScrollView>
     </View>

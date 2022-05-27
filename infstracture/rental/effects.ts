@@ -71,7 +71,7 @@ export const registerAsCarOwner = async ({
   pricePerDay: number;
 }) => {
   axios.post(
-    "https://us-central1-car-saviors.cloudfunctions.net/registerAsCarOwner",
+    "http://localhost:5001/car-saviors/us-central1/registerAsCarOwner",
     {
       phoneNumber,
       carModel,

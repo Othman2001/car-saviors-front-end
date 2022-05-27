@@ -30,4 +30,5 @@ export type RequestSchema = {
     longitude: number;
   };
   isAcccepted: boolean;
+  isFinished: boolean;
 };

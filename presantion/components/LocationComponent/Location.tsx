@@ -13,10 +13,10 @@ export default function Location() {
     winch: { setDestination, setOrigin, fetchDrivers },
   } = useActions();
   const {
-    winch: { origin, destination, winchDrivers },
+    winch: { origin, destination, driverOrigin },
   } = useAppState();
   const navigation = useNavigation();
-  const { fontFamily } = useTheme();
+  const { fontFamily, lng } = useTheme();
 
   useEffect(() => {
     if (origin && destination) {
@@ -29,19 +29,22 @@ export default function Location() {
         paddingTop: 60,
       }}
     >
-      <Styled.Title fontFamily={fontFamily}>
+      <Styled.Title right={lng === "ar" ? true : false} fontFamily={fontFamily}>
         {" "}
         {i18n.t("location.location")}{" "}
       </Styled.Title>
       <Styled.FormInputContainer>
-        <Styled.FormLabel fontFamily={fontFamily}>
+        <Styled.FormLabel
+          right={lng === "ar" ? true : false}
+          fontFamily={fontFamily}
+        >
           {i18n.t("location.location")}
         </Styled.FormLabel>
         <GooglePlacesAutocomplete
           fetchDetails={true}
           query={{
             key: "AIzaSyCh07Xx1h5-SiFb9OrA_d8I5KApcdAAN_I",
-            language: "en",
+            language: lng === "ar" ? "ar" : "en",
             components: "country:eg",
           }}
           minLength={2}
@@ -56,11 +59,7 @@ export default function Location() {
               fontSize: 18,
             },
           }}
-          onPress={(
-            data: { description: any },
-            details = null,
-            options = null
-          ) => {
+          onPress={(data: { description: any }, details = null) => {
             // @ts-ignore
             setOrigin({
               origin: {
@@ -73,18 +72,21 @@ export default function Location() {
             });
           }}
           enablePoweredByContainer={false}
-          placeholder="where from ? "
+          placeholder={i18n.t("location.location")}
           debounce={400}
           nearbyPlacesAPI="GooglePlacesSearch"
         />
-        <Styled.FormLabel fontFamily={fontFamily}>
+        <Styled.FormLabel
+          fontFamily={fontFamily}
+          right={lng === "ar" ? true : false}
+        >
           {i18n.t("location.destination")}
         </Styled.FormLabel>
         <GooglePlacesAutocomplete
           fetchDetails={true}
           query={{
             key: "AIzaSyCh07Xx1h5-SiFb9OrA_d8I5KApcdAAN_I",
-            language: "en",
+            language: lng === "ar" ? "ar" : "en",
             components: "country:eg",
           }}
           minLength={2}
@@ -116,14 +118,14 @@ export default function Location() {
             });
           }}
           enablePoweredByContainer={false}
-          placeholder="where from ? "
+          placeholder={i18n.t("location.destination")}
           debounce={400}
           nearbyPlacesAPI="GooglePlacesSearch"
         />
       </Styled.FormInputContainer>
       <Styled.ButtonContainer>
         <Button
-          disabled={!origin || !destination || winchDrivers.length < 0}
+          disabled={!origin || !destination || !driverOrigin}
           // @ts-ignore
           onPress={() => navigation.navigate("MapUser")}
         >

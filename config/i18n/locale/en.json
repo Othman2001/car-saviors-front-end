@@ -51,7 +51,7 @@
     "carType": "Car Body Type",
     "location": "Car Adress ",
     "motorType": "Motor Type",
-    "uploadImage": "Upload Image",
+    "uploadImage": "UploadImage",
     "pricePerDay": "Price Per Day"
   },
   "workshops": {
@@ -61,5 +61,9 @@
     "destination": "Enter Your Destination",
     "location": "Enter Your Location",
     "confirm": "Confirm"
+  },
+  "workshop": {
+    "phoneNumber": "Phone Number:",
+    "workingHours": "Hours "
   }
 }

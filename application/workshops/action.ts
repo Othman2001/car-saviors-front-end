@@ -14,6 +14,7 @@ export const fetchWorkshops: AsyncAction<{ brandName: string }> = async (
   state.workshops.WorkshopState.loading = true;
   state.workshops.WorkshopState.workshops =
     await effects.workshops.fetchWorkshops({ brandName });
+  state.workshops.WorkshopState.loading = false;
 };
 
 export const bookDate: AsyncAction<{

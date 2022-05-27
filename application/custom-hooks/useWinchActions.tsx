@@ -20,6 +20,7 @@ export const useWinchActions = () => {
       setRequest,
       setRequestState,
       resetTheStore,
+      finishTheTrip,
     },
   } = useActions();
 
@@ -41,5 +42,6 @@ export const useWinchActions = () => {
     setRequest,
     setRequestState,
     resetTheStore,
+    finishTheTrip,
   };
 };

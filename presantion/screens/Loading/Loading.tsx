@@ -1,13 +1,15 @@
-import { SafeAreaView, Text } from "react-native";
-import React, { useEffect } from "react";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
+import React, { useEffect, useRef } from "react";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 import { useNavigation } from "@react-navigation/native";
 import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
 import { RequestSchema } from "../../../application/winch/types";
 import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
 import { setData } from "../../custom/setData";
+import LottieView from "lottie-react-native";
 
 export default function Loading() {
+  const animation = useRef(null);
   const {
     currentWinchDriverId,
     winchDrivers,
@@ -71,8 +73,25 @@ export default function Loading() {
     }
   }, [requestState, origin, destination]);
   return (
-    <SafeAreaView>
-      <Text>Loading...</Text>
+    <SafeAreaView style={styles.animationContainer}>
+      <LottieView
+        autoPlay
+        ref={animation}
+        style={{
+          backgroundColor: "#eee",
+        }}
+        // Find more Lottie files at https://lottiefiles.com/featured
+        source={require("./animation.json")}
+      />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  animationContainer: {
+    backgroundColor: "#265A60",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
+});

@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import { ITextProps } from "../../../types";
 
 export const buttonContainer = styled.View`
   margin-left: 60px;

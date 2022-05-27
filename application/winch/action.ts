@@ -1,19 +1,24 @@
-import { doc, updateDoc } from "firebase/firestore";
 import { Action, AsyncAction } from "../../config";
-import { db } from "../../infstracture/firebase";
-import { RequestSchema } from "./types";
+import { RequestSchema, WinchDriverSchema } from "./types";
 // @ts-ignore
 
 export const fetchDrivers: AsyncAction<{ lat: any; lng: any }> = async (
   { state, effects },
   { lat, lng }
 ) => {
-  const drivers: [] = await effects.winch.fetchDrivers({ lat, lng });
+  const drivers: WinchDriverSchema[] = await effects.winch.fetchDrivers({
+    lat,
+    lng,
+  });
 
   state.winch.winchDrivers = drivers;
   state.winch.currentDriverIndex = 0;
   // @ts-ignore
   state.winch.currentWinchDriverId = drivers[0].id;
+  state.winch.driverOrigin = {
+    latitude: drivers[0].geopoint.latitude || drivers[0].geopoint._latitude,
+    longitude: drivers[0].geopoint.longitude || drivers[0].geopoint._longitude,
+  };
   return drivers;
 };
 
@@ -147,4 +152,9 @@ export const resetTheStore: Action = ({ state: { winch } }) => {
   winch.price = 0;
   winch.request = null;
   winch.requestState = false;
+  winch.tripFinished = false;
+};
+
+export const finishTheTrip: Action = ({ state }) => {
+  state.winch.tripFinished = true;
 };

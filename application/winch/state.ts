@@ -17,6 +17,7 @@ interface IWinchState {
   currentWinchDriverId: string;
   request: RequestSchema | null;
   requestState: boolean;
+  tripFinished: boolean;
 }
 
 export const winchState: IWinchState = {
@@ -36,4 +37,5 @@ export const winchState: IWinchState = {
   currentWinchDriverId: "fake",
   request: null,
   requestState: true,
+  tripFinished: false,
 };

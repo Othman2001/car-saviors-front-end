@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import WinchScreen from "../screens/WinchScreen/WinchScreen";
 import CarWorkshopsNavigation from "./CarWorkshopsNavigation";
+import Profile from "../screens/Profile/Profile";
 
 const Taps = createBottomTabNavigator();
 
@@ -70,6 +71,7 @@ export default function CarOwnerNavigation() {
       <Taps.Screen name="Home" component={HomeScreen} />
       <Taps.Screen name="WorkShops" component={CarWorkshopsNavigation} />
       <Taps.Screen name="Winch" component={WinchScreen} />
+      <Taps.Screen name="Profile" component={Profile} />
     </Taps.Navigator>
   );
 }

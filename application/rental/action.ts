@@ -99,7 +99,7 @@ export const registerAsCarOwner: AsyncAction<{
   carBrand: string;
   pricePerDay: number;
 }> = async (
-  { state, effects },
+  { state, effects, actions },
   {
     phoneNumber,
     carModel,
@@ -137,7 +137,9 @@ export const registerAsCarOwner: AsyncAction<{
     .catch((error) => {
       state.rental.error = error.message;
     });
+
   state.rental.loading = false;
+  actions.authentication.SignOut();
 };
 
 export const resetState: Action = ({ state }) => {

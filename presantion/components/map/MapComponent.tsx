@@ -62,6 +62,7 @@ export default function MapComponent({
         longitude: origin.lng,
       },
       isAcccepted: true,
+      isFinished: false,
     };
     if (Request != request) {
       setRequest({ request: Request });

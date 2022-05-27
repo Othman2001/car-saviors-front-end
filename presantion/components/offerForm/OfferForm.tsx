@@ -1,4 +1,4 @@
-import { Image, Platform, StyleSheet } from "react-native";
+import { Alert, Image, Platform, StyleSheet } from "react-native";
 import * as Styled from "./style";
 import * as FormStyled from "../../components/LoginForm/style";
 import React, { useEffect } from "react";
@@ -10,7 +10,13 @@ import { Text } from "react-native-paper";
 import { IUserData } from "../../../application/authentication/state";
 import { Formik } from "formik";
 import OfferSchema from "./formValdtion";
-import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+  StorageReference,
+} from "firebase/storage";
 
 interface IOfferFormProps {
   registerAsCarOwner: (payload: {
@@ -38,6 +44,11 @@ export default function OfferForm({
   user,
 }: IOfferFormProps) {
   const [image, setImage] = React.useState(undefined);
+  const [imageUri, setImageUri] = React.useState<undefined | string>();
+  const [imageUploaded, setImageUploaded] = React.useState(false);
+  const [imageUrlFirebase, setImageUrlFirebase] = React.useState<
+    undefined | string
+  >("");
   const navigation = useNavigation();
 
   const navigationToWelcome = () => {
@@ -54,6 +65,7 @@ export default function OfferForm({
     });
     if (!result.cancelled) {
       const img = await fetch(result.uri);
+      setImageUri(result.uri);
       const bytes: Blob | Uint8Array | ArrayBuffer = await img.blob();
       const base64 = await new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -63,15 +75,8 @@ export default function OfferForm({
         reader.onload = () => resolve(setImage(reader.result));
         reader.onerror = (error) => reject(error);
       });
-      // upload base64 to firebase storage
     }
   };
-  // const upload = ()=>{
-  //   const storageRef = ref(getStorage(), "image_name");
-
-  //   console.log("uploading image");
-  //   const uploadTask = uploadBytesResumable(storageRef, "");
-  // }
   useEffect(() => {
     async () => {
       if (Platform.OS === "web") {
@@ -83,6 +88,23 @@ export default function OfferForm({
       }
     };
   });
+
+  const uploadImage = async () => {
+    const storage = getStorage(); //storage
+    const imageRef = ref(storage, `${Date.now()}image.jpeg`); //how image will be addressed in the sotrage
+    // convert image to array of bytes
+    const img = await fetch(imageUri);
+    const bytes = await img.blob();
+    setImageUploaded(true);
+    // upload image to storage
+    await uploadBytes(imageRef, bytes).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrlFirebase(url);
+        setImageUploaded(true);
+      });
+    });
+    // get image url
+  };
 
   return (
     <Styled.Container>
@@ -112,7 +134,7 @@ export default function OfferForm({
             // @ts-ignore
             userId: user?.uid,
             // @ts-ignore
-            imageUrl: image,
+            imageUrl: imageUrlFirebase,
             address: values.location,
             bodyType: values.carType,
             modelYear: values.carModelYear,
@@ -293,14 +315,17 @@ export default function OfferForm({
               onChangeText={handleChange("pricePerDay")}
               style={styles.input}
             />
-            <Styled.UploadButton>
-              <Button onPress={pickImage}>
-                <Text> {i18n.t("offer.uploadImage")} </Text>
-              </Button>
-            </Styled.UploadButton>
-
+            {imageUri ? (
+              <Styled.UploadButton>
+                <Button onPress={uploadImage}> Upload Image </Button>
+              </Styled.UploadButton>
+            ) : (
+              <Styled.UploadButton>
+                <Button onPress={pickImage}> Pick image </Button>
+              </Styled.UploadButton>
+            )}
             <Button
-              disabled={!(isValid && dirty && image)}
+              disabled={!(isValid && dirty && imageUploaded)}
               style={styles.button}
               onPress={handleSubmit}
             >

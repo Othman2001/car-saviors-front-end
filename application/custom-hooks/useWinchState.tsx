@@ -19,6 +19,7 @@ export const useWinchState = () => {
       request,
       currentWinchDriverId,
       requestState,
+      tripFinished,
     },
   } = useAppState();
 
@@ -39,5 +40,6 @@ export const useWinchState = () => {
     request,
     currentWinchDriverId,
     requestState,
+    tripFinished,
   };
 };

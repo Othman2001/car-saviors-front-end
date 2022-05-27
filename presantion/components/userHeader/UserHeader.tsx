@@ -6,6 +6,7 @@ import React from "react";
 import { IUserData } from "../../../application/authentication/state";
 import i18n from "../../../config/i18n/config";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
+import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
 
 interface IUserHeader {
   user: IUserData | null;
@@ -17,6 +18,7 @@ interface IUserHeader {
 
 export default function UserHeader({ user, isDriver }: IUserHeader) {
   const { fontFamily } = useTheme();
+  const { currentUserRole } = useUserInfo();
   return (
     <Styled.Container backgroundColor={!isDriver ? "265A60" : "4B4B4B"}>
       <Styled.userInfoContainer>

@@ -61,5 +61,9 @@
     "destination": "أدخل وجهتك",
     "location": "أدخل موقعك",
     "confirm": "يتأكد"
+  },
+  "workshop": {
+    "phoneNumber": "رقم الهاتف:",
+    "workingHours": "ساعات"
   }
 }

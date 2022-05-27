@@ -8,7 +8,7 @@ import { onSnapshot, doc } from "firebase/firestore";
 // @ts-ignore
 import { db } from "../../../infstracture/firebase";
 import { WinchDriverSchema } from "../../../application/winch/types";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 import { deleteData } from "../../custom/setData";
 
 export default function () {
@@ -31,11 +31,7 @@ export default function () {
 
   const navigation = useNavigation();
   useEffect(() => {
-    if (currentWinchDriverId === "fake") {
-      // @ts-ignore
-      navigation.navigate("Loading");
-      return;
-    }
+    currentWinchDriverId === "fake" ? navigation.navigate("Loading") : null;
     // @ts-ignore
     const requestListener = onSnapshot(
       // @ts-ignore
