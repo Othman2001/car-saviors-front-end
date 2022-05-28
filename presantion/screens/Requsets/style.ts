@@ -2,8 +2,9 @@ import styled from "styled-components/native";
 import { ITextProps } from "../../../types";
 
 export const Title = styled.Text<ITextProps>`
-  font-size: 20px;
   padding-top: 60px;
-  padding-left: 40px;
-  text-align: ${(props) => (props.isAr ? "left" : "right")};
+  font-family: ${(props) => props.fontFamily + "700Bold"};
+  font-size: 16px;
+  margin-left: 30px;
+  padding-bottom: 30px;
 `;

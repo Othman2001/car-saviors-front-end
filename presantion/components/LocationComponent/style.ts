@@ -5,7 +5,6 @@ export const Title = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
   font-size: 20px;
   margin-left: 20px;
-  text-align: ${(props) => (props.right ? "right" : "left")};
 `;
 
 export const FormLabel = styled.Text<ITextProps>`
@@ -13,7 +12,6 @@ export const FormLabel = styled.Text<ITextProps>`
   font-size: 16px;
   margin-bottom: 14px;
   margin-left: 20px;
-  text-align: ${(props) => (props.right ? "right" : "left")};
 `;
 
 export const FormInputContainer = styled.View`

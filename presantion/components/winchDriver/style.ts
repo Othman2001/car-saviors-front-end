@@ -9,6 +9,7 @@ export const CardsContainer = styled.View`
   padding-top: 40px;
   justify-content: center;
   align-items: center;
+  margin-bottom: 30px;
 `;
 
 export const Card = styled.View`
@@ -43,4 +44,10 @@ export const CardImage = styled.Image`
 
 export const ButtonContainer = styled.View`
   margin-top: 30px;
+`;
+
+export const RejectButtonContainer = styled.View`
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 30px;
 `;

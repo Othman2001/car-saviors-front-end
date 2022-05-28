@@ -18,13 +18,18 @@ interface IWorkshopDetailsProps {
   }) => Promise<void>;
   userId: string | undefined;
   userName: string | null | undefined;
+  description: string;
+  descriptionAr: string;
+  brandImage: string;
 }
 export default function WorkShopDetailsComponent({
   bookDate,
   userId,
   userName,
+  brandImage,
+  description,
 }: IWorkshopDetailsProps) {
-  const { fontFamily } = useTheme();
+  const { fontFamily, lng } = useTheme();
   const [showBooking, setShowBooking] = useState<boolean>(false);
   const [date, setDate] = useState<string | Date | undefined>();
 
@@ -49,23 +54,31 @@ export default function WorkShopDetailsComponent({
     <Styled.WorkshopDetailsContainer>
       <TopHeader />
       <ScrollView>
-        <Styled.ScreenTitle fontFamily={fontFamily}>Summary</Styled.ScreenTitle>
+        <Styled.ScreenTitle
+          isAr={lng === "ar" ? true : false}
+          fontFamily={fontFamily}
+        >
+          Summary
+        </Styled.ScreenTitle>
         <Styled.WorkshopContainer>
-          <Styled.WorkshopTitle fontFamily={fontFamily}>
+          <Styled.WorkshopTitle
+            fontFamily={fontFamily}
+            isAr={lng === "ar" ? true : false}
+          >
             {" "}
             El nasr{" "}
           </Styled.WorkshopTitle>
           <Styled.BrandImage
             source={{
-              uri: "https://firebasestorage.googleapis.com/v0/b/car-saviors.appspot.com/o/BYD%20logo.png?alt=media&token=425a35bf-fcc1-4771-9390-0186728ad1fc",
+              uri: brandImage,
             }}
           />
         </Styled.WorkshopContainer>
-        <Styled.WorkShopDescription fontFamily={fontFamily}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-          soluta animi, nostrum voluptas exercitationem rerum voluptate
-          dignissimos reprehenderit illum expedita? Perferendis sequi sed iure
-          ab a veritatis cumque voluptatum totam?
+        <Styled.WorkShopDescription
+          isAr={lng === "ar" ? true : false}
+          fontFamily={fontFamily}
+        >
+          {description}
         </Styled.WorkShopDescription>
         <Styled.ButtonWrapper>
           <Button

@@ -18,6 +18,7 @@ const Application = () => {
     theme: { lng },
   } = useAppState();
 
+  useEffect(() => {}, []);
   return (
     <View
       style={{

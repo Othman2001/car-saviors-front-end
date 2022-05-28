@@ -1,4 +1,5 @@
 import { Action, AsyncAction } from "../../config";
+import { RentalRequestSchema } from "./types";
 
 var getDaysArray = function (start: string, end: string) {
   for (
@@ -69,13 +70,15 @@ export const rentCar: AsyncAction<{
       .then((res) => {
         if (res.status === 200) {
           state.rental.message = res.data.message;
-          state.authentication.rentingCar = state.authentication.rentingCar + 1;
+          console.log("error", "status 200");
         } else {
-          state.rental.error = res.data.message;
+          state.rental.message = res.data.message;
+          console.log("error", "else ");
         }
       })
       .catch((error) => {
-        state.rental.error = error.message;
+        console.log("error", "catch erro");
+        state.rental.message = error.message;
       });
     state.rental.rentalPrice = 0;
     state.rental.totalPrice = 0;
@@ -145,4 +148,11 @@ export const registerAsCarOwner: AsyncAction<{
 export const resetState: Action = ({ state }) => {
   state.rental.error = null;
   state.rental.message = null;
+};
+
+export const setRentalRequest: Action<{ requests: RentalRequestSchema[] }> = (
+  { state: { rental } },
+  { requests }
+) => {
+  rental.requests = requests;
 };

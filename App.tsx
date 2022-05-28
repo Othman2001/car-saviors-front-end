@@ -4,12 +4,11 @@ import { Provider } from "overmind-react";
 import AppLoading from "expo-app-loading";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider } from "@ui-kitten/components";
-import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { default as theme } from "./theme.json";
 import { LogBox } from "react-native";
 // @ts-ignore
-import React from "react";
+import React, { useEffect } from "react";
 import { createOvermind } from "overmind";
 import Application from "./Application";
 import {
@@ -28,6 +27,11 @@ LogBox.ignoreAllLogs(true);
 const overmind = createOvermind(config, {
   devtools: "localhost:3031",
 });
+import * as TaskManager from "expo-task-manager";
+import * as Location from "expo-location";
+
+const LOCATION_TRACKING = "location-tracking";
+
 export default function App() {
   const [isLoaded] = useFonts({
     Cairo_400Regular,

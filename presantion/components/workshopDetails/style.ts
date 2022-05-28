@@ -13,10 +13,12 @@ export const ScreenTitle = styled.Text<ITextProps>`
   margin-top: 90px;
   margin-bottom: 20px;
   margin-left: 20px;
+  text-align: ${(props) => (props.isAr ? "left" : "right")};
 `;
 export const WorkshopTitle = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
   font-size: 16px;
+  text-align: ${(props) => (props.isAr ? "left" : "right")};
 `;
 
 export const WorkshopContainer = styled.View`
@@ -39,6 +41,7 @@ export const WorkShopDescription = styled.Text<ITextProps>`
   line-height: 20px;
   color: #333333;
   margin-top: 10px;
+  text-align: ${(props) => (props.isAr ? "left" : "right")};
 `;
 
 export const ButtonWrapper = styled.View`

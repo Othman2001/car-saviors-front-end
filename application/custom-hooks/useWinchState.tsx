@@ -20,6 +20,8 @@ export const useWinchState = () => {
       currentWinchDriverId,
       requestState,
       tripFinished,
+      isRejected,
+      stayAtHome,
     },
   } = useAppState();
 
@@ -41,5 +43,7 @@ export const useWinchState = () => {
     currentWinchDriverId,
     requestState,
     tripFinished,
+    isRejected,
+    stayAtHome,
   };
 };

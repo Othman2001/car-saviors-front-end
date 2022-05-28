@@ -35,10 +35,9 @@ export default function MapComponent({
     "AIzaSyBEI5mJ_Yga3K4lnZRIWzvk8JEm4WaFWrA"
   );
   const mapRef = useRef<MapView | undefined>(undefined);
-  const { driverOrigin, currentWinchDriverId, request, requestState } =
-    useWinchState();
+  const { driverOrigin, request, requestState } = useWinchState();
 
-  const { setRequest, setWinchDriverId } = useWinchActions();
+  const { setRequest } = useWinchActions();
 
   useEffect(() => {
     if (!origin || !destination || !driverOrigin) return;
@@ -70,7 +69,6 @@ export default function MapComponent({
     }
 
     console.log(driverOrigin, "driverOrigin");
-    setTravelTimeInformation();
   }, [
     winchDrivers,
     driverOrigin,

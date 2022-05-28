@@ -6,20 +6,22 @@ import { uid } from "uid";
 // @ts-ignore
 import { IUserData } from "../../../appliction/authentication/state";
 import { LocationObject } from "expo-location";
+import * as TaskManager from "expo-task-manager";
+import * as Location from "expo-location";
+
+const LOCATION_TRACKING = "location-tracking";
 
 interface IMapComponentProps {
   driverOrigin: any;
   driverDestination: any;
   user: IUserData | null;
   setDriverOrigin: (payload: { driverOrigin: any }) => void;
-  startLocationTracking: () => Promise<void>;
   location: LocationObject | undefined;
 }
 
 export default function MapComponent({
   driverDestination,
   driverOrigin,
-  startLocationTracking,
   user,
 }: IMapComponentProps) {
   const id1 = uid(2);
@@ -28,14 +30,26 @@ export default function MapComponent({
     "AIzaSyBEI5mJ_Yga3K4lnZRIWzvk8JEm4WaFWrA"
   );
   const mapRef = useRef(null);
+
+  const requestPermissions = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status === "granted") {
+      console.log("location is granted");
+      await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
+        accuracy: Location.Accuracy.Balanced,
+      });
+    }
+  };
   useEffect(() => {
     if (driverOrigin && driverDestination) {
       // @ts-ignore
       mapRef?.current.fitToSuppliedMarkers(["origin", "destination"], {
         edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
       });
+
+      requestPermissions();
     }
-    startLocationTracking();
+
     console.log("renderd");
   }, [driverDestination, driverOrigin]);
 

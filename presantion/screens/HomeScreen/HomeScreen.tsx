@@ -4,15 +4,14 @@ import { Platform } from "react-native";
 import UserHeader from "../../containers/UserHeader/UserHeader";
 import Cards from "../../containers/Cards/Cards";
 import { Layout } from "@ui-kitten/components";
-import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
+import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
 
 export default function HomeScreen() {
-  const { resetTheStore } = useWinchActions();
-  const { tripFinished } = useWinchState();
+  const { clearFields } = useWinchActions();
   useEffect(() => {
-    resetTheStore();
-  }, [tripFinished]);
+    clearFields();
+  }, []);
   return (
     <Layout
       style={{
@@ -24,7 +23,6 @@ export default function HomeScreen() {
         <View>
           <UserHeader />
         </View>
-
         <Cards />
       </SafeAreaView>
     </Layout>

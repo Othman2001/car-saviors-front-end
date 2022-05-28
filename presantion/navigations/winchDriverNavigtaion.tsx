@@ -3,6 +3,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/DriverScreens/HomeScreen";
 import DriverStack from "./DriverNavigationStact";
+import Profile from "../screens/Profile/Profile";
 
 const Taps = createBottomTabNavigator();
 
@@ -66,12 +67,21 @@ export default function WinchDriverNavigation() {
             IconName = focused
               ? require("../../assets/offer_active.png")
               : require("../../assets/offer.png");
+          } else if (rn === "Profile") {
+            IconName = focused
+              ? require("../../assets/profileActive.png")
+              : require("../../assets/profile.png");
+          } else if (rn === "Driver") {
+            IconName = focused
+              ? require("../../assets/driverActive.png")
+              : require("../../assets/driver.png");
           }
           return <Image source={IconName} style={{ width: 20, height: 20 }} />;
         },
       })}
     >
       <Taps.Screen name="Driver" component={DriverStack} />
+      <Taps.Screen name="Profile" component={Profile} />
     </Taps.Navigator>
   );
 }

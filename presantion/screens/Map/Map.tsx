@@ -1,10 +1,11 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
 import MapContainer from "../../containers/Map/Map";
-import WinchDriver from "../../components/winchDriver/WinchDriver";
+
 import { useActions, useAppState } from "../../../config";
 import WinchDriverMap from "../DriverScreens/WinchDriverMap";
 import UserData from "../../components/driverComponents/userData/UserData";
+import WinchDriver from "../../containers/WinchDriver/WinchDriver";
 
 export default function Map() {
   const {

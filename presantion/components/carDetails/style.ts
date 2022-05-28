@@ -28,6 +28,8 @@ export const CardTitle = styled.Text<ITextProps>`
   line-height: 27px;
   font-family: ${(props) => props.fontFamily + "700Bold"};
   color: #000000;
+  text-align: ${(props) => (props.isAr ? "left" : "right")};
+
   margin-left: 20px;
 `;
 export const CardImage = styled.Image`
@@ -50,6 +52,7 @@ export const CardLightText = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "400Regular"};
   font-size: 14px;
   line-height: 19px;
+
   margin-left: 20px;
   /* identical to box height */
 
@@ -62,6 +65,7 @@ export const CardRegularText = styled.Text<ITextProps>`
   line-height: 19px;
   /* identical to box height */
   margin-left: 30px;
+
   color: #000000;
 `;
 

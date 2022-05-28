@@ -22,11 +22,11 @@ const cardsSchema = [
   },
 
   {
-    id: "offer your car for rental",
+    id: "Request",
     icon: require("../../../assets/contract.png"),
     text: "Become a renter ",
     arText: "عرض سيارتك للايجار",
-    route: "Offer",
+    route: "Request",
   },
 ];
 export default cardsSchema;

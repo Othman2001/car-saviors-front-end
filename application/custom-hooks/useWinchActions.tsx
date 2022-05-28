@@ -21,6 +21,9 @@ export const useWinchActions = () => {
       setRequestState,
       resetTheStore,
       finishTheTrip,
+      clearFields,
+      setRejection,
+      setStayAtHome,
     },
   } = useActions();
 
@@ -43,5 +46,8 @@ export const useWinchActions = () => {
     setRequestState,
     resetTheStore,
     finishTheTrip,
+    clearFields,
+    setStayAtHome,
+    setRejection,
   };
 };

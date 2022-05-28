@@ -7,8 +7,8 @@ export const CardContainer = styled.View`
   margin-top: 10px;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
 export const Card = styled.TouchableOpacity`

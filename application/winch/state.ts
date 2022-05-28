@@ -18,6 +18,8 @@ interface IWinchState {
   request: RequestSchema | null;
   requestState: boolean;
   tripFinished: boolean;
+  isRejected: boolean;
+  stayAtHome: boolean;
 }
 
 export const winchState: IWinchState = {
@@ -38,4 +40,6 @@ export const winchState: IWinchState = {
   request: null,
   requestState: true,
   tripFinished: false,
+  isRejected: false,
+  stayAtHome: false,
 };

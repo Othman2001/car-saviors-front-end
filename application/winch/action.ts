@@ -1,4 +1,5 @@
 import { Action, AsyncAction } from "../../config";
+import { state } from "../authentication/state";
 import { RequestSchema, WinchDriverSchema } from "./types";
 // @ts-ignore
 
@@ -43,19 +44,19 @@ export const setTravelTimeInformation: AsyncAction = async ({
   state,
   effects,
 }) => {
-  if (state.winch.origin && state.winch.destination) {
-    state.winch.travelTimeInformation =
-      await effects.winch.getTravelDistanceInformation({
-        origin: {
-          lat: state.winch.driverOrigin.latitude,
-          lng: state.winch.driverOrigin.longitude,
-        },
-        destination: {
-          lat: state.winch.origin.lat,
-          lng: state.winch.origin.lng,
-        },
-      });
-    state.winch.price = state.winch.travelTimeInformation.distance.value * 200;
+  if (state.winch.origin && state.winch.driverOrigin) {
+    if (state.winch.origin.lat != 1 && state.winch.driverOrigin.lat != 1)
+      state.winch.travelTimeInformation =
+        await effects.winch.getTravelDistanceInformation({
+          origin: {
+            lat: state.winch.driverOrigin.latitude,
+            lng: state.winch.driverOrigin.longitude,
+          },
+          destination: {
+            lat: state.winch.origin.lat,
+            lng: state.winch.origin.lng,
+          },
+        });
   }
 };
 
@@ -114,7 +115,8 @@ export const rejectRequest: Action = ({ state, effects }) => {
 };
 export const setPrice: Action = ({ state }) => {
   if (state.winch.winchDrivers[0]) {
-    state.winch.price = state.winch.winchDrivers[0].price;
+    state.winch.price =
+      Math.round(state.winch.winchDrivers[0].price * 100) / 100;
   }
 };
 
@@ -155,6 +157,35 @@ export const resetTheStore: Action = ({ state: { winch } }) => {
   winch.tripFinished = false;
 };
 
+export const clearFields: Action = ({ state: { winch } }) => {
+  winch.origin = {
+    lat: 1,
+    long: 1,
+  };
+  winch.destination = {
+    lat: 1,
+    long: 1,
+  };
+  winch.driverOrigin = {
+    lat: 1,
+    long: 1,
+  };
+  winch.travelTimeInformation = null;
+};
 export const finishTheTrip: Action = ({ state }) => {
   state.winch.tripFinished = true;
+};
+
+export const setRejection: Action<{ isRejected: boolean }> = (
+  { state },
+  { isRejected }
+) => {
+  state.winch.isRejected = isRejected;
+};
+
+export const setStayAtHome: Action<{ stayAtHome: boolean }> = (
+  { state: { winch } },
+  { stayAtHome }
+) => {
+  winch.stayAtHome = stayAtHome;
 };

@@ -19,7 +19,7 @@ interface ILoginForm {
 
 export default function LoginForm({ logIn, loading, error }: ILoginForm) {
   const navigation = useNavigation();
-  const { fontFamily } = useTheme();
+  const { fontFamily, lng } = useTheme();
   const { loginLoading } = useUserInfo();
 
   return (
@@ -29,7 +29,12 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
         {i18n.t("login.welcome")}
       </Styled.Title>
       {error ? (
-        <Styled.ErrorText fontFamily={fontFamily}> {error} </Styled.ErrorText>
+        <Styled.ErrorText
+          isAr={lng === "ar" ? true : false}
+          fontFamily={fontFamily}
+        >
+          {error}
+        </Styled.ErrorText>
       ) : null}
       <Formik
         validationSchema={loginValidationSchema}
@@ -51,6 +56,7 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               fontFamily={fontFamily}
               vertical={10}
               horizontal={62}
+              isAr={lng === "ar" ? true : false}
             >
               {i18n.t("login.email")}:
             </Styled.FormLabel>
@@ -70,7 +76,11 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               style={styles.input}
               // onChangeText={(text) => setEmail(text)}
             />
-            <Styled.FormLabel fontFamily={fontFamily} vertical={10}>
+            <Styled.FormLabel
+              fontFamily={fontFamily}
+              vertical={10}
+              isAr={lng === "ar" ? true : false}
+            >
               {i18n.t("login.password")}:
             </Styled.FormLabel>
             {errors.password ? (
@@ -101,6 +111,7 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               </Button>
             </Styled.CommonButton>
             <Styled.SmallText
+              isAr={lng === "ar" ? true : false}
               fontFamily={fontFamily}
               color="#000000;
 "
@@ -108,6 +119,7 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               {" "}
               {i18n.t("login.noAccount")}
               <Styled.Span
+                isAr={lng === "ar" ? true : false}
                 fontFamily={fontFamily}
                 onPress={() => {
                   navigation.navigate("Register");

@@ -14,4 +14,5 @@ export type workshopSchema = {
   openHours: string;
   closeHours: string;
   description: string;
+  descriptionAr: string;
 };

@@ -65,32 +65,51 @@ export default function WorkshopCard({ workshops, brandImage }: IWorkshopCard) {
                 onPress={() => {
                   navigation.navigate("WorkshopsDetails", {
                     workshop,
+                    brandImage,
                   });
                 }}
               >
                 <Styled.FlexContainer>
                   <Styled.CardInfo>
-                    <Styled.CardTitle fontFamily={fontFamily}>
+                    <Styled.CardTitle
+                      isAr={lng === "ar" ? true : false}
+                      fontFamily={fontFamily}
+                    >
                       {workshop.name}
                     </Styled.CardTitle>
                     <Styled.LocationContainer>
                       <Styled.LocationImage
                         source={require("../../../assets/location.jpg")}
                       />
-                      <Styled.CardLightText fontFamily={fontFamily}>
+                      <Styled.CardLightText
+                        isAr={lng === "ar" ? true : false}
+                        fontFamily={fontFamily}
+                      >
                         {workshop.location}
                       </Styled.CardLightText>
                     </Styled.LocationContainer>
 
-                    <Styled.NormalText fontFamily={fontFamily}>
+                    <Styled.NormalText
+                      isAr={lng === "ar" ? true : false}
+                      fontFamily={fontFamily}
+                    >
                       {i18n.t("workshop.phoneNumber")}
-                      <Styled.CardLightText fontFamily={fontFamily}>
+                      <Styled.CardLightText
+                        isAr={lng === "ar" ? true : false}
+                        fontFamily={fontFamily}
+                      >
                         01281084530
                       </Styled.CardLightText>
                     </Styled.NormalText>
-                    <Styled.NormalText fontFamily={fontFamily}>
+                    <Styled.NormalText
+                      isAr={lng === "ar" ? true : false}
+                      fontFamily={fontFamily}
+                    >
                       {i18n.t("workshop.workingHours")}:
-                      <Styled.CardLightText fontFamily={fontFamily}>
+                      <Styled.CardLightText
+                        isAr={lng === "ar" ? true : false}
+                        fontFamily={fontFamily}
+                      >
                         {workshop.openHours}am - {workshop.closeHours}11pm
                       </Styled.CardLightText>
                     </Styled.NormalText>

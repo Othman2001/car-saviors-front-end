@@ -21,6 +21,7 @@ export default function Brands() {
       <TopHeader />
       <SafeAreaView>
         <Styled.Title
+          isAr={lng === "ar" ? true : false}
           fontFamily={fontFamily}
           right={lng === "ar" ? true : false}
         >

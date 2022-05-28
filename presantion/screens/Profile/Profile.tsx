@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
-import TopHeader from "../../components/common/topHeader";
 import UserHeader from "../../containers/UserHeader/UserHeader";
 import { I18nManager } from "react-native";
 import * as Styled from "./style";
@@ -42,7 +41,6 @@ export default function Profile() {
         flex: 1,
       }}
     >
-      <TopHeader />
       <UserHeader />
       <Styled.AppVersion fontFamily={fontFamily}>
         {" "}
@@ -54,8 +52,19 @@ export default function Profile() {
       <Styled.AppVersion fontFamily={fontFamily}>
         UserRole: {currentUserRole}
       </Styled.AppVersion>
-
-      <Button onPress={changeLng}>Change lng</Button>
+      <View
+        style={{
+          marginLeft: 40,
+          marginRight: 40,
+          height: 100,
+          marginTop: 80,
+          marginBottom: 80,
+        }}
+      >
+        <Button onPress={changeLng}>
+          Change lng to {i18n.currentLocale() === "ar" ? "Arabic" : "English"}
+        </Button>
+      </View>
       <View
         style={{
           marginLeft: 40,

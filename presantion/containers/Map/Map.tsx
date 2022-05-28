@@ -8,8 +8,9 @@ import { onSnapshot, doc } from "firebase/firestore";
 // @ts-ignore
 import { db } from "../../../infstracture/firebase";
 import { WinchDriverSchema } from "../../../application/winch/types";
-import { StackActions, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { deleteData } from "../../custom/setData";
+import { StackActions } from "@react-navigation/native";
 
 export default function () {
   const { user } = useUserInfo();
@@ -19,6 +20,7 @@ export default function () {
     currentDriverIndex,
     winchDrivers,
     currentWinchDriverId,
+    isRejected,
   } = useWinchState();
   const {
     getTheNextDriver,
@@ -26,11 +28,13 @@ export default function () {
     setPrice,
     setDriverOrigin,
     setWinchDriverId,
-    resetTheStore,
+    finishTheTrip,
+    setRejection,
   } = useWinchActions();
 
   const navigation = useNavigation();
   useEffect(() => {
+    if (!origin || !destination || isRejected) return;
     currentWinchDriverId === "fake" ? navigation.navigate("Loading") : null;
     // @ts-ignore
     const requestListener = onSnapshot(
@@ -46,9 +50,10 @@ export default function () {
           console.log("driver ");
         } else {
           if (doc.data().isFinished) {
-            navigation.navigate("Home");
-          }
-          if (doc.data().isAcccepted === false) {
+            finishTheTrip();
+            setRejection({ isRejected: true });
+            navigation.dispatch(StackActions.replace("Location"));
+          } else if (doc.data().isAcccepted === false) {
             setWinchDriverId({ winchDriverId: "getTheNextDriver" });
             deleteData(winchDrivers[0].id);
             // @ts-ignore
@@ -57,7 +62,6 @@ export default function () {
         }
       }
     );
-
     // listener for the current winch driver location
     const winchDriverLocationListener = onSnapshot(
       // @ts-ignore
@@ -70,7 +74,6 @@ export default function () {
           const longitude = geopoint.longitude || geopoint._longitude;
           setDriverOrigin({ driverOrigin: { latitude, longitude } });
         }
-        setTravelTimeInformation();
       }
     );
     setTravelTimeInformation();

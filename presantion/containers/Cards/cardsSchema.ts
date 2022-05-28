@@ -13,5 +13,11 @@ const carOwnerSchema = [
     arText: "معاينة الصيانة",
     route: "WorkShops",
   },
+  {
+    id: "requests",
+    icon: require("../../../assets/contract.png"),
+    text: " Show Your Car Requests",
+    route: "Request",
+  },
 ];
 export default carOwnerSchema;

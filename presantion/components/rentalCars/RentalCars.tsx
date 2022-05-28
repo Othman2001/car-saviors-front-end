@@ -32,7 +32,7 @@ export default function RentalCars({ cars }: IRentalCars) {
   const [filteredCars, setFilteredCars] = useState<[carSchema] | undefined>(
     cars
   );
-  const { fontFamily } = useTheme();
+  const { fontFamily, lng } = useTheme();
   const handleSearch = (text: string) => {
     const newCars = cars?.filter((car) =>
       car.carBrand.toLowerCase().includes(text.toLowerCase())
@@ -45,7 +45,10 @@ export default function RentalCars({ cars }: IRentalCars) {
   }, [cars]);
   return (
     <View>
-      <Styled.RentalTitle fontFamily={fontFamily}>
+      <Styled.RentalTitle
+        isAr={lng === "ar" ? true : false}
+        fontFamily={fontFamily}
+      >
         {" "}
         {i18n.t("AvaliableForRental")}
       </Styled.RentalTitle>

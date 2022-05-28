@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { Alert, SafeAreaView, StyleSheet, Text } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 import { useNavigation } from "@react-navigation/native";
@@ -17,12 +17,18 @@ export default function Loading() {
     destination,
     origin,
   } = useWinchState();
-  const { getTheNextDriver, setWinchDriverId, setRequest, setDriverOrigin } =
-    useWinchActions();
+  const {
+    getTheNextDriver,
+    setWinchDriverId,
+    setRequest,
+    setDriverOrigin,
+    resetTheStore,
+  } = useWinchActions();
   const { user } = useUserInfo();
 
   const navigation = useNavigation();
   useEffect(() => {
+    if (!winchDrivers[0]) navigation.navigate("Home");
     if (currentWinchDriverId === "getTheNextDriver") {
       setTimeout(() => {
         getTheNextDriver();
@@ -67,10 +73,9 @@ export default function Loading() {
             navigation.navigate("MapUser");
           }, 1500);
         }
-      } else {
-        navigation.navigate("MapUser");
       }
     }
+    alert("go to home screen ");
   }, [requestState, origin, destination]);
   return (
     <SafeAreaView style={styles.animationContainer}>

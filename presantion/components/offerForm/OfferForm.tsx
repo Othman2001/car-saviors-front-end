@@ -17,6 +17,7 @@ import {
   uploadBytes,
   StorageReference,
 } from "firebase/storage";
+import { useTheme } from "../../../application/custom-hooks/useTheme";
 
 interface IOfferFormProps {
   registerAsCarOwner: (payload: {
@@ -43,6 +44,7 @@ export default function OfferForm({
   fontFamily,
   user,
 }: IOfferFormProps) {
+  const { lng } = useTheme();
   const [image, setImage] = React.useState(undefined);
   const [imageUri, setImageUri] = React.useState<undefined | string>();
   const [imageUploaded, setImageUploaded] = React.useState(false);
@@ -148,11 +150,17 @@ export default function OfferForm({
       >
         {({ handleChange, handleSubmit, values, errors, isValid, dirty }) => (
           <>
-            <FormStyled.FormLabel fontFamily={fontFamily}>
+            <FormStyled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("offer.phoneNumber")}:
             </FormStyled.FormLabel>
             {errors.phoneNumber ? (
-              <FormStyled.ErrorText fontFamily={fontFamily}>
+              <FormStyled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.phoneNumber}
               </FormStyled.ErrorText>
             ) : null}
@@ -165,7 +173,10 @@ export default function OfferForm({
               value={values.phoneNumber}
               onChangeText={handleChange("phoneNumber")}
             />
-            <FormStyled.FormLabel fontFamily={fontFamily}>
+            <FormStyled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("offer.carModel")}:
             </FormStyled.FormLabel>
             {errors.model ? (
@@ -182,11 +193,17 @@ export default function OfferForm({
               onChangeText={handleChange("model")}
               style={styles.input}
             />
-            <FormStyled.FormLabel fontFamily={fontFamily}>
+            <FormStyled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("offer.carColor")}:
             </FormStyled.FormLabel>
             {errors.color ? (
-              <FormStyled.ErrorText fontFamily={fontFamily}>
+              <FormStyled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.color}
               </FormStyled.ErrorText>
             ) : null}
@@ -198,11 +215,17 @@ export default function OfferForm({
               onChangeText={handleChange("color")}
               style={styles.input}
             />
-            <FormStyled.FormLabel fontFamily={fontFamily}>
+            <FormStyled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("offer.carNumber")}:
             </FormStyled.FormLabel>
             {errors.licenseNumber ? (
-              <FormStyled.ErrorText fontFamily={fontFamily}>
+              <FormStyled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.licenseNumber}
               </FormStyled.ErrorText>
             ) : null}
@@ -214,11 +237,17 @@ export default function OfferForm({
               onChangeText={handleChange("licenseNumber")}
               style={styles.input}
             />
-            <FormStyled.FormLabel fontFamily={fontFamily}>
+            <FormStyled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("offer.carBrand")}:
             </FormStyled.FormLabel>
             {errors.carBrand ? (
-              <FormStyled.ErrorText fontFamily={fontFamily}>
+              <FormStyled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.carBrand}
               </FormStyled.ErrorText>
             ) : null}
@@ -230,11 +259,17 @@ export default function OfferForm({
               onChangeText={handleChange("carBrand")}
               style={styles.input}
             />
-            <FormStyled.FormLabel fontFamily={fontFamily}>
+            <FormStyled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("offer.carModelYear")}:
             </FormStyled.FormLabel>
             {errors.carModelYear ? (
-              <FormStyled.ErrorText fontFamily={fontFamily}>
+              <FormStyled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.carModelYear}
               </FormStyled.ErrorText>
             ) : null}
@@ -247,11 +282,17 @@ export default function OfferForm({
               onChangeText={handleChange("carModelYear")}
               style={styles.input}
             />
-            <FormStyled.FormLabel fontFamily={fontFamily}>
+            <FormStyled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("offer.carType")}:
             </FormStyled.FormLabel>
             {errors.carType ? (
-              <FormStyled.ErrorText fontFamily={fontFamily}>
+              <FormStyled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.carType}
               </FormStyled.ErrorText>
             ) : null}
@@ -268,7 +309,10 @@ export default function OfferForm({
               {i18n.t("offer.location")}:
             </FormStyled.FormLabel>
             {errors.location ? (
-              <FormStyled.ErrorText fontFamily={fontFamily}>
+              <FormStyled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.location}
               </FormStyled.ErrorText>
             ) : null}
@@ -281,11 +325,17 @@ export default function OfferForm({
               onChangeText={handleChange("location")}
               style={styles.input}
             />
-            <FormStyled.FormLabel fontFamily={fontFamily}>
+            <FormStyled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("offer.motorType")}:
             </FormStyled.FormLabel>
             {errors.motorType ? (
-              <FormStyled.ErrorText fontFamily={fontFamily}>
+              <FormStyled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.motorType}
               </FormStyled.ErrorText>
             ) : null}
@@ -298,11 +348,17 @@ export default function OfferForm({
               onChangeText={handleChange("motorType")}
               style={styles.input}
             />
-            <FormStyled.FormLabel fontFamily={fontFamily}>
+            <FormStyled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("offer.pricePerDay")}:
             </FormStyled.FormLabel>
             {errors.pricePerDay ? (
-              <FormStyled.ErrorText fontFamily={fontFamily}>
+              <FormStyled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.pricePerDay}
               </FormStyled.ErrorText>
             ) : null}

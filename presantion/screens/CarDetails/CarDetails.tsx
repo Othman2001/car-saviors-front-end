@@ -1,5 +1,5 @@
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Button, Text } from "@ui-kitten/components";
 import TopHeader from "../../components/common/topHeader";
@@ -26,17 +26,16 @@ export default function CarDetails() {
     setDates({ startDate, endDate });
     setTotal({ pricePerDay: car.pricePerDay });
   };
+
   const handleConfirmation = () => {
     if (!startDate || !endDate) {
       // @ts-ignore
       return;
     } else {
-      message === "car rented successfully"
-        ? rentCar({
-            carId: car.id,
-            carOwnerId: car.carOwnerId,
-          })
-        : navigation.navigate("Error");
+      rentCar({
+        carId: car.id,
+        carOwnerId: car.carOwnerId,
+      });
     }
   };
 

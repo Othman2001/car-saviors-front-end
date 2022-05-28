@@ -65,12 +65,16 @@ export default function UserNavigation() {
               : require("../../assets/workshop.png");
           } else if (rn === "Winch") {
             IconName = focused
-              ? require("../../assets/winch.png")
-              : require("../../assets/winch.png");
+              ? require("../../assets/winchActive.png")
+              : require("../../assets/winchActive.png");
           } else if (rn === "Offer") {
             IconName = focused
               ? require("../../assets/offer_active.png")
               : require("../../assets/offer.png");
+          } else if (rn === "Profile") {
+            IconName = focused
+              ? require("../../assets/profileActive.png")
+              : require("../../assets/profile.png");
           }
           return <Image source={IconName} style={{ width: 20, height: 20 }} />;
         },

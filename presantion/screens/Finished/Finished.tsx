@@ -1,17 +1,35 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
 import LottieView from "lottie-react-native";
-import { StackActions, useNavigation } from "@react-navigation/native";
-import { CommonActions } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { db } from "../../../infstracture/firebase";
+import { setDoc, deleteDoc, doc } from "firebase/firestore";
+import { useWinchState } from "../../../application/custom-hooks/useWinchState";
+
 export default function Finished() {
   const animation = useRef(null);
-  const { finishTheTrip } = useWinchActions();
+  const { currentWinchDriverId } = useWinchState();
+  const { finishTheTrip, resetTheStore } = useWinchActions();
   const navigation = useNavigation();
 
   useEffect(() => {
-    finishTheTrip();
-    navigation.navigate("Home");
+    setTimeout(() => {
+      finishTheTrip();
+      const pendingRequest = doc(db, "PendingRequets", currentWinchDriverId);
+      deleteDoc(pendingRequest);
+      const finishedRequest = doc(
+        db,
+        "FinishedRequets",
+        `${currentWinchDriverId}${Date.now()}`
+      );
+      setDoc(finishedRequest, {
+        isFinished: true,
+        driverId: currentWinchDriverId,
+      });
+      resetTheStore();
+      navigation.navigate("Home");
+    }, 2000);
   }, []);
 
   return (

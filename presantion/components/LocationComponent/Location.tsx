@@ -10,10 +10,17 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function Location() {
   const {
-    winch: { setDestination, setOrigin, fetchDrivers },
+    winch: {
+      setDestination,
+      setOrigin,
+      fetchDrivers,
+      clearFields,
+      setRejection,
+      setTravelTimeInformation,
+    },
   } = useActions();
   const {
-    winch: { origin, destination, driverOrigin },
+    winch: { origin, destination, driverOrigin, isRejected },
   } = useAppState();
   const navigation = useNavigation();
   const { fontFamily, lng } = useTheme();
@@ -22,6 +29,10 @@ export default function Location() {
     if (origin && destination) {
       fetchDrivers({ lat: origin.lat, lng: origin.lng });
     }
+    if (isRejected) {
+      clearFields();
+      setRejection({ isRejected: false });
+    }
   }, [origin, destination]);
   return (
     <View
@@ -29,12 +40,17 @@ export default function Location() {
         paddingTop: 60,
       }}
     >
-      <Styled.Title right={lng === "ar" ? true : false} fontFamily={fontFamily}>
+      <Styled.Title
+        right={lng === "ar" ? true : false}
+        isAr={lng === "ar" ? true : false}
+        fontFamily={fontFamily}
+      >
         {" "}
         {i18n.t("location.location")}{" "}
       </Styled.Title>
       <Styled.FormInputContainer>
         <Styled.FormLabel
+          isAr={lng === "ar" ? true : false}
           right={lng === "ar" ? true : false}
           fontFamily={fontFamily}
         >
@@ -77,6 +93,7 @@ export default function Location() {
           nearbyPlacesAPI="GooglePlacesSearch"
         />
         <Styled.FormLabel
+          isAr={lng === "ar" ? true : false}
           fontFamily={fontFamily}
           right={lng === "ar" ? true : false}
         >
@@ -125,7 +142,12 @@ export default function Location() {
       </Styled.FormInputContainer>
       <Styled.ButtonContainer>
         <Button
-          disabled={!origin || !destination || !driverOrigin}
+          disabled={
+            origin.lat === 1 ||
+            destination.lat === 1 ||
+            driverOrigin.lat === 1 ||
+            isRejected
+          }
           // @ts-ignore
           onPress={() => navigation.navigate("MapUser")}
         >
