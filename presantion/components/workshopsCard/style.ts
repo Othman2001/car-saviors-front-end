@@ -26,6 +26,7 @@ export const CardTitle = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
   font-size: 16px;
   padding-left: 20px;
+  text-align: ${(props) => (props.isAr ? "left" : "right")};
 `;
 export const NormalText = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};

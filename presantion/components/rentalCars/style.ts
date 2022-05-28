@@ -37,6 +37,7 @@ export const RentalCardLightText = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
   font-size: 13px;
   line-height: 22px;
+
   color: #848484;
 `;
 
