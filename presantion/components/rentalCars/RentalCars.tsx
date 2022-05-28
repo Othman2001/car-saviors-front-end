@@ -45,10 +45,7 @@ export default function RentalCars({ cars }: IRentalCars) {
   }, [cars]);
   return (
     <View>
-      <Styled.RentalTitle
-        isAr={lng === "ar" ? true : false}
-        fontFamily={fontFamily}
-      >
+      <Styled.RentalTitle fontFamily={fontFamily}>
         {" "}
         {i18n.t("AvaliableForRental")}
       </Styled.RentalTitle>

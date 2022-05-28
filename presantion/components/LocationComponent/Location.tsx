@@ -40,11 +40,7 @@ export default function Location() {
         paddingTop: 60,
       }}
     >
-      <Styled.Title
-        right={lng === "ar" ? true : false}
-        isAr={lng === "ar" ? true : false}
-        fontFamily={fontFamily}
-      >
+      <Styled.Title fontFamily={fontFamily}>
         {" "}
         {i18n.t("location.location")}{" "}
       </Styled.Title>
@@ -92,11 +88,7 @@ export default function Location() {
           debounce={400}
           nearbyPlacesAPI="GooglePlacesSearch"
         />
-        <Styled.FormLabel
-          isAr={lng === "ar" ? true : false}
-          fontFamily={fontFamily}
-          right={lng === "ar" ? true : false}
-        >
+        <Styled.FormLabel fontFamily={fontFamily}>
           {i18n.t("location.destination")}
         </Styled.FormLabel>
         <GooglePlacesAutocomplete
