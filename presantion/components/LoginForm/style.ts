@@ -15,7 +15,7 @@ interface ISmallText {
 export const Title = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
   font-style: normal;
-  padding-top: ${(props) => props.spaceTop}px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   font-size: 20px;
   line-height: 27px;
   text-align: center;
@@ -26,6 +26,7 @@ export const Title = styled.Text<ITextProps>`
 export const FormLabel = styled.Text<ITextProps>`
   font-style: normal;
   font-size: 16px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   line-height: 22px;
   color: #000000;
   padding-left: 39px;
@@ -56,6 +57,7 @@ export const CommonButton = styled.TouchableOpacity`
 export const ButtonText = styled.Text<ITextProps>`
   text-align: center;
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   font-size: 16px;
   line-height: 22px;
   /* identical to box height */
@@ -71,7 +73,7 @@ export const SmallText = styled.Text<ITextProps>`
   margin-top: 12px;
   color: ${(props: any) => props.color};
   font-family: ${(props) => props.fontFamily + "700Bold"};
-
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   text-align: center;
 `;
 
@@ -83,4 +85,5 @@ export const ErrorText = styled.Text<ITextProps>`
   font-size: 14px;
   color: red;
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
 `;

@@ -39,7 +39,7 @@ export default function RentalNavigation() {
         }}
       />
       <Stack.Screen
-        name="Welcome"
+        name="Done"
         component={Thanks}
         options={{
           headerShown: false,

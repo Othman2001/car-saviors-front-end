@@ -36,23 +36,37 @@ export default function CarDetailsCard({
           }}
         />
         <View>
-          <Styled.CardTitle fontFamily={fontFamily}>
+          <Styled.CardTitle
+            isAr={lng === "ar" ? true : false}
+            fontFamily={fontFamily}
+          >
             {carBrand} {carModel} {carModelYear}
           </Styled.CardTitle>
-          <Styled.CardLightText fontFamily={fontFamily}>
+          <Styled.CardLightText
+            isAr={lng === "ar" ? true : false}
+            fontFamily={fontFamily}
+          >
             {motorType === "manual" ? i18n.t("manual") : i18n.t("Automatic")}
           </Styled.CardLightText>
-          <Styled.CardLightText fontFamily={fontFamily}>
+          <Styled.CardLightText
+            isAr={lng === "ar" ? true : false}
+            fontFamily={fontFamily}
+          >
             {" "}
             {location}
           </Styled.CardLightText>
-          <Styled.CardLightText fontFamily={fontFamily}>
-            {" "}
+          <Styled.CardLightText
+            isAr={lng === "ar" ? true : false}
+            fontFamily={fontFamily}
+          >
             {pricePerDay} {i18n.t("rental.pricePerDay")}
           </Styled.CardLightText>
         </View>
       </Styled.Flex>
-      <Styled.CardRegularText fontFamily={fontFamily}>
+      <Styled.CardRegularText
+        isAr={lng === "ar" ? true : false}
+        fontFamily={fontFamily}
+      >
         {i18n.t("carDetails.moreImages")}
       </Styled.CardRegularText>
       <Styled.ImagesContainer>

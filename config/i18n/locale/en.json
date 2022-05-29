@@ -12,10 +12,14 @@
     "lastName": "lastName",
     "Email": "Email",
     "password": "Password",
-    "confirmPassword": "Confirm Password"
+    "confirmPassword": "Confirm Password",
+    "register": "Sign Up"
   },
   "rental": {
-    "pricePerDay": "L.E"
+    "pricePerDay": "L.E",
+    "phoneNumber": "PhoneNumber:",
+    "from": "From",
+    "to": "To:"
   },
   "userHeader": {
     "welcome": "welcome",
@@ -65,5 +69,19 @@
   "workshop": {
     "phoneNumber": "Phone Number:",
     "workingHours": "Hours "
-  }
+  },
+  "retnal": {
+    "total": "Total"
+  },
+  "Reject": "Reject",
+  "EGB": "L.E",
+  "workshopDetails": {
+    "Summary": "Summary"
+  },
+  "profile": {
+    "appVersion": "App Version",
+    "email": "Email",
+    "role": "Role"
+  },
+  "Signout": "SignOut"
 }

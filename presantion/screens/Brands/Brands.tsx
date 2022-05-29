@@ -23,7 +23,6 @@ export default function Brands() {
         <Styled.Title
           isAr={lng === "ar" ? true : false}
           fontFamily={fontFamily}
-          right={lng === "ar" ? true : false}
         >
           {i18n.t("workshops.brandsTitle")}
         </Styled.Title>

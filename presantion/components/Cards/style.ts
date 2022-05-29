@@ -44,6 +44,7 @@ export const CardTitle = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
   font-style: normal;
   font-size: 14px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   text-align: center;
   line-height: 17px;
   /* identical to box height */

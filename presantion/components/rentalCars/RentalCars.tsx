@@ -45,7 +45,10 @@ export default function RentalCars({ cars }: IRentalCars) {
   }, [cars]);
   return (
     <View>
-      <Styled.RentalTitle fontFamily={fontFamily}>
+      <Styled.RentalTitle
+        isAr={lng === "ar" ? true : false}
+        fontFamily={fontFamily}
+      >
         {" "}
         {i18n.t("AvaliableForRental")}
       </Styled.RentalTitle>
@@ -63,20 +66,27 @@ export default function RentalCars({ cars }: IRentalCars) {
             >
               <Styled.RentalCarCardContainer>
                 <View>
-                  <Styled.RentalCardTitle fontFamily={fontFamily}>
+                  <Styled.RentalCardTitle
+                    isAr={lng === "ar" ? true : false}
+                    fontFamily={fontFamily}
+                  >
                     {" "}
                     {car.carBrand}
                   </Styled.RentalCardTitle>
-                  <Styled.RentalCardLightText>
+                  <Styled.RentalCardLightText
+                    isAr={lng === "ar" ? true : false}
+                    fontFamily={fontFamily}
+                  >
                     {car.carModel} {car.carModelYear}
                   </Styled.RentalCardLightText>
                   <Styled.RentalCardLightText
+                    isAr={lng === "ar" ? true : false}
+                    fontFamily={fontFamily}
                     style={{
                       right: 6,
                       marginBottom: 16,
                     }}
                   >
-                    {" "}
                     {car.pricePerDay} {i18n.t("rental.pricePerDay")}
                   </Styled.RentalCardLightText>
                 </View>

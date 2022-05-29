@@ -23,13 +23,21 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
   const { loginLoading } = useUserInfo();
 
   return (
-    <View>
-      <Styled.Title fontFamily={fontFamily} spaceTop={220}>
-        {" "}
+    <View
+      style={{
+        paddingTop: 200,
+      }}
+    >
+      <Styled.Title isAr={lng === "ar" ? true : false} fontFamily={fontFamily}>
         {i18n.t("login.welcome")}
       </Styled.Title>
       {error ? (
-        <Styled.ErrorText fontFamily={fontFamily}>{error}</Styled.ErrorText>
+        <Styled.ErrorText
+          isAr={lng === "ar" ? true : false}
+          fontFamily={fontFamily}
+        >
+          {error}
+        </Styled.ErrorText>
       ) : null}
       <Formik
         validationSchema={loginValidationSchema}
@@ -49,13 +57,17 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
           <>
             <Styled.FormLabel
               fontFamily={fontFamily}
+              isAr={lng === "ar" ? true : false}
               vertical={10}
               horizontal={62}
             >
               {i18n.t("login.email")}:
             </Styled.FormLabel>
             {errors.email ? (
-              <Styled.ErrorText fontFamily={fontFamily}>
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.email}
               </Styled.ErrorText>
             ) : null}
@@ -70,11 +82,18 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               style={styles.input}
               // onChangeText={(text) => setEmail(text)}
             />
-            <Styled.FormLabel fontFamily={fontFamily} vertical={10}>
+            <Styled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+              vertical={10}
+            >
               {i18n.t("login.password")}:
             </Styled.FormLabel>
             {errors.password ? (
-              <Styled.ErrorText fontFamily={fontFamily}>
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.password}
               </Styled.ErrorText>
             ) : null}
@@ -102,6 +121,7 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
             </Styled.CommonButton>
             <Styled.SmallText
               fontFamily={fontFamily}
+              isAr={lng === "ar" ? true : false}
               color="#000000;
 "
             >
@@ -109,6 +129,7 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               {i18n.t("login.noAccount")}
               <Styled.Span
                 fontFamily={fontFamily}
+                isAr={lng === "ar" ? true : false}
                 onPress={() => {
                   navigation.navigate("Register");
                 }}

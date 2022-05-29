@@ -19,16 +19,21 @@ export const CardFirstPart = styled.View``;
 export const CardSecondPart = styled.View``;
 export const RequestId = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   color: #fff;
 `;
 
 export const Label = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+
   color: #fff;
 `;
 
 export const Price = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+
   color: #1fa81d;
 `;
 export const DateLabelsContainer = styled.View`
@@ -39,11 +44,15 @@ export const DateLabelsContainer = styled.View`
 
 export const DateLabel = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+
   align-self: center;
   color: #fff;
 `;
 
 export const Date = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+
   color: #6d6d6d;
 `;

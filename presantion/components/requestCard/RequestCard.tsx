@@ -4,9 +4,10 @@ import React, { useEffect } from "react";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 import { RentalRequestSchema } from "../../../application/rental/types";
 import { useRentalState } from "../../../application/custom-hooks/useRentalState";
+import i18n from "../../../config/i18n/config";
 
 export default function RequestCard() {
-  const { fontFamily } = useTheme();
+  const { fontFamily, lng } = useTheme();
   const { requests } = useRentalState();
   useEffect(() => {
     console.log(requests, "from card");
@@ -16,30 +17,54 @@ export default function RequestCard() {
       {requests?.map((request) => (
         <Styled.CardContainer>
           <Styled.CardFirstPart>
-            <Styled.RequestId fontFamily={fontFamily}>
+            <Styled.RequestId
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {request.id}
             </Styled.RequestId>
-            <Styled.Label fontFamily={fontFamily}>
-              Total:
-              <Styled.Price fontFamily={fontFamily}>
+            <Styled.Label
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
+              {i18n.t("retnal.total")}
+              <Styled.Price
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {request.total}
               </Styled.Price>
             </Styled.Label>
-            <Styled.Label fontFamily={fontFamily}>
-              Phone Number: 01281084530
+            <Styled.Label
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
+              {i18n.t("rental.phoneNumber")}: 01281084530
             </Styled.Label>
           </Styled.CardFirstPart>
           <Styled.CardSecondPart>
-            <Styled.DateLabel fontFamily={fontFamily}>
-              From:
-              <Styled.Date fontFamily={fontFamily}>
+            <Styled.DateLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
+              {i18n.t("rental.from")}:
+              <Styled.Date
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {new Date(request.dates[0]).toDateString()}
               </Styled.Date>
             </Styled.DateLabel>
 
-            <Styled.DateLabel fontFamily={fontFamily}>
-              To:
-              <Styled.Date fontFamily={fontFamily}>
+            <Styled.DateLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
+              {i18n.t("rental.to")}:
+              <Styled.Date
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {new Date(request.dates[request.daysCount]).toDateString()}
               </Styled.Date>
             </Styled.DateLabel>

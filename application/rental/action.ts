@@ -68,23 +68,15 @@ export const rentCar: AsyncAction<{
         carId,
       })
       .then((res) => {
-        if (res.status === 200) {
-          state.rental.message = res.data.message;
-          console.log("error", "status 200");
-        } else {
-          state.rental.message = res.data.message;
-          console.log("error", "else ");
-        }
+        state.rental.message = res.data.message;
       })
       .catch((error) => {
-        console.log("error", "catch erro");
-        state.rental.message = error.message;
+        console.log("error", "catch error");
+        state.rental.message = error;
       });
     state.rental.rentalPrice = 0;
     state.rental.totalPrice = 0;
     state.rental.daysCount = 0;
-    state.rental.error = "";
-    state.rental.message = "";
   }
 };
 

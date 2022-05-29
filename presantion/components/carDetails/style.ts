@@ -26,9 +26,8 @@ export const CardTitle = styled.Text<ITextProps>`
   font-style: normal;
   font-size: 14px;
   line-height: 27px;
-  font-family: ${(props) => props.fontFamily + "700Bold"};
   color: #000000;
-  text-align: ${(props) => (props.isAr ? "left" : "right")};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
 
   margin-left: 20px;
 `;
@@ -43,6 +42,7 @@ export const CarBrand = styled.Text<ITextProps>`
   line-height: 19px;
   margin-right: 30px;
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   color: #000000;
   margin-left: 30px;
   text-align: left;
@@ -50,9 +50,9 @@ export const CarBrand = styled.Text<ITextProps>`
 
 export const CardLightText = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "400Regular"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   font-size: 14px;
   line-height: 19px;
-
   margin-left: 20px;
   /* identical to box height */
 
@@ -64,8 +64,8 @@ export const CardRegularText = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
   line-height: 19px;
   /* identical to box height */
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   margin-left: 30px;
-
   color: #000000;
 `;
 
@@ -95,6 +95,8 @@ export const FlexTable = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
-export const Price = styled.Text`
+export const Price = styled.Text<ITextProps>`
   margin-right: 20%;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+  font-family: ${(props) => props.fontFamily + "700Bold"};
 `;

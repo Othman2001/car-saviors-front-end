@@ -1,7 +1,6 @@
 import * as Styled from "../../components/LoginForm/style";
 import { ScrollView, StyleSheet } from "react-native";
 import React from "react";
-import { useState } from "react";
 import Spinner from "../common/Spinner";
 import { Button, Input } from "@ui-kitten/components";
 import i18n from "./../../../config/i18n/config";
@@ -26,12 +25,7 @@ export default function RegisterForm({
   loading,
   error,
 }: IRegisterForm) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const { fontFamily } = useTheme();
+  const { fontFamily, lng } = useTheme();
 
   const onSubmit = (values: any) => {
     signUp({
@@ -43,12 +37,15 @@ export default function RegisterForm({
     });
   };
   return (
-    <ScrollView>
+    <ScrollView
+      style={{
+        paddingTop: 180,
+      }}
+    >
       {/* create form using the form object schema */}
 
-      <Styled.Title fontFamily={fontFamily} spaceTop={180}>
-        {" "}
-        Car Saviors{" "}
+      <Styled.Title isAr={lng === "ar" ? true : false} fontFamily={fontFamily}>
+        Car Saviors
       </Styled.Title>
 
       <Formik
@@ -79,7 +76,10 @@ export default function RegisterForm({
           isValid,
         }) => (
           <>
-            <Styled.FormLabel fontFamily={fontFamily}>
+            <Styled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {" "}
               {i18n.t("register.firstName")}{" "}
             </Styled.FormLabel>
@@ -92,7 +92,10 @@ export default function RegisterForm({
               onChangeText={handleChange("firstName")}
             />
 
-            <Styled.FormLabel fontFamily={fontFamily}>
+            <Styled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("register.lastName")}{" "}
             </Styled.FormLabel>
             <Input
@@ -104,11 +107,17 @@ export default function RegisterForm({
               onChangeText={handleChange("lastName")}
             />
 
-            <Styled.FormLabel fontFamily={fontFamily}>
+            <Styled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {i18n.t("register.Email")}{" "}
             </Styled.FormLabel>
             {errors.email ? (
-              <Styled.ErrorText fontFamily={fontFamily}>
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.email}
               </Styled.ErrorText>
             ) : null}
@@ -123,12 +132,18 @@ export default function RegisterForm({
               autoCapitalize="none"
             />
 
-            <Styled.FormLabel fontFamily={fontFamily}>
+            <Styled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {" "}
               {i18n.t("register.password")}{" "}
             </Styled.FormLabel>
             {errors.password ? (
-              <Styled.ErrorText fontFamily={fontFamily}>
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.password}
               </Styled.ErrorText>
             ) : null}
@@ -144,12 +159,18 @@ export default function RegisterForm({
               placeholder="*******"
             />
 
-            <Styled.FormLabel fontFamily={fontFamily}>
+            <Styled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
               {" "}
               {i18n.t("register.confirmPassword")}
             </Styled.FormLabel>
             {errors.confirmPassword ? (
-              <Styled.ErrorText fontFamily={fontFamily}>
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.confirmPassword}
               </Styled.ErrorText>
             ) : null}
@@ -172,7 +193,7 @@ export default function RegisterForm({
                 onPress={handleSubmit}
                 disabled={!isValid}
               >
-                Sign Up
+                {i18n.t("register.register")}
               </Button>
             </Styled.CommonButton>
           </>

@@ -40,14 +40,9 @@ export default function Location() {
         paddingTop: 60,
       }}
     >
-      <Styled.Title fontFamily={fontFamily}>
-        {" "}
-        {i18n.t("location.location")}{" "}
-      </Styled.Title>
       <Styled.FormInputContainer>
         <Styled.FormLabel
           isAr={lng === "ar" ? true : false}
-          right={lng === "ar" ? true : false}
           fontFamily={fontFamily}
         >
           {i18n.t("location.location")}
@@ -63,9 +58,8 @@ export default function Location() {
           styles={{
             container: {
               marginBottom: 30,
+              marginLeft: 30,
               flex: 0,
-              marginLeft: 20,
-              marginRight: 50,
             },
             textInput: {
               fontSize: 18,
@@ -88,7 +82,10 @@ export default function Location() {
           debounce={400}
           nearbyPlacesAPI="GooglePlacesSearch"
         />
-        <Styled.FormLabel fontFamily={fontFamily}>
+        <Styled.FormLabel
+          isAr={lng === "ar" ? true : false}
+          fontFamily={fontFamily}
+        >
           {i18n.t("location.destination")}
         </Styled.FormLabel>
         <GooglePlacesAutocomplete
@@ -101,9 +98,8 @@ export default function Location() {
           minLength={2}
           styles={{
             container: {
-              marginLeft: 20,
               flex: 1,
-              marginRight: 50,
+              marginLeft: 30,
             },
             textInput: {
               fontSize: 18,

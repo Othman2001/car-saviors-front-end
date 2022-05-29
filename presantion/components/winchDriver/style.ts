@@ -31,6 +31,8 @@ export const CardText = styled.Text<ITextProps>`
   line-height: 19px;
   color: #000000;
   margin-bottom: 15px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+
   margin-top: 10px;
   text-align: center;
 `;

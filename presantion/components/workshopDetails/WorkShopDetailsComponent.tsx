@@ -8,6 +8,7 @@ import { Flex } from "../carDetails/style";
 import DateRangePicker from "./SingleDatePicker";
 import { useRoute } from "@react-navigation/native";
 import { workshopSchema } from "../../../application/workshops/types";
+import i18n from "../../../config/i18n/config";
 interface IWorkshopDetailsProps {
   bookDate: (payload: {
     workshopName: string;
@@ -28,6 +29,7 @@ export default function WorkShopDetailsComponent({
   userName,
   brandImage,
   description,
+  descriptionAr,
 }: IWorkshopDetailsProps) {
   const { fontFamily, lng } = useTheme();
   const [showBooking, setShowBooking] = useState<boolean>(false);
@@ -58,15 +60,14 @@ export default function WorkShopDetailsComponent({
           isAr={lng === "ar" ? true : false}
           fontFamily={fontFamily}
         >
-          Summary
+          {i18n.t("workshopDetails.Summary")}
         </Styled.ScreenTitle>
-        <Styled.WorkshopContainer>
+        <Styled.WorkshopContainer isAr={lng === "ar" ? true : false}>
           <Styled.WorkshopTitle
             fontFamily={fontFamily}
             isAr={lng === "ar" ? true : false}
           >
-            {" "}
-            El nasr{" "}
+            El nasr
           </Styled.WorkshopTitle>
           <Styled.BrandImage
             source={{
@@ -78,7 +79,7 @@ export default function WorkShopDetailsComponent({
           isAr={lng === "ar" ? true : false}
           fontFamily={fontFamily}
         >
-          {description}
+          {lng === "ar" ? descriptionAr : description}
         </Styled.WorkShopDescription>
         <Styled.ButtonWrapper>
           <Button

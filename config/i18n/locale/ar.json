@@ -12,10 +12,14 @@
     "lastName": "الكنية",
     "Email": "بريد الالكتروني",
     "password": "كلمه السر",
-    "confirmPassword": "تأكيد كلمة المرور"
+    "confirmPassword": "تأكيد كلمة المرور",
+    "register": "اشتراك"
   },
   "rental": {
-    "pricePerDay": "جنيه"
+    "pricePerDay": "جنيه",
+    "phoneNumber": "رقم الهاتف:",
+    "from": "من",
+    "to": "إلى:"
   },
   "userHeader": {
     "welcome": "أهلا بك",
@@ -65,5 +69,19 @@
   "workshop": {
     "phoneNumber": "رقم الهاتف:",
     "workingHours": "ساعات"
-  }
+  },
+  "retnal": {
+    "total": "المجموع"
+  },
+  "Reject": "رفض",
+  "EGB": "جنيه",
+  "workshopDetails": {
+    "Summary": "ملخص"
+  },
+  "profile": {
+    "appVersion": "نسخة التطبيق",
+    "email": "البريد الإلكتروني",
+    "role": "دور"
+  },
+  "Signout": "خروج"
 }

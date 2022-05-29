@@ -10,6 +10,7 @@ export const Title = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
   font-size: 16px;
   line-height: 22px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   padding-top: 70px;
   text-align: center;
   /* identical to box height */

@@ -11,14 +11,20 @@ import AuthStack from "./presantion/navigations/authStack";
 import UserNavigation from "./presantion/navigations/userNavigation";
 import CarOwnerNavigation from "./presantion/navigations/CarOwnerNavigation";
 import WinchDriverNavigation from "./presantion/navigations/winchDriverNavigtaion";
+import i18n from "./config/i18n/config";
 
 const Application = () => {
   const {
     authentication: { user, currentUserRole },
-    theme: { lng },
   } = useAppState();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    I18nManager.allowRTL(false);
+    I18nManager.forceRTL(false);
+    console.log(I18nManager.isRTL, "isrtl");
+    console.log(i18n.currentLocale(), "current");
+  }, []);
+
   return (
     <View
       style={{

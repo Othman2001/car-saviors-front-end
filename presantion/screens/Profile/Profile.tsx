@@ -1,13 +1,12 @@
 import { Button } from "@ui-kitten/components";
 import React, { useEffect } from "react";
-import { Text, View } from "react-native";
+import { View, UIManager, LayoutAnimation } from "react-native";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
 import UserHeader from "../../containers/UserHeader/UserHeader";
 import { I18nManager } from "react-native";
 import * as Styled from "./style";
 import { useActions } from "../../../config";
-import { Restart } from "fiction-expo-restart";
 import i18n from "../../../config/i18n/config";
 import { useThemeActions } from "../../../application/custom-hooks/useThemeActions";
 
@@ -22,19 +21,18 @@ export default function Profile() {
   const changeLng = () => {
     if (lng === "ar") {
       changeLocale({ lng: "en" });
-      I18nManager.allowRTL(false);
-      I18nManager.forceRTL(false);
       i18n.locale = "en";
-
-      Restart();
     } else {
       changeLocale({ lng: "ar" });
-      I18nManager.allowRTL(true);
-      I18nManager.forceRTL(true);
       i18n.locale = "ar";
-      Restart();
     }
   };
+  useEffect(() => {
+    if (UIManager.setLayoutAnimationEnabledExperimental)
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+
+    LayoutAnimation.spring();
+  }, []);
   return (
     <View
       style={{
@@ -42,15 +40,23 @@ export default function Profile() {
       }}
     >
       <UserHeader />
-      <Styled.AppVersion fontFamily={fontFamily}>
-        {" "}
-        App version: 1.0.0
+      <Styled.AppVersion
+        isAr={lng === "ar" ? true : false}
+        fontFamily={fontFamily}
+      >
+        {i18n.t("profile.appVersion")}: 1.0.0
       </Styled.AppVersion>
-      <Styled.UserEmail fontFamily={fontFamily}>
-        user email: {user?.email}
+      <Styled.UserEmail
+        isAr={lng === "ar" ? true : false}
+        fontFamily={fontFamily}
+      >
+        {i18n.t("profile.email")}: {user?.email}
       </Styled.UserEmail>
-      <Styled.AppVersion fontFamily={fontFamily}>
-        UserRole: {currentUserRole}
+      <Styled.AppVersion
+        isAr={lng === "ar" ? true : false}
+        fontFamily={fontFamily}
+      >
+        {i18n.t("profile.role")}: {currentUserRole}
       </Styled.AppVersion>
       <View
         style={{
@@ -62,7 +68,7 @@ export default function Profile() {
         }}
       >
         <Button onPress={changeLng}>
-          Change lng to {i18n.currentLocale() === "ar" ? "Arabic" : "English"}
+          {i18n.currentLocale() === "ar" ? "تغيير اللغة" : "Change Language"}
         </Button>
       </View>
       <View
@@ -79,7 +85,7 @@ export default function Profile() {
             SignOut();
           }}
         >
-          Sign Out
+          {i18n.t("Signout")}
         </Button>
       </View>
     </View>

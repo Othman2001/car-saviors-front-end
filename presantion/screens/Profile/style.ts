@@ -9,6 +9,7 @@ export const AppVersion = styled.Text<ITextProps>`
   margin-top: 15px;
   margin-left: 20px;
   margin-right: 20px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
 `;
 
 export const UserEmail = styled.Text<ITextProps>`
@@ -18,6 +19,7 @@ export const UserEmail = styled.Text<ITextProps>`
   margin-top: 15px;
   margin-left: 20px;
   margin-right: 20px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
 `;
 
 export const ChangeLang = styled.Text<ITextProps>`
@@ -27,4 +29,5 @@ export const ChangeLang = styled.Text<ITextProps>`
   margin-top: 15px;
   margin-left: 20px;
   margin-right: 20px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
 `;
