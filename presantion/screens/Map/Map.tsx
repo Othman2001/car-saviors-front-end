@@ -1,10 +1,14 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  UIManager,
+  LayoutAnimation,
+} from "react-native";
 import React, { useEffect } from "react";
 import MapContainer from "../../containers/Map/Map";
-
-import { useActions, useAppState } from "../../../config";
+import { useAppState } from "../../../config";
 import WinchDriverMap from "../DriverScreens/WinchDriverMap";
-import UserData from "../../components/driverComponents/userData/UserData";
 import WinchDriver from "../../containers/WinchDriver/WinchDriver";
 
 export default function Map() {
@@ -12,7 +16,10 @@ export default function Map() {
     winch: { userType },
   } = useAppState();
   useEffect(() => {
-    // calculateTheDistance({ long: origin.long, lat: origin.lat });
+    if (UIManager.setLayoutAnimationEnabledExperimental)
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+
+    LayoutAnimation.spring();
   }, []);
   return (
     <SafeAreaView style={styles.container}>

@@ -12,6 +12,7 @@ import UserNavigation from "./presantion/navigations/userNavigation";
 import CarOwnerNavigation from "./presantion/navigations/CarOwnerNavigation";
 import WinchDriverNavigation from "./presantion/navigations/winchDriverNavigtaion";
 import i18n from "./config/i18n/config";
+import LoadingNavigation from "./presantion/navigations/LoadingNavigations";
 
 const Application = () => {
   const {
@@ -44,8 +45,10 @@ const Application = () => {
               <CarOwnerNavigation />
             ) : currentUserRole === "driver" ? (
               <WinchDriverNavigation />
-            ) : (
+            ) : currentUserRole === "user" ? (
               <UserNavigation />
+            ) : (
+              <LoadingNavigation />
             )}
           </>
         ) : (

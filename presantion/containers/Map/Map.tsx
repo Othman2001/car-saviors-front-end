@@ -73,6 +73,7 @@ export default function () {
           const latitude = geopoint.latitude || geopoint._latitude;
           const longitude = geopoint.longitude || geopoint._longitude;
           setDriverOrigin({ driverOrigin: { latitude, longitude } });
+          setTravelTimeInformation();
         }
       }
     );

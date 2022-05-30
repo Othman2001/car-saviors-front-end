@@ -1,8 +1,15 @@
-import React from "react";
-import { KeyboardAvoidingView, Platform, View, Image } from "react-native";
+import React, { useEffect } from "react";
+import { View, Image, UIManager, LayoutAnimation } from "react-native";
 import LoginForm from "../../containers/LoginForm/LoginForm";
 
 export default function Register() {
+  useEffect(() => {
+    if (UIManager.setLayoutAnimationEnabledExperimental)
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+
+    LayoutAnimation.spring();
+  }, []);
+
   return (
     <View>
       <View

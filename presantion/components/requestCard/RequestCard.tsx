@@ -2,9 +2,9 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import * as Styled from "./style";
 import React, { useEffect } from "react";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
-import { RentalRequestSchema } from "../../../application/rental/types";
 import { useRentalState } from "../../../application/custom-hooks/useRentalState";
 import i18n from "../../../config/i18n/config";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function RequestCard() {
   const { fontFamily, lng } = useTheme();
@@ -13,7 +13,7 @@ export default function RequestCard() {
     console.log(requests, "from card");
   }, [requests]);
   return (
-    <SafeAreaView>
+    <ScrollView>
       {requests?.map((request) => (
         <Styled.CardContainer>
           <Styled.CardFirstPart>
@@ -71,7 +71,7 @@ export default function RequestCard() {
           </Styled.CardSecondPart>
         </Styled.CardContainer>
       ))}
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 

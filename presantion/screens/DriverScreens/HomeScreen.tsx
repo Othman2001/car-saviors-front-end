@@ -2,7 +2,13 @@ import { StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import UserHeader from "../../containers/UserHeader/UserHeader";
 import * as Styled from "./style";
-import { doc, updateDoc, collection, onSnapshot } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  collection,
+  onSnapshot,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../../../infstracture/firebase";
 import { useActions, useAppState } from "../../../config";
 import * as Location from "expo-location";
@@ -45,29 +51,36 @@ export default function HomeScreen() {
     //  enable location tracking for driver
 
     //  listen to any pending request for the current driver and accept it by default
-    const listener = onSnapshot(doc(db, "PendingRequets", user?.uid), (doc) => {
-      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      if (doc.exists()) {
-        console.log(doc.data(), "data");
-        console.log(doc.data().destination, "user destination");
-        winch.setUserOrigin(doc.data().destination);
-        winch.setDriverDestination({
-          driverDestination: doc.data().destination,
-        });
-        setUserDestination({
-          userDestination: doc.data().userDestination,
-        });
+    const listener = onSnapshot(
+      doc(db, "PendingRequets", user?.uid),
+      (snapshot) => {
+        const source = snapshot.metadata.hasPendingWrites ? "Local" : "Server";
+        if (snapshot.exists()) {
+          console.log(snapshot.data(), "data");
+          console.log(snapshot.data().destination, "user destination");
+          winch.setUserOrigin(snapshot.data().destination);
+          winch.setDriverDestination({
+            driverDestination: snapshot.data().destination,
+          });
+          setUserDestination({
+            userDestination: snapshot.data().userDestination,
+          });
 
-        navigation.navigate("DriverMap", {
-          userOrigin: doc.data().destination,
-          driverOrigin: driverOrigin,
-        });
-        setStayAtHome({ stayAtHome: false });
-      } else {
-        navigation.navigate("Home");
-        console.log("no data");
+          navigation.navigate("DriverMap", {
+            userOrigin: snapshot.data().destination,
+            driverOrigin: driverOrigin,
+          });
+          setStayAtHome({ stayAtHome: false });
+          if (snapshot.data().userRejected === true) {
+            const ref = doc(db, "PendingRequets", user?.uid);
+            deleteDoc(ref);
+          }
+        } else {
+          navigation.navigate("Home");
+          console.log("no data");
+        }
       }
-    });
+    );
     console.log(currentUserRole, "winch");
     return () => {
       online && listener();

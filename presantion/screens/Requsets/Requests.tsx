@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, UIManager, LayoutAnimation } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
   query,
@@ -22,6 +22,10 @@ export default function Requests() {
   const { requests } = useRentalState();
 
   useEffect(() => {
+    if (UIManager.setLayoutAnimationEnabledExperimental)
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+
+    LayoutAnimation.spring();
     // get the data of requests from firebase
     const db = getFirestore();
     const rentalRef = collection(db, "rental");

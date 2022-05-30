@@ -1,4 +1,4 @@
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, UIManager, LayoutAnimation } from "react-native";
 import React, { useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { useWorkshopsActions } from "../../../application/custom-hooks/useWorkshopsAction";
@@ -14,6 +14,10 @@ export default function Workshops() {
   const brandImage = routes.params?.brandImage;
   useEffect(() => {
     fetchWorkshops({ brandName });
+    if (UIManager.setLayoutAnimationEnabledExperimental)
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+
+    LayoutAnimation.spring();
   }, []);
   return (
     <SafeAreaView>

@@ -1,12 +1,17 @@
-import { StyleSheet, View, Platform, Image } from "react-native";
 // @ts-ignore
-import React from "react";
-import RentalSearch from "../../components/rentalSearch/RentalSearch";
+import React, { useEffect } from "react";
+import { UIManager, LayoutAnimation } from "react-native";
 import RentalCars from "../../containers/RentalCars/RentalCars";
 import { Layout } from "@ui-kitten/components";
 import TopHeader from "../../components/common/topHeader";
 
 export default function RentScreen() {
+  useEffect(() => {
+    if (UIManager.setLayoutAnimationEnabledExperimental)
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+
+    LayoutAnimation.spring();
+  }, []);
   return (
     <Layout
       style={{
@@ -20,9 +25,3 @@ export default function RentScreen() {
     </Layout>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: Platform.OS === "ios" ? 0 : 10,
-  },
-});

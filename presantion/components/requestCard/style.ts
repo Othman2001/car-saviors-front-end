@@ -13,6 +13,7 @@ export const CardContainer = styled.View`
   margin-right: 15px;
   padding-left: 17px;
   padding-right: 17px;
+  margin-bottom: 20px;
 `;
 
 export const CardFirstPart = styled.View``;

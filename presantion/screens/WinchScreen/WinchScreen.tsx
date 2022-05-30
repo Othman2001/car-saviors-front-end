@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, UIManager, LayoutAnimation } from "react-native";
 // @ts-ignore
 import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,6 +14,10 @@ export default function WinchScreen() {
     winch: { origin, destination },
   } = useAppState();
   useEffect(() => {
+    if (UIManager.setLayoutAnimationEnabledExperimental)
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+
+    LayoutAnimation.spring();
     if (origin && destination) {
       fetchDrivers({ lat: origin.lat, lng: origin.lng });
     }

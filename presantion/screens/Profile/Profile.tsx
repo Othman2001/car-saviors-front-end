@@ -4,7 +4,6 @@ import { View, UIManager, LayoutAnimation } from "react-native";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
 import UserHeader from "../../containers/UserHeader/UserHeader";
-import { I18nManager } from "react-native";
 import * as Styled from "./style";
 import { useActions } from "../../../config";
 import i18n from "../../../config/i18n/config";
