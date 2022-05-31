@@ -27,6 +27,7 @@ export default function CarDetailsCard({
   const {
     theme: { fontFamily, lng },
   } = useAppState();
+
   return (
     <Styled.CardContainer>
       <Styled.Flex>
@@ -52,7 +53,6 @@ export default function CarDetailsCard({
             isAr={lng === "ar" ? true : false}
             fontFamily={fontFamily}
           >
-            {" "}
             {location}
           </Styled.CardLightText>
           <Styled.CardLightText
@@ -63,22 +63,6 @@ export default function CarDetailsCard({
           </Styled.CardLightText>
         </View>
       </Styled.Flex>
-      <Styled.CardRegularText
-        isAr={lng === "ar" ? true : false}
-        fontFamily={fontFamily}
-      >
-        {i18n.t("carDetails.moreImages")}
-      </Styled.CardRegularText>
-      <Styled.ImagesContainer>
-        {images.map((image, index) => (
-          <Styled.CardPreview
-            key={index}
-            source={{
-              uri: image,
-            }}
-          />
-        ))}
-      </Styled.ImagesContainer>
     </Styled.CardContainer>
   );
 }

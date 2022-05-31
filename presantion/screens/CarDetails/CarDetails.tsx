@@ -1,4 +1,10 @@
-import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Button, Text } from "@ui-kitten/components";
@@ -17,7 +23,7 @@ export default function CarDetails() {
   const navigation = useNavigation();
   const car: carSchema = route.params?.car;
   const scrollViewRef = useRef();
-  const { setDates, setTotal, rentCar } = useRentalActions();
+  const { setDates, setTotal, rentCar, resetState } = useRentalActions();
   const { startDate, endDate, message, error } = useRentalState();
 
   const [isVisible, setInvisible] = useState(false);
@@ -39,6 +45,14 @@ export default function CarDetails() {
     }
   };
 
+  useEffect(() => {
+    if (message) {
+      alert(message);
+      setTimeout(() => {
+        resetState();
+      }, 2000);
+    }
+  }, [message]);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView

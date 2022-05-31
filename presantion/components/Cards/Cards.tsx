@@ -46,7 +46,6 @@ export default function Cards({
                 isAr={lng === "ar" ? true : false}
                 fontFamily={fontFamily}
               >
-                {" "}
                 {i18n.currentLocale() === "ar" ? feat.arText : feat.text}
               </Styled.CardTitle>
             </FlexContainer>

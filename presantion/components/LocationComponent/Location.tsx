@@ -16,7 +16,6 @@ export default function Location() {
       fetchDrivers,
       clearFields,
       setRejection,
-      setTravelTimeInformation,
     },
   } = useActions();
   const {

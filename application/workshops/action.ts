@@ -37,16 +37,34 @@ export const bookDate: AsyncAction<{
   });
 };
 
-export const setDistance: Action = ({ state, effects }) => {
+export const getUserCurrentLocation: Action<{
+  userLocation: {
+    latitude: number;
+    longitude: number;
+  };
+}> = (
+  {
+    state: {
+      workshops: { WorkshopState },
+    },
+  },
+  { userLocation }
+) => {
+  WorkshopState.userLocation = userLocation;
+};
+
+export const setDistance: AsyncAction = async ({ state, effects }) => {
   if (state.workshops.WorkshopState.workshops) {
     for (let i = 0; i < state.workshops.WorkshopState.workshops.length; i++) {
-      const distance = getDistanceFromLatLonInKm(
-        parseInt("29.840195"),
-        parseInt("31.331761"),
-        state.workshops.WorkshopState.workshops[i].geopoint._latitude,
-        state.workshops.WorkshopState.workshops[i].geopoint._longitude
-      );
-      state.workshops.WorkshopState.workshops[i].distance = distance;
+      if (state.workshops.WorkshopState.userLocation) {
+        const distance = getDistanceFromLatLonInKm(
+          state.workshops.WorkshopState.userLocation.latitude,
+          state.workshops.WorkshopState.userLocation?.longitude,
+          state.workshops.WorkshopState.workshops[i].geopoint._latitude,
+          state.workshops.WorkshopState.workshops[i].geopoint._longitude
+        );
+        state.workshops.WorkshopState.workshops[i].distance = distance;
+      }
     }
     state.workshops.WorkshopState.workshops =
       state.workshops.WorkshopState.workshops.sort(function (a, b) {

@@ -6,6 +6,7 @@ import * as Location from "expo-location";
 import { useWorkshopState } from "../../../application/custom-hooks/useWorkshopsState";
 import { View } from "react-native";
 import { Spinner } from "@ui-kitten/components";
+import { useWorkshopsActions } from "../../../application/custom-hooks/useWorkshopsAction";
 
 interface IBrandCardProps {
   brands: brandSchema[];
@@ -16,6 +17,7 @@ export default function BrandCards({ brands }: IBrandCardProps) {
   const [location, setLocation] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const { loading } = useWorkshopState();
+  const { getUserCurrentLocation } = useWorkshopsActions();
 
   useEffect(() => {
     (async () => {
@@ -27,7 +29,14 @@ export default function BrandCards({ brands }: IBrandCardProps) {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      getUserCurrentLocation({
+        userLocation: {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        },
+      });
     })();
+    console.log(location, "user location");
   }, []);
 
   let text = "Waiting..";

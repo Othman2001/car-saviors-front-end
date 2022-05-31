@@ -71,8 +71,7 @@ export const rentCar: AsyncAction<{
         state.rental.message = res.data.message;
       })
       .catch((error) => {
-        console.log("error", "catch error");
-        state.rental.message = error;
+        state.rental.message = error.data.message;
       });
     state.rental.rentalPrice = 0;
     state.rental.totalPrice = 0;

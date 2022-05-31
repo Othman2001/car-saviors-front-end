@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Styled from "./style";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 import { Button } from "@ui-kitten/components";
 import { ScrollView } from "react-native";
 import { WinchDriverSchema } from "../../../application/winch/types";
 import { updateData } from "../../../helpers/updateData";
-import { useNavigation } from "@react-navigation/native";
-import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
 import i18n from "../../../config/i18n/config";
 
 interface IWinchDriverContainer {

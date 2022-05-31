@@ -1,12 +1,12 @@
-export const getDistanceFromLatLonInKm = async (
+export const getDistanceFromLatLonInKm = (
   lat1: any,
   lon1: any,
   lat2: any,
   lon2: any
 ) => {
   var R = 6371; // Radius of the earth in km
-  var dLat = await deg2rad(lat2 - lat1); // deg2rad below
-  var dLon = await deg2rad(lon2 - lon1);
+  var dLat = deg2rad(lat2 - lat1); // deg2rad below
+  var dLon = deg2rad(lon2 - lon1);
   var a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(deg2rad(lat1)) *
@@ -15,8 +15,8 @@ export const getDistanceFromLatLonInKm = async (
       Math.sin(dLon / 2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c; // Distance in km
-  return await d; // distance returned
+  return d; // distance returned
 };
-const deg2rad = async (deg) => {
-  return (await deg) * (Math.PI / 180);
+const deg2rad = (deg) => {
+  return deg * (Math.PI / 180);
 };

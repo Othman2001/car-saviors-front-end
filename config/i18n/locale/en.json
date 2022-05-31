@@ -73,7 +73,7 @@
   "retnal": {
     "total": "Total"
   },
-  "Reject": "Reject",
+  "Reject": "Cancel",
   "EGB": "L.E",
   "workshopDetails": {
     "Summary": "Summary"
@@ -83,5 +83,6 @@
     "email": "Email",
     "role": "Role"
   },
-  "Signout": "SignOut"
+  "Signout": "SignOut",
+  "Accept": "Accept"
 }

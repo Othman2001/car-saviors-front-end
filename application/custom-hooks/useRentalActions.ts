@@ -9,6 +9,7 @@ export const useRentalActions = () => {
       setTotal,
       rentCar,
       setRentalRequest,
+      resetState,
     },
   } = useActions();
   return {
@@ -18,5 +19,6 @@ export const useRentalActions = () => {
     setTotal,
     rentCar,
     setRentalRequest,
+    resetState,
   };
 };

@@ -29,6 +29,7 @@ export type RequestSchema = {
     latitude: number;
     longitude: number;
   };
+  price: number;
   isAcccepted: boolean;
   isFinished: boolean;
 };

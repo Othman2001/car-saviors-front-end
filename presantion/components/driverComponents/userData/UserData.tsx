@@ -3,7 +3,14 @@ import * as Styled from "./style";
 import { useTheme } from "../../../../application/custom-hooks/useTheme";
 import { Button } from "@ui-kitten/components";
 import { useWinchState } from "../../../../application/custom-hooks/useWinchState";
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  deleteDoc,
+  updateDoc,
+  getFirestore,
+  collection,
+  setDoc,
+} from "firebase/firestore";
 import { useUserInfo } from "../../../../application/custom-hooks/useUserInfo";
 import { db } from "../../../../infstracture/firebase";
 import { useNavigation } from "@react-navigation/native";
@@ -41,7 +48,25 @@ export default function UserData() {
   };
 
   const finishTrip = () => {
-    navigation.navigate("DriverFinishing");
+    const db = getFirestore();
+    const docId = user?.uid && user?.uid + Date.now();
+    const finishedRequestsCollection = doc(db, "FinishedRequests", docId);
+    const requestRef = doc(db, "PendingRequets", user?.uid);
+    updateDoc(requestRef, {
+      isFinished: true,
+    });
+    deleteDoc(requestRef);
+    setDoc(finishedRequestsCollection, {
+      userId: user?.uid,
+      userDestination: userDestination,
+      driverDestination: driverDestination,
+      userDestinationAddress: userDestinationAddress,
+      driverDestinationAddress: userDestinationAddress,
+      isFinished: true,
+      driverName: user?.displayName,
+    });
+
+    navigation.navigate("Home");
   };
   const getUserAddress = async ({
     userDestination,

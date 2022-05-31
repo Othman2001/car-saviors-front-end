@@ -8,9 +8,17 @@ import i18n from "../../../config/i18n/config";
 import { useRentalActions } from "../../../application/custom-hooks/useRentalActions";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 
-const sedan = require("../../../assets/sedan.png");
-const suv = require("../../../assets/suv.png");
-const coupe = require("../../../assets/car.png");
+const carsImages = {
+  sedan: {
+    image: require("../../../assets/sedan.png"),
+  },
+  suv: {
+    image: require("../../../assets/suv.png"),
+  },
+  coupe: {
+    image: require("../../../assets/car.png"),
+  },
+};
 
 interface IRentalCars {
   cars: [carSchema] | null;
@@ -18,6 +26,7 @@ interface IRentalCars {
 const wait = (timeout: number | undefined) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
+
 export default function RentalCars({ cars }: IRentalCars) {
   const navigation = useNavigation();
   const { fetchCars } = useRentalActions();
@@ -92,7 +101,8 @@ export default function RentalCars({ cars }: IRentalCars) {
                 </View>
                 <Styled.RentalCardImageContainer>
                   <Styled.RentalCardImage
-                    source={car.carType === "sedan" ? sedan : suv}
+                    // @ts-ignore
+                    source={carsImages[car.carType].image}
                   />
                 </Styled.RentalCardImageContainer>
               </Styled.RentalCarCardContainer>

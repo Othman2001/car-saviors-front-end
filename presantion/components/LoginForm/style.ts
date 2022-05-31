@@ -85,5 +85,5 @@ export const ErrorText = styled.Text<ITextProps>`
   font-size: 14px;
   color: red;
   font-family: ${(props) => props.fontFamily + "700Bold"};
-  text-align: ${(props) => (props.isAr ? "right" : "left")};
+  text-align: center;
 `;

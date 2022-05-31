@@ -35,6 +35,7 @@ export default function Loading() {
         const Request: RequestSchema = {
           firstName: winchDrivers[0]?.firstName,
           lastName: winchDrivers[0]?.lastName,
+          price: 200,
           winchDriverId: winchDrivers[0]?.id,
           userName: user?.displayName,
           userId: user?.uid,

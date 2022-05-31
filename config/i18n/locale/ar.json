@@ -73,7 +73,7 @@
   "retnal": {
     "total": "المجموع"
   },
-  "Reject": "رفض",
+  "Reject": "يلغي",
   "EGB": "جنيه",
   "workshopDetails": {
     "Summary": "ملخص"
@@ -83,5 +83,6 @@
     "email": "البريد الإلكتروني",
     "role": "دور"
   },
-  "Signout": "خروج"
+  "Signout": "خروج",
+  "Accept": "قبول"
 }

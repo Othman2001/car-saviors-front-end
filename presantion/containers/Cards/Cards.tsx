@@ -8,6 +8,7 @@ import cardsSchema from "./carOwnerSchema";
 export default function Cards() {
   const { currentUserRole } = useUserInfo();
   const { fontFamily } = useTheme();
+
   return (
     <CardsComponent
       carOwnerSchema={carOwnerSchema}
