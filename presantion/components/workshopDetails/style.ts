@@ -59,3 +59,59 @@ export const ButtonWrapper = styled.View`
   margin-right: 50px;
   margin-top: 60px;
 `;
+
+export const ReviewsContainer = styled.View`
+  margin-top: 40px;
+  margin-bottom: 30px;
+  margin-left: 20px;
+`;
+
+export const SectionTitle = styled.Text<ITextProps>`
+  font-family: ${(props) => props.fontFamily + "600SemiBold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 17px;
+  margin-top: 20px;
+`;
+export const ReviewContainer = styled.View`
+  background-color: #d9d9d9;
+  border-radius: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+`;
+
+export const ReviewCreator = styled.Text<ITextProps>`
+  font-family: ${(props) => props.fontFamily + "600SemiBold"};
+  font-size: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 3px;
+  margin-top: 10px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+`;
+
+export const ReviewComment = styled.Text<ITextProps>`
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+  font-family: ${(props) => props.fontFamily + "600SemiBold"};
+  color: #333333;
+  font-size: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+`;
+export const RegularText = styled.Text<ITextProps>`
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
+  font-family: ${(props) => props.fontFamily + "600SemiBold"};
+  font-size: 14px;
+`;
+
+export const CommentInput = styled.TextInput`
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 40px;
+  background-color: #eeeeee;
+  padding: 20px 14px 50px;
+  border-radius: 30px;
+`;

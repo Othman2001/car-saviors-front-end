@@ -36,7 +36,7 @@ export const setTotal: Action<{ pricePerDay: number }> = (
   { state: { rental } },
   { pricePerDay }
 ) => {
-  const price = pricePerDay * rental.daysCount;
+  const price = pricePerDay * (rental.daysCount + 1);
   const insurance = 1000;
   rental.rentalPrice = price;
   const total = price + insurance;
@@ -62,7 +62,7 @@ export const rentCar: AsyncAction<{
         dates: getDaysArray(startDate, endDate),
         startDate,
         endDate,
-        daysCount: state.rental.daysCount,
+        daysCount: state.rental.daysCount + 1,
         userId: state.authentication.user?.uid,
         carOwnerId,
         carId,
@@ -139,6 +139,8 @@ export const registerAsCarOwner: AsyncAction<{
 export const resetState: Action = ({ state }) => {
   state.rental.error = null;
   state.rental.message = null;
+  state.rental.endDate = null;
+  state.rental.startDate = null;
 };
 
 export const setRentalRequest: Action<{ requests: RentalRequestSchema[] }> = (

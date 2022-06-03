@@ -1,4 +1,4 @@
-import { Alert, Image, Platform, StyleSheet } from "react-native";
+import { Image, Platform, StyleSheet } from "react-native";
 import * as Styled from "./style";
 import * as FormStyled from "../../components/LoginForm/style";
 import React, { useEffect } from "react";
@@ -9,13 +9,7 @@ import i18n from "../../../config/i18n/config";
 import { IUserData } from "../../../application/authentication/state";
 import { Formik } from "formik";
 import OfferSchema from "./formValdtion";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytes,
-  StorageReference,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 
 interface IOfferFormProps {
@@ -376,6 +370,12 @@ export default function OfferForm({
               onChangeText={handleChange("pricePerDay")}
               style={styles.input}
             />
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 200, height: 200 }}
+              />
+            )}
             {imageUri ? (
               <Styled.UploadButton>
                 <Button onPress={uploadImage}> Upload Image </Button>
@@ -395,9 +395,6 @@ export default function OfferForm({
           </>
         )}
       </Formik>
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      )}
     </Styled.Container>
   );
 }

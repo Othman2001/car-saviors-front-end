@@ -34,7 +34,6 @@ export default function MapComponent({
   const requestPermissions = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status === "granted") {
-      console.log("location is granted");
       await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
         accuracy: Location.Accuracy.Balanced,
       });
@@ -49,8 +48,6 @@ export default function MapComponent({
 
       requestPermissions();
     }
-
-    console.log("renderd");
   }, [driverDestination, driverOrigin]);
 
   return (

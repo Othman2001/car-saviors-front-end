@@ -36,7 +36,6 @@ export default function BrandCards({ brands }: IBrandCardProps) {
         },
       });
     })();
-    console.log(location, "user location");
   }, []);
 
   let text = "Waiting..";

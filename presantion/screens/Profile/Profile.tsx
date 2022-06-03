@@ -62,8 +62,8 @@ export default function Profile() {
           marginLeft: 40,
           marginRight: 40,
           height: 100,
-          marginTop: 80,
-          marginBottom: 80,
+          marginTop: 20,
+          marginBottom: 20,
         }}
       >
         <Button onPress={changeLng}>

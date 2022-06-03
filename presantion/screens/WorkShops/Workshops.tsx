@@ -4,6 +4,16 @@ import { useRoute } from "@react-navigation/native";
 import { useWorkshopsActions } from "../../../application/custom-hooks/useWorkshopsAction";
 import WorkshopCard from "../../containers/WorkshopCard/WorkshopCard";
 import TopHeader from "../../components/common/topHeader";
+import {
+  getFirestore,
+  collection,
+  collectionGroup,
+  doc,
+  onSnapshot,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 
 export default function Workshops() {
   const routes = useRoute();
@@ -13,6 +23,7 @@ export default function Workshops() {
   //   @ts-ignore
   const brandImage = routes.params?.brandImage;
   useEffect(() => {
+    const db = getFirestore();
     fetchWorkshops({ brandName });
     if (UIManager.setLayoutAnimationEnabledExperimental)
       UIManager.setLayoutAnimationEnabledExperimental(true);

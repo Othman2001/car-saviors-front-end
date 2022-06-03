@@ -53,16 +53,23 @@ export default function RentalCars({ cars }: IRentalCars) {
     setFilteredCars(cars);
   }, [cars]);
   return (
-    <View>
+    <View
+      style={{
+        marginBottom: 30,
+      }}
+    >
       <Styled.RentalTitle
         isAr={lng === "ar" ? true : false}
         fontFamily={fontFamily}
       >
-        {" "}
         {i18n.t("AvaliableForRental")}
       </Styled.RentalTitle>
       <Styled.SearchInput onChangeText={(text) => handleSearch(text)} />
       <ScrollView
+        style={{
+          marginBottom: 30,
+          paddingBottom: 100,
+        }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
@@ -120,6 +127,7 @@ export default function RentalCars({ cars }: IRentalCars) {
             <Spinner />
           </View>
         )}
+        <Styled.Space />
       </ScrollView>
     </View>
   );

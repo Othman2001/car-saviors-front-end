@@ -64,7 +64,7 @@
   "location": {
     "destination": "أدخل وجهتك",
     "location": "أدخل موقعك",
-    "confirm": "يتأكد"
+    "confirm": "  تأكيد"
   },
   "workshop": {
     "phoneNumber": "رقم الهاتف:",
@@ -73,10 +73,11 @@
   "retnal": {
     "total": "المجموع"
   },
-  "Reject": "يلغي",
+  "Reject": "الغاء",
   "EGB": "جنيه",
   "workshopDetails": {
-    "Summary": "ملخص"
+    "Summary": "ملخص",
+    "Reviews": "المراجعات"
   },
   "profile": {
     "appVersion": "نسخة التطبيق",

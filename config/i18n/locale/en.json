@@ -42,10 +42,10 @@
   "insurance": "Extra insurance",
   "offer": {
     "title": "Fill this form to offer your car for rent",
-    "phoneNumber": "phone number",
-    "carModel": "car Model",
-    "carColor": "car color",
-    "carNumber": " car license number",
+    "phoneNumber": "Phone Number",
+    "carModel": "Car Model",
+    "carColor": "Car Color",
+    "carNumber": " Car License Number",
     "firstImage": " car first imageURl",
     "secondImage": "Second Image Url",
     "thirdImage": "Third Image Url",
@@ -76,7 +76,8 @@
   "Reject": "Cancel",
   "EGB": "L.E",
   "workshopDetails": {
-    "Summary": "Summary"
+    "Summary": "Summary",
+    "Reviews": "Reviews"
   },
   "profile": {
     "appVersion": "App Version",

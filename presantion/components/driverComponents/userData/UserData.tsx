@@ -86,7 +86,6 @@ export default function UserData() {
       .then((response) => response.json())
       .then((responseJson) => {
         setUserDestination(responseJson.results[0].formatted_address);
-        console.log(responseJson.results[0].formatted_address);
         return responseJson.results.formatted_address;
       });
     //   @ts-ignore
@@ -110,7 +109,6 @@ export default function UserData() {
       .then((response) => response.json())
       .then((responseJson) => {
         setUserLocation(responseJson.results[0].formatted_address);
-        console.log(responseJson.results[0].formatted_address);
         return responseJson.results.formatted_address;
       });
     //   @ts-ignore

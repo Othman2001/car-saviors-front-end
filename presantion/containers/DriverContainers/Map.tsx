@@ -27,14 +27,11 @@ export default function Map() {
   }) => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status === "granted") {
-      console.log("location is granted");
       foregroundSubscription = Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.Balanced,
         },
         (location) => {
-          console.log(location, "location");
-
           const winchDriverRef =
             user?.uid && doc(db, "winchDrivers", user?.uid);
           updateDoc(winchDriverRef, {

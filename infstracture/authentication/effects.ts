@@ -4,6 +4,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
 // @ts-ignore
 import Firebase from "../firebase";
+import { Alert } from "react-native";
 
 export const createUser = async (
   email: string,
@@ -58,9 +59,9 @@ export const userSignOut = async () => {
   signOut(auth)
     .then(() => {
       // Sign-out successful.
-      console.log("signed out");
     })
     .catch((error) => {
       // An error happened.
+      alert(error);
     });
 };

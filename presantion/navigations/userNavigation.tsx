@@ -8,10 +8,13 @@ import OfferScreen from "../screens/OfferScreen/OfferScreen";
 import Profile from "../screens/Profile/Profile";
 import CarWorkshopsNavigation from "./CarWorkshopsNavigation";
 import WinchNavigation from "./winchNavigation";
+import { useTheme } from "../../application/custom-hooks/useTheme";
 
 const Taps = createBottomTabNavigator();
 
 export default function UserNavigation() {
+  const { lng } = useTheme();
+
   const routesNames = {
     Home: {
       en: "Home",
@@ -80,12 +83,48 @@ export default function UserNavigation() {
         },
       })}
     >
-      <Taps.Screen name="Home" component={HomeScreen} />
-      <Taps.Screen name="WorkShops" component={CarWorkshopsNavigation} />
-      <Taps.Screen name="Rent" component={RentalNavigation} />
-      <Taps.Screen name="Winch" component={WinchNavigation} />
-      <Taps.Screen name="Offer" component={OfferScreen} />
-      <Taps.Screen name="Profile" component={Profile} />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "الرئيسية" : "Home",
+        }}
+        name="Home"
+        component={HomeScreen}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "الصيانة" : "WorkShop",
+        }}
+        name="WorkShops"
+        component={CarWorkshopsNavigation}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "احجز" : "Rental",
+        }}
+        name="Rent"
+        component={RentalNavigation}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "ونش" : "Winch",
+        }}
+        name="Winch"
+        component={WinchNavigation}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "عرض" : "Offer",
+        }}
+        name="Offer"
+        component={OfferScreen}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "الصفحة الشخصية" : "Profile",
+        }}
+        name="Profile"
+        component={Profile}
+      />
     </Taps.Navigator>
   );
 }

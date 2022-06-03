@@ -1,4 +1,4 @@
-import { brandSchema, workshopSchema } from "./types";
+import { brandSchema, ReviewSchema, workshopSchema } from "./types";
 
 interface IWorkshopsStore {
   brands: brandSchema[];
@@ -9,6 +9,7 @@ interface IWorkshopsStore {
     latitude: number;
     longitude: number;
   } | null;
+  reviews: ReviewSchema[] | null;
 }
 export const WorkshopState: IWorkshopsStore = {
   loading: false,
@@ -16,4 +17,5 @@ export const WorkshopState: IWorkshopsStore = {
   workshops: [],
   visitId: "",
   userLocation: null,
+  reviews: null,
 };

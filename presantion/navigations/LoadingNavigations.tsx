@@ -1,6 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-
-import Loading from "../screens/Loading/Loading";
+import Splash from "../screens/Splash/Splash";
 
 const Stack = createStackNavigator();
 const LoadingNavigation = () => {
@@ -10,7 +9,7 @@ const LoadingNavigation = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="LoadingData" component={Loading} />
+      <Stack.Screen name="LoadingData" component={Splash} />
     </Stack.Navigator>
   );
 };

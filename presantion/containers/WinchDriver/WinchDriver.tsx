@@ -23,7 +23,6 @@ export default function WinchDriver() {
     const listener = onSnapshot(PendingRequets, (doc) => {
       if (doc.exists()) {
         if (doc.data().userRejected) {
-          console.log("rejected successfully");
           setRejection({ isRejected: true });
           navigation.dispatch(StackActions.replace("Location"));
         }

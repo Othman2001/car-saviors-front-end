@@ -27,10 +27,6 @@ LogBox.ignoreAllLogs(true);
 const overmind = createOvermind(config, {
   devtools: "localhost:3031",
 });
-import * as TaskManager from "expo-task-manager";
-import * as Location from "expo-location";
-
-const LOCATION_TRACKING = "location-tracking";
 
 export default function App() {
   const [isLoaded] = useFonts({

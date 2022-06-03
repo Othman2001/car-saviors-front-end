@@ -26,14 +26,8 @@ export const signUp: AsyncAction<{
         res.data.rentingCar &&
         res.data.visitedWorkShops
       ) {
-        authentication.rentedCar = res.data.rentedCar;
-        authentication.rentingCar = res.data.rentingCar;
-        authentication.visitedWorkShops = res.data.visitedWorkShops;
         authentication.currentUserRole = "user";
       } else {
-        authentication.rentedCar = 0;
-        authentication.rentingCar = 0;
-        authentication.visitedWorkShops = 0;
         authentication.currentUserRole = "user";
       }
     })

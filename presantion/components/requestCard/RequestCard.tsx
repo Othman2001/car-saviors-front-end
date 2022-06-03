@@ -9,9 +9,7 @@ import { ScrollView } from "react-native-gesture-handler";
 export default function RequestCard() {
   const { fontFamily, lng } = useTheme();
   const { requests } = useRentalState();
-  useEffect(() => {
-    console.log(requests, "from card");
-  }, [requests]);
+  useEffect(() => {}, [requests]);
   return (
     <ScrollView>
       {requests?.map((request) => (

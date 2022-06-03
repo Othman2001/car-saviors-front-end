@@ -25,9 +25,10 @@ export default function Cards({
   useEffect(() => {
     if (currentUserRole === "car-owner") {
       setSchema(carOwnerSchema);
-      console.log(carOwnerSchema, "car owner schema");
+      console.log(carOwnerSchema, "car owner");
     } else {
       setSchema(cardsSchema);
+      console.log(cardsSchema, "user");
     }
   }, []);
   return (

@@ -38,7 +38,6 @@ export default function Requests() {
       });
       // @ts-ignore
       setRentalRequest({ requests: Requests });
-      console.log(requests, "Requests");
     });
     // start the listener
     return () => {

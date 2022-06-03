@@ -56,8 +56,6 @@ export default function HomeScreen() {
       (snapshot) => {
         const source = snapshot.metadata.hasPendingWrites ? "Local" : "Server";
         if (snapshot.exists()) {
-          console.log(snapshot.data(), "data");
-          console.log(snapshot.data().destination, "user destination");
           winch.setUserOrigin(snapshot.data().destination);
           winch.setDriverDestination({
             driverDestination: snapshot.data().destination,
@@ -77,11 +75,9 @@ export default function HomeScreen() {
           }
         } else {
           navigation.navigate("Home");
-          console.log("no data");
         }
       }
     );
-    console.log(currentUserRole, "winch");
     return () => {
       online && listener();
     };

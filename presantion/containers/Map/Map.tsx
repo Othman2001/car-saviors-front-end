@@ -47,7 +47,6 @@ export default function () {
             navigation.navigate("Loading");
           }
           setTravelTimeInformation();
-          console.log("driver ");
         } else {
           if (doc.data().isFinished) {
             finishTheTrip();
@@ -79,7 +78,6 @@ export default function () {
     );
     setTravelTimeInformation();
     setPrice();
-    console.log("current winch driver id ");
     return () => {
       winchDriverLocationListener();
       requestListener();

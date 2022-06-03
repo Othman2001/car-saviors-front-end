@@ -6,9 +6,6 @@ export interface IState {
   user: IUserData | null;
   loading: boolean;
   currentUserRole: string;
-  visitedWorkShops: number;
-  rentedCar: number;
-  rentingCar: number;
   signUpError: string;
   logInError: string;
   error: string;
@@ -19,9 +16,6 @@ export const state: IState = {
   loading: false,
   error: "",
   currentUserRole: "",
-  visitedWorkShops: 0,
-  rentedCar: 0,
-  rentingCar: 0,
   signUpError: "",
   logInError: "",
   loginLoading: false,

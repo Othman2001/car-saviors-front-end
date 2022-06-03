@@ -1,10 +1,4 @@
-import {
-  Alert,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Button, Text } from "@ui-kitten/components";
@@ -46,11 +40,10 @@ export default function CarDetails() {
   };
 
   useEffect(() => {
-    if (message) {
-      alert(message);
-      setTimeout(() => {
-        resetState();
-      }, 2000);
+    if (message?.includes("successfully")) {
+      navigation.navigate("Done");
+    } else if (message === "car is rented on this date") {
+      navigation.navigate("Error");
     }
   }, [message]);
   return (

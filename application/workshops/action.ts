@@ -1,5 +1,6 @@
 import { Action, AsyncAction } from "../../config";
 import { getDistanceFromLatLonInKm } from "../utlitls/calcDistance";
+import { ReviewSchema } from "./types";
 
 export const fetchBrands: AsyncAction = async ({ state, effects }) => {
   state.workshops.WorkshopState.loading = true;
@@ -57,7 +58,7 @@ export const setDistance: AsyncAction = async ({ state, effects }) => {
   if (state.workshops.WorkshopState.workshops) {
     for (let i = 0; i < state.workshops.WorkshopState.workshops.length; i++) {
       if (state.workshops.WorkshopState.userLocation) {
-        const distance = getDistanceFromLatLonInKm(
+        const distance = await getDistanceFromLatLonInKm(
           state.workshops.WorkshopState.userLocation.latitude,
           state.workshops.WorkshopState.userLocation?.longitude,
           state.workshops.WorkshopState.workshops[i].geopoint._latitude,
@@ -71,4 +72,15 @@ export const setDistance: AsyncAction = async ({ state, effects }) => {
         return a.distance - b.distance;
       });
   }
+};
+
+export const getReviews: Action<{ review: ReviewSchema[] | null }> = (
+  {
+    state: {
+      workshops: { WorkshopState },
+    },
+  },
+  { review }
+) => {
+  WorkshopState.reviews = review;
 };

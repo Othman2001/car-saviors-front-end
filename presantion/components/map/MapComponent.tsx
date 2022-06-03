@@ -67,8 +67,6 @@ export default function MapComponent({
       setRequest({ request: Request });
       setData(Request);
     }
-
-    console.log(driverOrigin, "driverOrigin");
   }, [
     winchDrivers,
     driverOrigin,
