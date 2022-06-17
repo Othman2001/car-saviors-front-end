@@ -1,7 +1,10 @@
 import { getApp } from "firebase/app";
 import axios from "axios";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signOut } from "firebase/auth";
+// @ts-ignore
 import Firebase from "../firebase";
+import { Alert } from "react-native";
 
 export const createUser = async (
   email: string,
@@ -26,6 +29,7 @@ export const userSignIn = async (
   password: string,
   setError: (params: any) => void
 ) => {
+  // @ts-ignore
   if (Firebase) {
     const app = getApp();
     const auth = getAuth(app);
@@ -48,4 +52,16 @@ export const authroizeUser = async (email: string) => {
     }
   );
   return userRole;
+};
+
+export const userSignOut = async () => {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch((error) => {
+      // An error happened.
+      alert(error);
+    });
 };

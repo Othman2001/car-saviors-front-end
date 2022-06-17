@@ -1,0 +1,26 @@
+{
+  "drivers": [
+    {
+      "availability": true,
+      "firstName": "ali",
+      "geopoint": {
+        "_latitude": 29.840195,
+        "_longitude": 31.230195
+      },
+      "lastName": "mohamed",
+      "role": "winch-driver",
+      "userId": "nzzTxTUMjUg6BIC3pFjOIWRfsn93"
+    },
+    {
+      "availability": true,
+      "firstName": "ali",
+      "geopoint": {
+        "_lattuide": 33.840195,
+        "_longitude": 31.230195
+      },
+      "lastName": "mohamed",
+      "role": "winch-driver",
+      "userId": "nzzTxTUMjUg6BIC3pFjkIWRfsn93"
+    }
+  ]
+}

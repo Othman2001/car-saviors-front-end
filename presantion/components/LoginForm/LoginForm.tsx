@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import React from "react";
 import * as Styled from "./style";
-import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Input } from "@ui-kitten/components";
 import { StyleSheet } from "react-native";
@@ -19,25 +18,26 @@ interface ILoginForm {
 }
 
 export default function LoginForm({ logIn, loading, error }: ILoginForm) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const navigation = useNavigation();
-  const { user } = useUserInfo();
-  const { fontFamily } = useTheme();
-  useEffect(() => {
-    if (user) {
-      alert("user is logged in");
-    }
-  }, [user]);
+  const { fontFamily, lng } = useTheme();
+  const { loginLoading } = useUserInfo();
 
   return (
-    <View>
-      <Styled.Title fontFamily={fontFamily} spaceTop={220}>
-        {" "}
+    <View
+      style={{
+        paddingTop: 200,
+      }}
+    >
+      <Styled.Title isAr={lng === "ar" ? true : false} fontFamily={fontFamily}>
         {i18n.t("login.welcome")}
       </Styled.Title>
       {error ? (
-        <Styled.ErrorText fontFamily={fontFamily}> {error} </Styled.ErrorText>
+        <Styled.ErrorText
+          isAr={lng === "ar" ? true : false}
+          fontFamily={fontFamily}
+        >
+          {error}
+        </Styled.ErrorText>
       ) : null}
       <Formik
         validationSchema={loginValidationSchema}
@@ -57,13 +57,17 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
           <>
             <Styled.FormLabel
               fontFamily={fontFamily}
+              isAr={lng === "ar" ? true : false}
               vertical={10}
               horizontal={62}
             >
               {i18n.t("login.email")}:
             </Styled.FormLabel>
             {errors.email ? (
-              <Styled.ErrorText fontFamily={fontFamily}>
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.email}
               </Styled.ErrorText>
             ) : null}
@@ -78,11 +82,18 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               style={styles.input}
               // onChangeText={(text) => setEmail(text)}
             />
-            <Styled.FormLabel fontFamily={fontFamily} vertical={10}>
+            <Styled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+              vertical={10}
+            >
               {i18n.t("login.password")}:
             </Styled.FormLabel>
             {errors.password ? (
-              <Styled.ErrorText fontFamily={fontFamily}>
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {errors.password}
               </Styled.ErrorText>
             ) : null}
@@ -102,9 +113,6 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
             <Styled.CommonButton>
               <Button
                 accessoryLeft={loading && <Spinner />}
-                // onPress={() => {
-                //   logIn({ email, password });
-                // }}
                 onPress={handleSubmit}
                 disabled={!isValid}
               >
@@ -113,6 +121,7 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
             </Styled.CommonButton>
             <Styled.SmallText
               fontFamily={fontFamily}
+              isAr={lng === "ar" ? true : false}
               color="#000000;
 "
             >
@@ -120,13 +129,13 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               {i18n.t("login.noAccount")}
               <Styled.Span
                 fontFamily={fontFamily}
+                isAr={lng === "ar" ? true : false}
                 onPress={() => {
                   navigation.navigate("Register");
                 }}
                 color="
 #265A60"
               >
-                {" "}
                 {i18n.t("login.register")}
               </Styled.Span>{" "}
             </Styled.SmallText>

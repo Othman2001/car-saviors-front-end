@@ -1,12 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, UIManager, LayoutAnimation } from "react-native";
 // @ts-ignore
-import React from "react";
+import React, { useEffect } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Location from "../../components/LocationComponent/Location";
+import TopHeader from "../../components/common/topHeader";
+import { useActions, useAppState } from "../../../config";
 
 export default function WinchScreen() {
+  const {
+    winch: { fetchDrivers },
+  } = useActions();
+  const {
+    winch: { origin, destination },
+  } = useAppState();
+  useEffect(() => {
+    if (UIManager.setLayoutAnimationEnabledExperimental)
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+
+    LayoutAnimation.spring();
+    if (origin && destination) {
+      fetchDrivers({ lat: origin.lat, lng: origin.lng });
+    }
+  }, [origin, destination]);
   return (
-    <View>
-      <Text>WinchScreen</Text>
-    </View>
+    <SafeAreaView>
+      <TopHeader />
+      <Location />
+    </SafeAreaView>
   );
 }
 

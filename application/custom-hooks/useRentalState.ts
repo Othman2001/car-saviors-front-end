@@ -12,6 +12,7 @@ export const useRentalState = () => {
       daysCount,
       rentalPrice,
       error,
+      requests,
     },
   } = useAppState();
   return {
@@ -24,5 +25,6 @@ export const useRentalState = () => {
     daysCount,
     rentalPrice,
     error,
+    requests,
   };
 };

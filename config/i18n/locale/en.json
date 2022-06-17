@@ -12,10 +12,14 @@
     "lastName": "lastName",
     "Email": "Email",
     "password": "Password",
-    "confirmPassword": "Confirm Password"
+    "confirmPassword": "Confirm Password",
+    "register": "Sign Up"
   },
   "rental": {
-    "pricePerDay": "L.E"
+    "pricePerDay": "L.E",
+    "phoneNumber": "PhoneNumber:",
+    "from": "From",
+    "to": "To:"
   },
   "userHeader": {
     "welcome": "welcome",
@@ -38,13 +42,48 @@
   "insurance": "Extra insurance",
   "offer": {
     "title": "Fill this form to offer your car for rent",
-    "phoneNumber": "phone number",
-    "carModel": "car Model",
-    "carColor": "car color",
-    "carNumber": " car license number",
+    "phoneNumber": "Phone Number",
+    "carModel": "Car Model",
+    "carColor": "Car Color",
+    "carNumber": " Car License Number",
     "firstImage": " car first imageURl",
     "secondImage": "Second Image Url",
     "thirdImage": "Third Image Url",
-    "submit": "Sumbit"
-  }
+    "submit": "Sumbit",
+    "carBrand": "Car Brand",
+    "carModelYear": "Car Model Year",
+    "carType": "Car Body Type",
+    "location": "Car Adress ",
+    "motorType": "Motor Type",
+    "uploadImage": "UploadImage",
+    "pricePerDay": "Price Per Day"
+  },
+  "workshops": {
+    "brandsTitle": "Brands"
+  },
+  "location": {
+    "destination": "Enter Your Destination",
+    "location": "Enter Your Location",
+    "confirm": "Confirm"
+  },
+  "workshop": {
+    "phoneNumber": "Phone Number:",
+    "workingHours": "Hours "
+  },
+  "retnal": {
+    "total": "Total"
+  },
+  "Reject": "Cancel",
+  "EGB": "L.E",
+  "workshopDetails": {
+    "Summary": "Summary",
+    "Reviews": "Reviews"
+  },
+  "profile": {
+    "appVersion": "App Version",
+    "email": "Email",
+    "role": "Role"
+  },
+  "Signout": "SignOut",
+  "Accept": "Accept"
 }

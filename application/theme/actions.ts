@@ -1,10 +1,18 @@
-import { Initialize } from "../../config";
+import { I18nManager } from "react-native";
+import { Action, Initialize } from "../../config";
+import i18n from "../../config/i18n/config";
 
 export const onInitializeOvermind: Initialize = ({ state }) => {
   state.theme.lng = "en";
-  if (state.theme.lng === "en") {
-    state.theme.fontFamily = "Exo_";
-  } else {
+  I18nManager.allowRTL(false);
+  I18nManager.forceRTL(false);
+};
+
+export const changeLocale: Action<{ lng: string }> = ({ state }, { lng }) => {
+  state.theme.lng = lng;
+  if (lng === "ar") {
     state.theme.fontFamily = "Cairo_";
+  } else {
+    state.theme.fontFamily = "Exo_";
   }
 };

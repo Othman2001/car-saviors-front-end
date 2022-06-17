@@ -5,11 +5,8 @@ import Animation from "./Animation";
 
 export default function Thanks() {
   const navigation = useNavigation();
-  const [isVisible, setIsVisible] = useState("true");
   useEffect(() => {
-    alert("Thanks for using our app , we welcome you to our community");
     setTimeout(() => {
-      setIsVisible(false);
       navigation.navigate("Home");
     }, 3000);
   });
@@ -20,7 +17,7 @@ export default function Thanks() {
         alignItems: "center",
       }}
     >
-      {isVisible && <Animation />}
+      <Animation />
     </View>
   );
 }

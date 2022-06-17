@@ -1,5 +1,5 @@
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Button, Text } from "@ui-kitten/components";
 import TopHeader from "../../components/common/topHeader";
@@ -17,7 +17,7 @@ export default function CarDetails() {
   const navigation = useNavigation();
   const car: carSchema = route.params?.car;
   const scrollViewRef = useRef();
-  const { setDates, setTotal, rentCar } = useRentalActions();
+  const { setDates, setTotal, rentCar, resetState } = useRentalActions();
   const { startDate, endDate, message, error } = useRentalState();
 
   const [isVisible, setInvisible] = useState(false);
@@ -26,21 +26,26 @@ export default function CarDetails() {
     setDates({ startDate, endDate });
     setTotal({ pricePerDay: car.pricePerDay });
   };
+
   const handleConfirmation = () => {
     if (!startDate || !endDate) {
       // @ts-ignore
-      alert(i18n.t("carDetails.alert"));
       return;
     } else {
-      message === "car rented successfully"
-        ? rentCar({
-            carId: car.id,
-            carOwnerId: car.carOwnerId,
-          })
-        : navigation.navigate("Error");
+      rentCar({
+        carId: car.id,
+        carOwnerId: car.carOwnerId,
+      });
     }
   };
 
+  useEffect(() => {
+    if (message?.includes("successfully")) {
+      navigation.navigate("Done");
+    } else if (message === "car is rented on this date") {
+      navigation.navigate("Error");
+    }
+  }, [message]);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView

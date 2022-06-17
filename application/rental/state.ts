@@ -1,3 +1,5 @@
+import { RentalRequestSchema } from "./types";
+
 export type carSchema = {
   id: string;
   carModel: string;
@@ -25,6 +27,7 @@ interface IRentalState {
   rentalPrice: number;
   error: string | null;
   message: string | null;
+  requests: RentalRequestSchema[] | undefined;
 }
 
 export const rentalState: IRentalState = {
@@ -38,4 +41,5 @@ export const rentalState: IRentalState = {
   rentalPrice: 0,
   error: null,
   message: null,
+  requests: undefined,
 };

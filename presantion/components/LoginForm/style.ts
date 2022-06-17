@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { ITextProps } from "../../../types";
 // fonts done
 
 interface IFormLabel {
@@ -10,15 +11,11 @@ interface ISmallText {
   color: string;
   fontFamily: string;
 }
-interface ITextProps {
-  spaceTop?: number;
-  fontFamily: string;
-}
 
 export const Title = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "700Bold"};
   font-style: normal;
-  padding-top: ${(props) => props.spaceTop}px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   font-size: 20px;
   line-height: 27px;
   text-align: center;
@@ -26,9 +23,10 @@ export const Title = styled.Text<ITextProps>`
   z-index: 1400;
 `;
 
-export const FormLabel = styled.Text<IFormLabel>`
+export const FormLabel = styled.Text<ITextProps>`
   font-style: normal;
   font-size: 16px;
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   line-height: 22px;
   color: #000000;
   padding-left: 39px;
@@ -59,30 +57,33 @@ export const CommonButton = styled.TouchableOpacity`
 export const ButtonText = styled.Text<ITextProps>`
   text-align: center;
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   font-size: 16px;
   line-height: 22px;
   /* identical to box height */
+
   color: #ffffff;
   padding: 20px;
 `;
 
-export const SmallText = styled.Text<ISmallText>`
+export const SmallText = styled.Text<ITextProps>`
   font-size: 14px;
   line-height: 19px;
   /* identical to box height */
   margin-top: 12px;
   color: ${(props: any) => props.color};
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: ${(props) => (props.isAr ? "right" : "left")};
   text-align: center;
 `;
 
-export const Span = styled.Text<ISmallText>`
+export const Span = styled.Text<ITextProps>`
   color: ${(props: any) => props.color};
 `;
 
 export const ErrorText = styled.Text<ITextProps>`
   font-size: 14px;
   color: red;
-  text-align: center;
   font-family: ${(props) => props.fontFamily + "700Bold"};
+  text-align: center;
 `;

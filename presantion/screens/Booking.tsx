@@ -1,9 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useState } from "react";
-import Calendar from "react-native-calendar-range-picker";
 import DateRangePicker from "../components/carDetails/DateRange";
-import { Button } from "@ui-kitten/components";
-import CarDetails from "./CarDetails/CarDetails";
 
 export default function Booking() {
   const [startDate, endDate] = useState();

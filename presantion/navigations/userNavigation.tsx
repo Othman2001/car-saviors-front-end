@@ -2,16 +2,19 @@ import { Image } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
-import WorkShopScreen from "../screens/WorkShopsScreen/WorkShopScreen";
-import WinchScreen from "../screens/WinchScreen/WinchScreen";
-import { createStackNavigator } from "@react-navigation/stack";
+
 import RentalNavigation from "./RentalNavigation";
 import OfferScreen from "../screens/OfferScreen/OfferScreen";
+import Profile from "../screens/Profile/Profile";
+import CarWorkshopsNavigation from "./CarWorkshopsNavigation";
+import WinchNavigation from "./winchNavigation";
+import { useTheme } from "../../application/custom-hooks/useTheme";
 
 const Taps = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
 export default function UserNavigation() {
+  const { lng } = useTheme();
+
   const routesNames = {
     Home: {
       en: "Home",
@@ -36,6 +39,7 @@ export default function UserNavigation() {
   };
   return (
     <Taps.Navigator
+      // @ts-ignore
       tabBarOptions={{
         activeTintColor: "#265A60",
         inactiveTintColor: "#000",
@@ -64,22 +68,63 @@ export default function UserNavigation() {
               : require("../../assets/workshop.png");
           } else if (rn === "Winch") {
             IconName = focused
-              ? require("../../assets/winch.png")
-              : require("../../assets/winch.png");
+              ? require("../../assets/winchActive.png")
+              : require("../../assets/winchActive.png");
           } else if (rn === "Offer") {
             IconName = focused
               ? require("../../assets/offer_active.png")
               : require("../../assets/offer.png");
+          } else if (rn === "Profile") {
+            IconName = focused
+              ? require("../../assets/profileActive.png")
+              : require("../../assets/profile.png");
           }
           return <Image source={IconName} style={{ width: 20, height: 20 }} />;
         },
       })}
     >
-      <Taps.Screen name="Home" component={HomeScreen} />
-      <Taps.Screen name="WorkShops" component={WorkShopScreen} />
-      <Taps.Screen name="Rent" component={RentalNavigation} />
-      <Taps.Screen name="Winch" component={WinchScreen} />
-      <Taps.Screen name="Offer" component={OfferScreen} />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "الرئيسية" : "Home",
+        }}
+        name="Home"
+        component={HomeScreen}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "الصيانة" : "WorkShop",
+        }}
+        name="WorkShops"
+        component={CarWorkshopsNavigation}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "احجز" : "Rental",
+        }}
+        name="Rent"
+        component={RentalNavigation}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "ونش" : "Winch",
+        }}
+        name="Winch"
+        component={WinchNavigation}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "عرض" : "Offer",
+        }}
+        name="Offer"
+        component={OfferScreen}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "الصفحة الشخصية" : "Profile",
+        }}
+        name="Profile"
+        component={Profile}
+      />
     </Taps.Navigator>
   );
 }

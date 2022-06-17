@@ -3,8 +3,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CarDetails from "../screens/CarDetails/CarDetails";
 import RentScreen from "../screens/RentScreen/RentScreen";
 import Confirm from "../screens/ConfirmationScreen/ConfirmationScreen";
-import Error from "../screens/Error/Error";
-import Thanks from "../components/ThanksS/Thanks";
+
+import Success from "../screens/Success/Success";
+import { Failed } from "../screens/Failed/Failed";
 
 export default function RentalNavigation() {
   const Stack = createStackNavigator();
@@ -33,14 +34,14 @@ export default function RentalNavigation() {
       />
       <Stack.Screen
         name="Error"
-        component={Error}
+        component={Failed}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="Welcome"
-        component={Thanks}
+        name="Done"
+        component={Success}
         options={{
           headerShown: false,
         }}

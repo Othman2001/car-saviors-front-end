@@ -6,55 +6,29 @@ import React from "react";
 import { IUserData } from "../../../application/authentication/state";
 import i18n from "../../../config/i18n/config";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
+import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
 
 interface IUserHeader {
   user: IUserData | null;
   rentingCar: number;
   rentedCar: number;
   visitedWorkshops: number;
+  isDriver?: boolean;
 }
 
-export default function UserHeader({
-  user,
-  rentedCar,
-  rentingCar,
-  visitedWorkshops,
-}: IUserHeader) {
+export default function UserHeader({ user, isDriver }: IUserHeader) {
   const { fontFamily } = useTheme();
+  const { currentUserRole } = useUserInfo();
   return (
-    <Styled.Container>
+    <Styled.Container backgroundColor={!isDriver ? "265A60" : "4B4B4B"}>
       <Styled.userInfoContainer>
         <Styled.userAvatar>
           <FontAwesome name="user" size={32} color="white" />
         </Styled.userAvatar>
         <Text style={styles.text} category="s1">
           {i18n.t("userHeader.welcome")} , {user?.displayName}
+          {currentUserRole === "driver" && user?.email}
         </Text>
-        <Styled.userMetricsContainer>
-          <Styled.userMetricNumber fontFamily={fontFamily}>
-            {rentedCar}
-          </Styled.userMetricNumber>
-          <Styled.userMetricsText fontFamily={fontFamily}>
-            {" "}
-            {i18n.t("userHeader.rentedCar")}
-          </Styled.userMetricsText>
-          <Styled.userMetricNumber fontFamily={fontFamily}>
-            {rentingCar}
-          </Styled.userMetricNumber>
-
-          <Styled.userMetricsText fontFamily={fontFamily}>
-            {" "}
-            {i18n.t("userHeader.rentingCar")}
-          </Styled.userMetricsText>
-          <Styled.userMetricNumber fontFamily={fontFamily} left={75}>
-            {visitedWorkshops}
-          </Styled.userMetricNumber>
-
-          <Styled.userMetricsText fontFamily={fontFamily}>
-            {" "}
-            {i18n.t("userHeader.visitedWorkshops")}
-          </Styled.userMetricsText>
-        </Styled.userMetricsContainer>
       </Styled.userInfoContainer>
     </Styled.Container>
   );

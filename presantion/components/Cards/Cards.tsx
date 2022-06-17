@@ -4,6 +4,7 @@ import * as Styled from "./style";
 import { FlexContainer } from "../common/style";
 import { useNavigation } from "@react-navigation/native";
 import i18n from "../../../config/i18n/config";
+import { useTheme } from "../../../application/custom-hooks/useTheme";
 
 interface ICardsProps {
   currentUserRole: string;
@@ -19,14 +20,18 @@ export default function Cards({
 }: ICardsProps) {
   const { navigate } = useNavigation();
   const [schemaType, setSchema] = useState<any>();
+  const { lng } = useTheme();
 
   useEffect(() => {
     if (currentUserRole === "car-owner") {
       setSchema(carOwnerSchema);
+      console.log(carOwnerSchema, "car owner");
     } else {
       setSchema(cardsSchema);
+      console.log(cardsSchema, "user");
     }
   }, []);
+
   return (
     <ScrollView>
       <Styled.CardContainer>
@@ -39,8 +44,10 @@ export default function Cards({
           >
             <Styled.CardImage source={feat.icon} />
             <FlexContainer>
-              <Styled.CardTitle fontFamily={fontFamily}>
-                {" "}
+              <Styled.CardTitle
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
                 {i18n.currentLocale() === "ar" ? feat.arText : feat.text}
               </Styled.CardTitle>
             </FlexContainer>

@@ -12,10 +12,14 @@
     "lastName": "الكنية",
     "Email": "بريد الالكتروني",
     "password": "كلمه السر",
-    "confirmPassword": "تأكيد كلمة المرور"
+    "confirmPassword": "تأكيد كلمة المرور",
+    "register": "اشتراك"
   },
   "rental": {
-    "pricePerDay": "جنيه"
+    "pricePerDay": "جنيه",
+    "phoneNumber": "رقم الهاتف:",
+    "from": "من",
+    "to": "إلى:"
   },
   "userHeader": {
     "welcome": "أهلا بك",
@@ -45,6 +49,41 @@
     "firstImage": "أول صورة للسيارة",
     "secondImage": "عنوان URL للصورة الثانية",
     "thirdImage": "عنوان URL للصورة الثالثة",
-    "submit": "سومبيت"
-  }
+    "submit": "سومبيت",
+    "carBrand": "ماركة السيارة",
+    "carModelYear": "موديل السيارة",
+    "carType": "نوع جسم السيارة",
+    "location": "عنوان السيارة",
+    "motorType": "نوع المحرك",
+    "uploadImage": "تحميل الصور",
+    "pricePerDay": "السعر في اليوم"
+  },
+  "workshops": {
+    "brandsTitle": "العلامات التجارية"
+  },
+  "location": {
+    "destination": "أدخل وجهتك",
+    "location": "أدخل موقعك",
+    "confirm": "  تأكيد"
+  },
+  "workshop": {
+    "phoneNumber": "رقم الهاتف:",
+    "workingHours": "ساعات"
+  },
+  "retnal": {
+    "total": "المجموع"
+  },
+  "Reject": "الغاء",
+  "EGB": "جنيه",
+  "workshopDetails": {
+    "Summary": "ملخص",
+    "Reviews": "المراجعات"
+  },
+  "profile": {
+    "appVersion": "نسخة التطبيق",
+    "email": "البريد الإلكتروني",
+    "role": "دور"
+  },
+  "Signout": "خروج",
+  "Accept": "قبول"
 }

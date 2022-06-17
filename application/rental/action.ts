@@ -1,4 +1,5 @@
 import { Action, AsyncAction } from "../../config";
+import { RentalRequestSchema } from "./types";
 
 var getDaysArray = function (start: string, end: string) {
   for (
@@ -35,7 +36,7 @@ export const setTotal: Action<{ pricePerDay: number }> = (
   { state: { rental } },
   { pricePerDay }
 ) => {
-  const price = pricePerDay * rental.daysCount;
+  const price = pricePerDay * (rental.daysCount + 1);
   const insurance = 1000;
   rental.rentalPrice = price;
   const total = price + insurance;
@@ -61,27 +62,20 @@ export const rentCar: AsyncAction<{
         dates: getDaysArray(startDate, endDate),
         startDate,
         endDate,
-        daysCount: state.rental.daysCount,
+        daysCount: state.rental.daysCount + 1,
         userId: state.authentication.user?.uid,
         carOwnerId,
         carId,
       })
       .then((res) => {
-        if (res.status === 200) {
-          state.rental.message = res.data.message;
-          state.authentication.rentingCar = state.authentication.rentingCar + 1;
-        } else {
-          state.rental.error = res.data.message;
-        }
+        state.rental.message = res.data.message;
       })
       .catch((error) => {
-        state.rental.error = error.message;
+        state.rental.message = error.data.message;
       });
     state.rental.rentalPrice = 0;
     state.rental.totalPrice = 0;
     state.rental.daysCount = 0;
-    state.rental.error = "";
-    state.rental.message = "";
   }
 };
 
@@ -90,35 +84,60 @@ export const registerAsCarOwner: AsyncAction<{
   carModel: string;
   carColor: string;
   carNumber: string;
-  images: any;
   userId: string;
   imageUrl: string;
+  address: string;
+  bodyType: string;
+  modelYear: string;
+  motorType: string;
+  carBrand: string;
+  pricePerDay: number;
 }> = async (
-  { state, effects },
-  { phoneNumber, carModel, carColor, carNumber, images, userId, imageUrl }
+  { state, effects, actions },
+  {
+    phoneNumber,
+    carModel,
+    carColor,
+    carNumber,
+    userId,
+    imageUrl,
+    address,
+    bodyType,
+    modelYear,
+    motorType,
+    carBrand,
+    pricePerDay,
+  }
 ) => {
   state.rental.loading = true;
-  effects.rental
-    .registerAsCarOwner({
-      phoneNumber,
-      carModel,
-      carColor,
-      carNumber,
-      images,
-      userId,
-      imageUrl,
-    })
-    .then((res) => {
-      // @ts-ignore
-      state.rental.message = res.message;
-    })
-    .catch((error) => {
-      state.rental.error = error.message;
-    });
+  effects.rental.registerAsCarOwner({
+    phoneNumber,
+    carModel,
+    carColor,
+    carNumber,
+    userId,
+    imageUrl,
+    address,
+    bodyType,
+    modelYear,
+    motorType,
+    carBrand,
+    pricePerDay,
+  });
+  state.authentication.currentUserRole = "car-owner";
   state.rental.loading = false;
 };
 
 export const resetState: Action = ({ state }) => {
   state.rental.error = null;
   state.rental.message = null;
+  state.rental.endDate = null;
+  state.rental.startDate = null;
+};
+
+export const setRentalRequest: Action<{ requests: RentalRequestSchema[] }> = (
+  { state: { rental } },
+  { requests }
+) => {
+  rental.requests = requests;
 };

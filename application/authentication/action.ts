@@ -1,6 +1,6 @@
 import { getApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Action, AsyncAction } from "../../config";
+import { AsyncAction } from "../../config";
 
 export const signUp: AsyncAction<{
   email: string;
@@ -26,13 +26,9 @@ export const signUp: AsyncAction<{
         res.data.rentingCar &&
         res.data.visitedWorkShops
       ) {
-        authentication.rentedCar = res.data.rentedCar;
-        authentication.rentingCar = res.data.rentingCar;
-        authentication.visitedWorkShops = res.data.visitedWorkShops;
+        authentication.currentUserRole = "user";
       } else {
-        authentication.rentedCar = 0;
-        authentication.rentingCar = 0;
-        authentication.visitedWorkShops = 0;
+        authentication.currentUserRole = "user";
       }
     })
     .catch((error) => {
@@ -48,8 +44,8 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
   { state, effects, actions },
   { email, password }
 ) => {
-  state.authentication.loading = true;
   state.authentication.error = "";
+  state.authentication.loginLoading = true;
   const app = getApp();
   const auth = getAuth(app);
   signInWithEmailAndPassword(auth, email, password)
@@ -58,28 +54,36 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
       return userCredential.user;
     })
     .catch((error) => {
-      state.authentication.loading = false;
-      state.authentication.logInError = error.code;
+      state.authentication.logInError = error.message;
     });
 
-  state.authentication.loading = false;
-
+  state.authentication.loginLoading = false;
   await effects.authentication.authroizeUser(email).then((res) => {
     state.authentication.currentUserRole = res.data.role;
     state.authentication.rentedCar = res.data.rentedCar;
     state.authentication.rentingCar = res.data.rentingCar;
     state.authentication.visitedWorkShops = res.data.visitedWorkShops;
+    state.winch.driverOrigin = res.data.geopoint;
+    if (res.data.role === "driver") {
+      state.winch.userType = "driver";
+    } else {
+      state.winch.userType = "user";
+    }
   });
+
   state.authentication.loading = false;
 };
 
-export const setError: AsyncAction<string> = async (
-  { state, effects },
-  error
-) => {
-  state.authentication.error = error;
-};
-
-export const setRoleToCarOwner: Action = ({ state }) => {
-  state.authentication.currentUserRole = "car-owner";
+export const SignOut: AsyncAction = async ({ state, effects }) => {
+  await effects.authentication.userSignOut();
+  state.authentication.user = null;
+  state.authentication.currentUserRole = "";
+  state.authentication.rentedCar = 0;
+  state.authentication.rentingCar = 0;
+  state.authentication.visitedWorkShops = 0;
+  state.winch.driverOrigin = null;
+  state.winch.userType = "";
+  state.winch.driverOrigin = null;
+  state.winch.userOrigin = null;
+  state.winch.userDestination = null;
 };

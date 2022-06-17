@@ -12,35 +12,57 @@ interface ICarTable {
 
 export default function CarTable({ carName, price }: ICarTable) {
   const {
-    theme: { fontFamily },
+    theme: { fontFamily, lng },
     rental: { daysCount, totalPrice, rentalPrice },
   } = useAppState();
 
   return (
     <Styled.TableContainer>
       <Styled.pricingTable>
-        <Styled.CarBrand fontFamily={fontFamily}>{carName} </Styled.CarBrand>
+        <Styled.CarBrand
+          isAr={lng === "ar" ? true : false}
+          fontFamily={fontFamily}
+        >
+          {carName}{" "}
+        </Styled.CarBrand>
         <Styled.FlexTable>
-          <Styled.CardRegularText fontFamily={fontFamily}>
+          <Styled.CardRegularText
+            isAr={lng === "ar" ? true : false}
+            fontFamily={fontFamily}
+          >
             {daysCount} {i18n.t("days")}{" "}
           </Styled.CardRegularText>
-          <Styled.Price>
+          <Styled.Price
+            fontFamily={fontFamily}
+            isAr={lng === "ar" ? true : false}
+          >
             {" "}
             {rentalPrice} {i18n.t("pricPerDay")}{" "}
           </Styled.Price>
         </Styled.FlexTable>
         <Styled.FlexTable>
-          <Styled.CardRegularText fontFamily={fontFamily}>
+          <Styled.CardRegularText
+            isAr={lng === "ar" ? true : false}
+            fontFamily={fontFamily}
+          >
             {i18n.t("insurance")}
           </Styled.CardRegularText>
-          <Styled.Price>1000 {i18n.t("pricPerDay")} </Styled.Price>
+          <Styled.Price
+            isAr={lng === "ar" ? true : false}
+            fontFamily={fontFamily}
+          >
+            1000 {i18n.t("pricPerDay")}{" "}
+          </Styled.Price>
         </Styled.FlexTable>
         <Divider style={styles.divider} />
         <Styled.FlexTable>
           <Styled.CardRegularText fontFamily={fontFamily}>
             {i18n.t("total")}
           </Styled.CardRegularText>
-          <Styled.Price>
+          <Styled.Price
+            isAr={lng === "ar" ? true : false}
+            fontFamily={fontFamily}
+          >
             {totalPrice}
             {i18n.t("pricPerDay")}{" "}
           </Styled.Price>

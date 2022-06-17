@@ -3,12 +3,13 @@ import { ITextProps } from "../../../types";
 
 export const RentalTitle = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
-  font-size: 16px;
+  font-size: 20px;
   line-height: 27px;
   margin-bottom: 8px;
   color: #000000;
   margin-left: 30px;
   margin-top: 60px;
+  margin-right: 30px;
 `;
 
 export const RentalCarCardContainer = styled.View`
@@ -31,12 +32,14 @@ export const RentalCardTitle = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
   font-size: 14px;
   line-height: 24px;
+
   color: #000000;
 `;
 export const RentalCardLightText = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
   font-size: 13px;
   line-height: 22px;
+  text-align: center;
   color: #848484;
 `;
 
@@ -61,4 +64,8 @@ export const SearchInput = styled.TextInput`
   margin-top: 50px;
   padding: 10px 80px 10px 20px;
   margin-bottom: 12px;
+`;
+
+export const Space = styled.View`
+  margin-bottom: 200px;
 `;

@@ -1,0 +1,18 @@
+{
+  "destination": {
+    "latitude": 30.16248,
+    "longitude": 31.60335
+  },
+  "id": "nzzTxTUMjUg6BIC3pFjOIWRfsn93",
+  "price": 200,
+  "tripStarted": false,
+  "userDestination": {
+    "latitude": 30.060355,
+    "longitude": 31.345561
+  },
+  "userId": "a31101e7-bd2d-4466-9337-693f70e144e6",
+  "userName": "Othman Mohamed",
+  "winchDriverId": "nzzTxTUMjUg6BIC3pFjOIWRfsn93",
+  "winchDriverName": "ali mohamed",
+  "winchDriverPhone": "01281084530"
+}

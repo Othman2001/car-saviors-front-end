@@ -4,14 +4,12 @@ import { Provider } from "overmind-react";
 import AppLoading from "expo-app-loading";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider } from "@ui-kitten/components";
-import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { default as theme } from "./theme.json";
-
+import { LogBox } from "react-native";
 // @ts-ignore
 import React, { useEffect } from "react";
 import { createOvermind } from "overmind";
-import i18next from "./config/i18n/config";
 import Application from "./Application";
 import {
   useFonts,
@@ -24,15 +22,13 @@ import {
   Cairo_600SemiBold,
   Cairo_700Bold,
 } from "@expo-google-fonts/cairo";
-import { I18nManager, StatusBar } from "react-native";
-import i18n from "./config/i18n/config";
 
+LogBox.ignoreAllLogs(true);
 const overmind = createOvermind(config, {
   devtools: "localhost:3031",
 });
-export default function App() {
-  const Stack = createStackNavigator();
 
+export default function App() {
   const [isLoaded] = useFonts({
     Cairo_400Regular,
     Cairo_600SemiBold,

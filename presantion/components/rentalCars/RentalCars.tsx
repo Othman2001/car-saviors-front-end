@@ -2,17 +2,23 @@ import { View, ScrollView, RefreshControl } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Styled from "./style";
 import { carSchema } from "../../../application/rental/state";
-import { StyleSheet } from "react-native";
 import { Spinner } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
-import { useAppState } from "../../../config";
 import i18n from "../../../config/i18n/config";
 import { useRentalActions } from "../../../application/custom-hooks/useRentalActions";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 
-const sedan = require("../../../assets/sedan.png");
-const suv = require("../../../assets/suv.png");
-const coupe = require("../../../assets/car.png");
+const carsImages = {
+  sedan: {
+    image: require("../../../assets/sedan.png"),
+  },
+  suv: {
+    image: require("../../../assets/suv.png"),
+  },
+  coupe: {
+    image: require("../../../assets/car.png"),
+  },
+};
 
 interface IRentalCars {
   cars: [carSchema] | null;
@@ -20,6 +26,7 @@ interface IRentalCars {
 const wait = (timeout: number | undefined) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
+
 export default function RentalCars({ cars }: IRentalCars) {
   const navigation = useNavigation();
   const { fetchCars } = useRentalActions();
@@ -34,7 +41,7 @@ export default function RentalCars({ cars }: IRentalCars) {
   const [filteredCars, setFilteredCars] = useState<[carSchema] | undefined>(
     cars
   );
-  const { fontFamily } = useTheme();
+  const { fontFamily, lng } = useTheme();
   const handleSearch = (text: string) => {
     const newCars = cars?.filter((car) =>
       car.carBrand.toLowerCase().includes(text.toLowerCase())
@@ -46,13 +53,23 @@ export default function RentalCars({ cars }: IRentalCars) {
     setFilteredCars(cars);
   }, [cars]);
   return (
-    <View>
-      <Styled.RentalTitle fontFamily={fontFamily}>
-        {" "}
+    <View
+      style={{
+        marginBottom: 30,
+      }}
+    >
+      <Styled.RentalTitle
+        isAr={lng === "ar" ? true : false}
+        fontFamily={fontFamily}
+      >
         {i18n.t("AvaliableForRental")}
       </Styled.RentalTitle>
       <Styled.SearchInput onChangeText={(text) => handleSearch(text)} />
       <ScrollView
+        style={{
+          marginBottom: 30,
+          paddingBottom: 100,
+        }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
@@ -65,34 +82,52 @@ export default function RentalCars({ cars }: IRentalCars) {
             >
               <Styled.RentalCarCardContainer>
                 <View>
-                  <Styled.RentalCardTitle fontFamily={fontFamily}>
+                  <Styled.RentalCardTitle
+                    isAr={lng === "ar" ? true : false}
+                    fontFamily={fontFamily}
+                  >
                     {" "}
                     {car.carBrand}
                   </Styled.RentalCardTitle>
-                  <Styled.RentalCardLightText>
+                  <Styled.RentalCardLightText
+                    isAr={lng === "ar" ? true : false}
+                    fontFamily={fontFamily}
+                  >
                     {car.carModel} {car.carModelYear}
                   </Styled.RentalCardLightText>
                   <Styled.RentalCardLightText
+                    isAr={lng === "ar" ? true : false}
+                    fontFamily={fontFamily}
                     style={{
                       right: 6,
                       marginBottom: 16,
                     }}
                   >
-                    {" "}
                     {car.pricePerDay} {i18n.t("rental.pricePerDay")}
                   </Styled.RentalCardLightText>
                 </View>
                 <Styled.RentalCardImageContainer>
                   <Styled.RentalCardImage
-                    source={car.carType === "sedan" ? sedan : suv}
+                    // @ts-ignore
+                    source={carsImages[car.carType].image}
                   />
                 </Styled.RentalCardImageContainer>
               </Styled.RentalCarCardContainer>
             </Styled.RentalCarCard>
           ))
         ) : (
-          <Spinner />
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 200,
+            }}
+          >
+            <Spinner />
+          </View>
         )}
+        <Styled.Space />
       </ScrollView>
     </View>
   );

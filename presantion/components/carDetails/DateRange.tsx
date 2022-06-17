@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import { Calendar, defaultStyle } from "react-native-calendars";
-
+import moment from "moment";
 const XDate = require("xdate");
 
 type Props = {
@@ -119,7 +119,7 @@ export default class DateRangePicker extends Component<Props> {
         disableArrowRight={false}
         disableArrowLeft={true}
         hideExtraDays={true}
-        minDate={"2022-04-23"}
+        minDate={moment.now()}
         onDayPress={(day) => {
           this.onDayPress(day);
         }}

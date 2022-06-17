@@ -3,28 +3,25 @@ import {
   KeyboardAvoidingView,
   Platform,
   I18nManager,
-  Alert,
 } from "react-native";
-// @ts-ignore
 import React, { useEffect } from "react";
 import { useAppState } from "./config";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AuthStack from "./presantion/navigations/authStack";
 import UserNavigation from "./presantion/navigations/userNavigation";
-import { useNavigation } from "@react-navigation/native";
 import CarOwnerNavigation from "./presantion/navigations/CarOwnerNavigation";
-
-const Taps = createBottomTabNavigator();
+import WinchDriverNavigation from "./presantion/navigations/winchDriverNavigtaion";
+import LoadingNavigation from "./presantion/navigations/LoadingNavigations";
 
 const Application = () => {
   const {
     authentication: { user, currentUserRole },
-    theme: { lng },
   } = useAppState();
-  const navigation = useNavigation();
+
   useEffect(() => {
-    lng === "ar" ? I18nManager.forceRTL(true) : I18nManager.forceRTL(false);
+    I18nManager.allowRTL(false);
+    I18nManager.forceRTL(false);
   }, []);
+
   return (
     <View
       style={{
@@ -42,8 +39,12 @@ const Application = () => {
           <>
             {currentUserRole === "car-owner" ? (
               <CarOwnerNavigation />
-            ) : (
+            ) : currentUserRole === "driver" ? (
+              <WinchDriverNavigation />
+            ) : currentUserRole === "user" ? (
               <UserNavigation />
+            ) : (
+              <LoadingNavigation />
             )}
           </>
         ) : (
