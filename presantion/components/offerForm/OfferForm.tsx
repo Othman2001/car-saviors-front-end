@@ -42,8 +42,8 @@ export default function OfferForm({
   const [imageUri, setImageUri] = React.useState<undefined | string>();
   const [imageUploaded, setImageUploaded] = React.useState(false);
   const [imageUrlFirebase, setImageUrlFirebase] = React.useState<
-    undefined | string
-  >("");
+    undefined | string | null
+  >(null);
   const navigation = useNavigation();
 
   const navigationToWelcome = () => {
@@ -90,12 +90,13 @@ export default function OfferForm({
     // convert image to array of bytes
     const img = await fetch(imageUri);
     const bytes = await img.blob();
-    setImageUploaded(true);
     // upload image to storage
     await uploadBytes(imageRef, bytes).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageUrlFirebase(url);
-        setImageUploaded(true);
+        if (url) {
+          setImageUploaded(true);
+        }
       });
     });
     // get image url
@@ -137,8 +138,13 @@ export default function OfferForm({
             carBrand: values.carBrand,
             pricePerDay: values.pricePerDay,
             // @ts-ignore
-          });
-          navigationToWelcome();
+          })
+            .then(() => {
+              navigation.navigate("Home");
+            })
+            .catch((error) => {
+              alert(error.message);
+            });
         }}
       >
         {({ handleChange, handleSubmit, values, errors, isValid, dirty }) => (
@@ -386,7 +392,9 @@ export default function OfferForm({
               </Styled.UploadButton>
             )}
             <Button
-              disabled={!(isValid && dirty && imageUploaded)}
+              disabled={
+                !(isValid && dirty && imageUploaded && imageUrlFirebase)
+              }
               style={styles.button}
               onPress={handleSubmit}
             >

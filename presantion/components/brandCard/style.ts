@@ -5,6 +5,7 @@ export const BrandCardsContainer = styled.View`
   flex-direction: row;
   margin-top: 20px;
   flex-wrap: wrap;
+  padding-bottom: 200px;
 `;
 
 export const BrandCard = styled.TouchableOpacity`
@@ -14,13 +15,13 @@ export const BrandCard = styled.TouchableOpacity`
   margin-left: 19px;
   margin-right: 19px;
   margin-bottom: 40px;
-  padding: 24px 20px 24px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 40px;
 `;
 
 export const BrandImage = styled.Image`
-  width: 67px;
-  height: 55px;
+  width: 70px;
+  height: 70px;
 `;

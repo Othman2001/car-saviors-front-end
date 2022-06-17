@@ -1,6 +1,5 @@
 import { Action, AsyncAction } from "../../config";
 import { getDistanceFromLatLonInKm } from "../utlitls/calcDistance";
-import { ReviewSchema } from "./types";
 
 export const fetchBrands: AsyncAction = async ({ state, effects }) => {
   state.workshops.WorkshopState.loading = true;
@@ -72,15 +71,4 @@ export const setDistance: AsyncAction = async ({ state, effects }) => {
         return a.distance - b.distance;
       });
   }
-};
-
-export const getReviews: Action<{ review: ReviewSchema[] | null }> = (
-  {
-    state: {
-      workshops: { WorkshopState },
-    },
-  },
-  { review }
-) => {
-  WorkshopState.reviews = review;
 };

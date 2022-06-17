@@ -9,12 +9,12 @@ export const FlexContainer = styled.View`
 `;
 export const CardContainer = styled.TouchableOpacity`
   background: #ffffff;
-  margin-top: 60px;
+  margin-top: 20px;
   border-radius: 15px;
   margin-left: 30px;
   margin-right: 30px;
   display: flex;
-  padding-top: 13px;
+
   justify-content: center;
 `;
 
@@ -26,17 +26,17 @@ export const CardTitle = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
   font-size: 16px;
   padding-left: 20px;
-  text-align: ${(props) => (props.isAr ? "right" : "left")};
+  /* text-align: ${(props) => (props.isAr ? "right" : "left")}; */
 `;
 export const NormalText = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
-  font-size: 13px;
+  font-size: 12px;
   padding-left: 20px;
   margin-bottom: 6px;
 `;
 export const CardLightText = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
-  font-size: 13px;
+  font-size: 12px;
   color: #8f8f8f;
   margin-bottom: 6px;
 `;

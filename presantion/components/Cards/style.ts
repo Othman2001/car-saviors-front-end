@@ -8,7 +8,6 @@ export const CardContainer = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
 `;
 
 export const Card = styled.TouchableOpacity`

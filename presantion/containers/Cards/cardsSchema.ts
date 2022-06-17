@@ -14,10 +14,10 @@ const carOwnerSchema = [
     route: "WorkShops",
   },
   {
-    id: "offer",
+    id: "Request",
     icon: require("../../../assets/contract.png"),
     text: " Show Your Car Requests",
-    route: "Offer",
+    route: "Request",
   },
 ];
 export default carOwnerSchema;

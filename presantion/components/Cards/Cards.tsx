@@ -31,6 +31,7 @@ export default function Cards({
       console.log(cardsSchema, "user");
     }
   }, []);
+
   return (
     <ScrollView>
       <Styled.CardContainer>

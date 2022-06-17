@@ -110,30 +110,22 @@ export const registerAsCarOwner: AsyncAction<{
   }
 ) => {
   state.rental.loading = true;
-  effects.rental
-    .registerAsCarOwner({
-      phoneNumber,
-      carModel,
-      carColor,
-      carNumber,
-      userId,
-      imageUrl,
-      address,
-      bodyType,
-      modelYear,
-      motorType,
-      carBrand,
-      pricePerDay,
-    })
-    .then((res) => {
-      state.rental.message = res.message;
-    })
-    .catch((error) => {
-      state.rental.error = error.message;
-    });
-
+  effects.rental.registerAsCarOwner({
+    phoneNumber,
+    carModel,
+    carColor,
+    carNumber,
+    userId,
+    imageUrl,
+    address,
+    bodyType,
+    modelYear,
+    motorType,
+    carBrand,
+    pricePerDay,
+  });
+  state.authentication.currentUserRole = "car-owner";
   state.rental.loading = false;
-  actions.authentication.SignOut();
 };
 
 export const resetState: Action = ({ state }) => {

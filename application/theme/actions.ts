@@ -10,4 +10,9 @@ export const onInitializeOvermind: Initialize = ({ state }) => {
 
 export const changeLocale: Action<{ lng: string }> = ({ state }, { lng }) => {
   state.theme.lng = lng;
+  if (lng === "ar") {
+    state.theme.fontFamily = "Cairo_";
+  } else {
+    state.theme.fontFamily = "Exo_";
+  }
 };
