@@ -21,6 +21,7 @@ export default function () {
     winchDrivers,
     currentWinchDriverId,
     isRejected,
+    noOtherDrivers,
   } = useWinchState();
   const {
     getTheNextDriver,
@@ -34,6 +35,8 @@ export default function () {
 
   const navigation = useNavigation();
   useEffect(() => {
+    if (winchDrivers[0].isLastDriver) {
+    }
     if (!origin || !destination || isRejected) return;
     currentWinchDriverId === "fake" ? navigation.navigate("Loading") : null;
     // @ts-ignore
@@ -61,6 +64,7 @@ export default function () {
         }
       }
     );
+
     // listener for the current winch driver location
     const winchDriverLocationListener = onSnapshot(
       // @ts-ignore
@@ -82,7 +86,7 @@ export default function () {
       winchDriverLocationListener();
       requestListener();
     };
-  }, [origin, destination, currentWinchDriverId]);
+  }, [origin, destination, currentWinchDriverId, winchDrivers]);
 
   return (
     <View>
