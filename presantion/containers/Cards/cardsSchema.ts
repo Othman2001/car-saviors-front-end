@@ -19,5 +19,11 @@ const carOwnerSchema = [
     text: " Show Your Car Requests",
     route: "Request",
   },
+  {
+    id: "Profile",
+    icon: require("../../../assets/profile.png"),
+    text: "Profile",
+    route: "Profile",
+  },
 ];
 export default carOwnerSchema;

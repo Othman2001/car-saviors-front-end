@@ -20,6 +20,7 @@ interface IWinchState {
   tripFinished: boolean;
   isRejected: boolean;
   stayAtHome: boolean;
+  noOtherDrivers: boolean;
 }
 
 export const winchState: IWinchState = {
@@ -28,6 +29,7 @@ export const winchState: IWinchState = {
   origin: "",
   destination: "",
   travelTimeInformation: null,
+  noOtherDrivers: false,
   currentDriverIndex: 0,
   userType: "user",
   driverDestination: "",

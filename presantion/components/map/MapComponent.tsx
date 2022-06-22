@@ -62,6 +62,7 @@ export default function MapComponent({
       },
       isAcccepted: true,
       isFinished: false,
+      isLastDriver: winchDrivers.length === 1 ? true : false,
     };
     if (Request != request) {
       setRequest({ request: Request });

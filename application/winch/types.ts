@@ -13,6 +13,7 @@ export type WinchDriverSchema = {
   id: string;
   distance: number;
   price: number;
+  isLastDriver?: boolean;
 };
 
 export type RequestSchema = {
@@ -32,4 +33,5 @@ export type RequestSchema = {
   price: number;
   isAcccepted: boolean;
   isFinished: boolean;
+  isLastDriver?: boolean;
 };

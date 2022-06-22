@@ -9,6 +9,7 @@ export const useWinchState = () => {
       driverOrigin,
       nearestDriver,
       online,
+      noOtherDrivers,
       origin,
       travelTimeInformation,
       userOrigin,
@@ -45,5 +46,6 @@ export const useWinchState = () => {
     tripFinished,
     isRejected,
     stayAtHome,
+    noOtherDrivers,
   };
 };

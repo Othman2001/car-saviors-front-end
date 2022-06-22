@@ -62,10 +62,30 @@ export const setTravelTimeInformation: AsyncAction = async ({
 
 export const getTheNextDriver: Action = ({
   state: {
-    winch: { winchDrivers },
+    winch: { winchDrivers, noOtherDrivers },
   },
 }) => {
-  winchDrivers.shift();
+  if (winchDrivers.length > 0) {
+    winchDrivers.shift();
+  } else if (winchDrivers.length === 0) {
+    noOtherDrivers = true;
+    winchDrivers = [
+      {
+        id: "fake",
+        availability: true,
+        distance: 0,
+        firstName: "fakename",
+        lastName: "fakename",
+        geopoint: {
+          _latitude: 0,
+          _longitude: 0,
+        },
+        phoneNumber: "fakenumber",
+        price: 0,
+        role: "fake",
+      },
+    ];
+  }
 };
 
 export const goOnline: Action = ({ state }) => {
