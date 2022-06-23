@@ -1,4 +1,4 @@
-import { Image, Platform, StyleSheet } from "react-native";
+import { Alert, Image, Platform, StyleSheet } from "react-native";
 import * as Styled from "./style";
 import * as FormStyled from "../../components/LoginForm/style";
 import React, { useEffect } from "react";
@@ -41,15 +41,17 @@ export default function OfferForm({
   const [image, setImage] = React.useState(undefined);
   const [imageUri, setImageUri] = React.useState<undefined | string>();
   const [imageUploaded, setImageUploaded] = React.useState(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
   const [imageUrlFirebase, setImageUrlFirebase] = React.useState<
     undefined | string | null
   >(null);
   const navigation = useNavigation();
-
-  const navigationToWelcome = () => {
-    navigation.navigate("Welcome");
+  const deleteImage = () => {
+    setImage(undefined);
+    setImageUrlFirebase(undefined);
+    setImageUri(undefined);
+    setImageUploaded(false);
   };
-
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -90,12 +92,16 @@ export default function OfferForm({
     // convert image to array of bytes
     const img = await fetch(imageUri);
     const bytes = await img.blob();
+    alert("image is uploading pelase wait ");
     // upload image to storage
     await uploadBytes(imageRef, bytes).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
+        setLoading(true);
         setImageUrlFirebase(url);
         if (url) {
           setImageUploaded(true);
+          setLoading(false);
+          alert("image uploaded successfully");
         }
       });
     });
@@ -377,20 +383,35 @@ export default function OfferForm({
               style={styles.input}
             />
             {image && (
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
+              <Styled.FlexContainer>
+                <Button
+                  style={{
+                    marginLeft: 10,
+                  }}
+                  status="danger"
+                  onPress={deleteImage}
+                >
+                  delete
+                </Button>
+                <Image
+                  source={{ uri: image }}
+                  style={{ width: 200, height: 200 }}
+                />
+              </Styled.FlexContainer>
             )}
             {imageUri ? (
               <Styled.UploadButton>
-                <Button onPress={uploadImage}> Upload Image </Button>
+                <Button status="success" onPress={uploadImage}>
+                  {" "}
+                  Upload Image{" "}
+                </Button>
               </Styled.UploadButton>
             ) : (
               <Styled.UploadButton>
                 <Button onPress={pickImage}> Pick image </Button>
               </Styled.UploadButton>
             )}
+
             <Button
               disabled={
                 !(isValid && dirty && imageUploaded && imageUrlFirebase)
