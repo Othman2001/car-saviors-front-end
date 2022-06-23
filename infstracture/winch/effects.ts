@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchDrivers = async ({ lat, lng }: { lat: any; lng: any }) => {
   const drivers = axios.post(
-    "http://localhost:5001/car-saviors/us-central1/fetchDrivers",
+    "https://us-central1-car-saviors.cloudfunctions.net/fetchDrivers",
     { lat, lng }
   );
 

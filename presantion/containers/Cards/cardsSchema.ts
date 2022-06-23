@@ -17,6 +17,7 @@ const carOwnerSchema = [
     id: "Request",
     icon: require("../../../assets/contract.png"),
     text: " Show Your Car Requests",
+    arText: "عرض الطلبات ",
     route: "Request",
   },
   {

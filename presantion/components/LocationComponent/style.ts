@@ -23,7 +23,10 @@ export const FormInputContainer = styled.View`
 `;
 
 export const ButtonContainer = styled.View`
-  margin-left: 30px;
-  margin-right: 80px;
-  margin-top: 60px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 80px;
 `;

@@ -6,6 +6,7 @@ import { ScrollView } from "react-native";
 import { WinchDriverSchema } from "../../../application/winch/types";
 import { updateData } from "../../../helpers/updateData";
 import i18n from "../../../config/i18n/config";
+import { useNavigation } from "@react-navigation/native";
 
 interface IWinchDriverContainer {
   travelTimeInformation: any;
@@ -20,6 +21,7 @@ export default function WinchDriver({
   price,
 }: IWinchDriverContainer) {
   const { fontFamily, lng } = useTheme();
+  const navigation = useNavigation();
 
   return (
     <ScrollView>
@@ -64,6 +66,7 @@ export default function WinchDriver({
                 filedName: "isAcccepted",
                 newValue: false,
               });
+              navigation.navigate("Location");
             }}
           >
             {i18n.t("Reject")}

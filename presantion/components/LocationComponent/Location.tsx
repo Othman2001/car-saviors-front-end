@@ -32,11 +32,12 @@ export default function Location() {
       clearFields();
       setRejection({ isRejected: false });
     }
+    console.log(origin, "dest");
   }, [origin, destination]);
   return (
     <View
       style={{
-        paddingTop: 60,
+        paddingTop: 30,
       }}
     >
       <Styled.FormInputContainer>

@@ -175,6 +175,8 @@ export const resetTheStore: Action = ({ state: { winch } }) => {
   winch.request = null;
   winch.requestState = false;
   winch.tripFinished = false;
+  winch.request = null;
+  winch.winchDrivers = [];
 };
 
 export const clearFields: Action = ({ state: { winch } }) => {

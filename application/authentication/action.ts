@@ -55,6 +55,9 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
     })
     .catch((error) => {
       state.authentication.logInError = error.message;
+      setTimeout(() => {
+        state.authentication.logInError = "";
+      }, 2000);
     });
 
   state.authentication.loginLoading = false;
