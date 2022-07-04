@@ -37,6 +37,7 @@ export default function WorkshopCard({ workshops, brandImage }: IWorkshopCard) {
   useEffect(() => {
     setDistance();
     setFilteredWorkshops(workshops);
+    console.log(workshops, "workshops");
   }, [workshops]);
   return (
     <View>
@@ -75,7 +76,9 @@ export default function WorkshopCard({ workshops, brandImage }: IWorkshopCard) {
                       isAr={lng === "ar" ? true : false}
                       fontFamily={fontFamily}
                     >
-                      {workshop.name}
+                      {workshop.name?.length > 20
+                        ? workshop.name.substring(0, 20)
+                        : workshop.name}
                     </Styled.CardTitle>
                     <Styled.LocationContainer>
                       <Styled.LocationImage
@@ -85,7 +88,7 @@ export default function WorkshopCard({ workshops, brandImage }: IWorkshopCard) {
                         isAr={lng === "ar" ? true : false}
                         fontFamily={fontFamily}
                       >
-                        {workshop.location}
+                        {lng === "ar" ? workshop.locationAr : workshop.location}
                       </Styled.CardLightText>
                     </Styled.LocationContainer>
 
@@ -98,7 +101,7 @@ export default function WorkshopCard({ workshops, brandImage }: IWorkshopCard) {
                         isAr={lng === "ar" ? true : false}
                         fontFamily={fontFamily}
                       >
-                        01281084530
+                        {workshop.phoneNumber}
                       </Styled.CardLightText>
                     </Styled.NormalText>
                     <Styled.NormalText

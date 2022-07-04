@@ -7,6 +7,7 @@ import { WinchDriverSchema } from "../../../application/winch/types";
 import { updateData } from "../../../helpers/updateData";
 import i18n from "../../../config/i18n/config";
 import { useNavigation } from "@react-navigation/native";
+import { updateAvailability } from "./updateAvailability";
 
 interface IWinchDriverContainer {
   travelTimeInformation: any;
@@ -22,6 +23,8 @@ export default function WinchDriver({
 }: IWinchDriverContainer) {
   const { fontFamily, lng } = useTheme();
   const navigation = useNavigation();
+
+  const cancel = () => {};
 
   return (
     <ScrollView>
@@ -63,9 +66,9 @@ export default function WinchDriver({
               updateData({
                 docId: winchDrivers[0].id,
                 collectionName: "PendingRequets",
-                filedName: "isAcccepted",
-                newValue: false,
+                driverId: winchDrivers[0].id,
               });
+
               navigation.navigate("Location");
             }}
           >

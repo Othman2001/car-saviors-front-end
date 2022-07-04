@@ -18,6 +18,8 @@ export type workshopSchema = {
   description: string;
   descriptionAr: string;
   docId: string;
+  locationAr: string;
+  phoneNumber: string;
 };
 
 export type ReviewSchema = {

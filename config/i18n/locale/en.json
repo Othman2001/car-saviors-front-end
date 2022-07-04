@@ -13,7 +13,9 @@
     "Email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm Password",
-    "register": "Sign Up"
+    "register": "Sign Up",
+    "phoneNumber": "Phone Number",
+    "error": "   There Is An Error, The Account is Already Existed"
   },
   "rental": {
     "pricePerDay": "L.E",

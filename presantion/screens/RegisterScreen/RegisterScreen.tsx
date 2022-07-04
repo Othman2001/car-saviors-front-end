@@ -2,9 +2,10 @@
 import React from "react";
 import { Image, View } from "react-native";
 import RegisterForm from "../../containers/RegisterForm/RegisterForm";
+
 export default function RegisterScreen() {
   return (
-    <>
+    <View>
       <View
         style={{
           position: "absolute",
@@ -27,7 +28,8 @@ export default function RegisterScreen() {
           }}
         />
       </View>
+      {/* @ts-ignore */}
       <RegisterForm />
-    </>
+    </View>
   );
 }

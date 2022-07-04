@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const rentCar = async ({
   total,
   dates,
@@ -7,6 +8,7 @@ export const rentCar = async ({
   carOwnerId,
   carId,
   endDate,
+  phoneNumber,
   startDate,
 }: {
   total: number;
@@ -17,9 +19,10 @@ export const rentCar = async ({
   carId: string;
   endDate: string;
   startDate: string;
+  phoneNumber: string;
 }) => {
   const res = axios.post(
-    "https://us-central1-car-saviors.cloudfunctions.net/rentCar",
+    "http://localhost:5001/car-saviors/us-central1/rentCar",
     {
       total,
       dates,
@@ -29,6 +32,7 @@ export const rentCar = async ({
       carId,
       startDate,
       endDate,
+      phoneNumber,
     }
   );
   return res;

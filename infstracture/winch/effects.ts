@@ -1,4 +1,5 @@
 import axios from "axios";
+import { deleteDoc, doc, getFirestore } from "firebase/firestore";
 
 export const fetchDrivers = async ({ lat, lng }: { lat: any; lng: any }) => {
   const drivers = axios.post(
@@ -25,4 +26,10 @@ export const getTravelDistanceInformation = async ({
     })
     .catch((err) => {});
   return data;
+};
+
+export const rejectUserRequest = ({ requestId }: { requestId: string }) => {
+  const db = getFirestore();
+  const requestRef = doc(db, "PendingRequets", requestId);
+  deleteDoc(requestRef);
 };

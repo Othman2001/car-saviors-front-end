@@ -52,6 +52,7 @@ export const CommonButton = styled.TouchableOpacity`
   margin-right: 60px;
   margin-left: 60px;
   margin-top: 60px;
+  margin-bottom: 150px;
 `;
 
 export const ButtonText = styled.Text<ITextProps>`
@@ -84,6 +85,11 @@ export const Span = styled.Text<ITextProps>`
 export const ErrorText = styled.Text<ITextProps>`
   font-size: 14px;
   color: red;
+  margin-bottom: 10px;
   font-family: ${(props) => props.fontFamily + "700Bold"};
   text-align: center;
+`;
+
+export const Space = styled.View`
+  height: 30px;
 `;

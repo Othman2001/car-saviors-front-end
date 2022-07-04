@@ -11,6 +11,7 @@ import { WinchDriverSchema } from "../../../application/winch/types";
 import { useNavigation } from "@react-navigation/native";
 import { deleteData } from "../../custom/setData";
 import { StackActions } from "@react-navigation/native";
+import { setDriverOffline } from "./setDriverOffline";
 
 export default function () {
   const { user } = useUserInfo();
@@ -69,11 +70,16 @@ export default function () {
       (doc) => {
         if (doc.exists()) {
           const winchDriver = doc.data() as WinchDriverSchema;
-          const geopoint = winchDriver.geopoint;
-          const latitude = geopoint.latitude || geopoint._latitude;
-          const longitude = geopoint.longitude || geopoint._longitude;
-          setDriverOrigin({ driverOrigin: { latitude, longitude } });
-          setTravelTimeInformation();
+          if (winchDriver.availability) {
+            const geopoint = winchDriver.geopoint;
+            const latitude = geopoint.latitude || geopoint._latitude;
+            const longitude = geopoint.longitude || geopoint._longitude;
+            setDriverOrigin({ driverOrigin: { latitude, longitude } });
+            setTravelTimeInformation();
+            setDriverOffline({ driverId: winchDriver.id });
+          } else {
+            // setWinchDriverId({ winchDriverId: "driverIsInTrip" });
+          }
         }
       }
     );

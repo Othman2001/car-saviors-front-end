@@ -10,6 +10,7 @@ export interface IState {
   logInError: string;
   error: string;
   loginLoading: boolean;
+  phoneNumber: string | null;
 }
 export const state: IState = {
   user: null,
@@ -19,4 +20,5 @@ export const state: IState = {
   signUpError: "",
   logInError: "",
   loginLoading: false,
+  phoneNumber: null,
 };

@@ -2,19 +2,13 @@ import React, { useEffect } from "react";
 import WinchDriverComponent from "../../components/winchDriver/WinchDriver";
 import { useWinchState } from "../../../application/custom-hooks/useWinchState";
 import { useWinchActions } from "../../../application/custom-hooks/useWinchActions";
-import {
-  getFirestore,
-  doc,
-  collection,
-  onSnapshot,
-  deleteDoc,
-} from "firebase/firestore";
+import { getFirestore, doc, onSnapshot } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { StackActions } from "@react-navigation/native";
 
 export default function WinchDriver() {
   const { winchDrivers, travelTimeInformation, price } = useWinchState();
-  const { setWinchDriverId, clearFields, setRejection } = useWinchActions();
+  const { setWinchDriverId, setRejection } = useWinchActions();
   const navigation = useNavigation();
 
   useEffect(() => {

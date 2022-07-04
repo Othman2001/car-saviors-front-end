@@ -67,7 +67,9 @@ export default function Profile() {
         }}
       >
         <Button onPress={changeLng}>
-          {i18n.currentLocale() === "ar" ? "تغيير اللغة" : "Change Language"}
+          {i18n.currentLocale() === "ar"
+            ? "تغيير اللغة الي الانجلزيه"
+            : "Change Language to arabic"}
         </Button>
       </View>
       <View

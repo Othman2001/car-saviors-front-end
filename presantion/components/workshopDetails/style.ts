@@ -22,7 +22,7 @@ export const ScreenTitle = styled.Text<ITextProps>`
 `;
 export const WorkshopTitle = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
-  font-size: 16px;
+  font-size: 12px;
   margin-right: ${(props) => (props.isAr ? "20px" : "0px")};
 
   text-align: ${(props) => (props.isAr ? "right" : "left")};

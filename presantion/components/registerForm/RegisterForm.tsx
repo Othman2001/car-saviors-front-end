@@ -1,5 +1,5 @@
 import * as Styled from "../../components/LoginForm/style";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View, Image, Text } from "react-native";
 import React from "react";
 import Spinner from "../common/Spinner";
 import { Button, Input } from "@ui-kitten/components";
@@ -15,6 +15,7 @@ interface IRegisterForm {
     firstName: string;
     lastName: string;
     role: string;
+    phoneNumber: string;
   }) => Promise<void>;
   loading: boolean;
   error: string;
@@ -33,38 +34,53 @@ export default function RegisterForm({
       password: values.password,
       firstName: values.firstName,
       lastName: values.lastName,
+      phoneNumber: values.phoneNumber,
       role: "user",
     });
   };
   return (
     <ScrollView
       style={{
-        paddingTop: 180,
+        paddingTop: 120,
       }}
     >
-      {/* create form using the form object schema */}
-
-      <Styled.Title isAr={lng === "ar" ? true : false} fontFamily={fontFamily}>
-        Car Saviors
-      </Styled.Title>
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: 30,
+        }}
+      >
+        <Image
+          source={require("../../../assets/logo.png")}
+          style={{
+            width: 50,
+            height: 50,
+          }}
+        />
+      </View>
 
       <Formik
         validationSchema={registerSchema}
-        onSubmit={(values) =>
+        onSubmit={(values) => {
           signUp({
             email: values.email,
             password: values.password,
             firstName: values.firstName,
             lastName: values.lastName,
             role: "user",
-          })
-        }
+            phoneNumber: values.phoneNumber,
+          });
+          console.log(values.phoneNumber, "phine");
+        }}
         initialValues={{
           firstName: "",
           lastName: "",
           email: "",
           password: "",
           confirmPassword: "",
+          phoneNumber: "",
         }}
       >
         {({
@@ -76,13 +92,29 @@ export default function RegisterForm({
           isValid,
         }) => (
           <>
+            {error ? (
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
+                {i18n.t("register.error")}
+              </Styled.ErrorText>
+            ) : null}
+
             <Styled.FormLabel
               isAr={lng === "ar" ? true : false}
               fontFamily={fontFamily}
             >
-              {" "}
-              {i18n.t("register.firstName")}{" "}
+              {i18n.t("register.firstName")}
             </Styled.FormLabel>
+            {errors.firstName ? (
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
+                {errors.firstName}
+              </Styled.ErrorText>
+            ) : null}
             <Input
               textStyle={{
                 color: "#000",
@@ -98,6 +130,14 @@ export default function RegisterForm({
             >
               {i18n.t("register.lastName")}{" "}
             </Styled.FormLabel>
+            {errors.lastName ? (
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
+                {errors.lastName}
+              </Styled.ErrorText>
+            ) : null}
             <Input
               textStyle={{
                 color: "#000",
@@ -130,6 +170,29 @@ export default function RegisterForm({
               onChangeText={handleChange("email")}
               style={styles.input}
               autoCapitalize="none"
+            />
+
+            <Styled.FormLabel
+              isAr={lng === "ar" ? true : false}
+              fontFamily={fontFamily}
+            >
+              {i18n.t("register.phoneNumber")}
+            </Styled.FormLabel>
+            {errors.phoneNumber ? (
+              <Styled.ErrorText
+                isAr={lng === "ar" ? true : false}
+                fontFamily={fontFamily}
+              >
+                {errors.phoneNumber}
+              </Styled.ErrorText>
+            ) : null}
+            <Input
+              textStyle={{
+                color: "#000",
+              }}
+              style={styles.input}
+              value={values.phoneNumber}
+              onChangeText={handleChange("phoneNumber")}
             />
 
             <Styled.FormLabel
@@ -191,7 +254,15 @@ export default function RegisterForm({
               <Button
                 accessoryLeft={loading && <Spinner />}
                 onPress={handleSubmit}
-                disabled={!isValid}
+                style={{}}
+                disabled={
+                  !isValid ||
+                  !values.confirmPassword ||
+                  !values.email ||
+                  !values.firstName ||
+                  !values.lastName ||
+                  !values.password
+                }
               >
                 {i18n.t("register.register")}
               </Button>

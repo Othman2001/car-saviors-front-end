@@ -123,7 +123,11 @@ export const setUserDestination: Action<{ userDestination: any }> = (
   state.winch.userDestination = userDestination;
 };
 
-export const rejectRequest: Action = ({ state, effects }) => {
+export const rejectRequest: Action<{ requestId: string }> = (
+  { state, effects },
+  { requestId }
+) => {
+  state.winch.online = false;
   state.winch.userDestination = "";
   state.winch.driverDestination = "";
   state.winch.userOrigin = "";
@@ -132,6 +136,8 @@ export const rejectRequest: Action = ({ state, effects }) => {
   state.winch.origin = "";
   state.winch.travelTimeInformation = "";
   state.winch.currentDriverIndex = 0;
+  effects.winch.rejectUserRequest({ requestId });
+  state.winch.online = false;
 };
 export const setPrice: Action = ({ state }) => {
   if (state.winch.winchDrivers[0]) {

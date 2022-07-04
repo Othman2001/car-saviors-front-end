@@ -1,14 +1,13 @@
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import React from "react";
 import * as Styled from "./style";
 import { useNavigation } from "@react-navigation/native";
-import { Button, Input } from "@ui-kitten/components";
+import { Button } from "@ui-kitten/components";
 import { StyleSheet } from "react-native";
 import Spinner from "../common/Spinner";
 import loginValidationSchema from "./loginScehma";
 import { Formik } from "formik";
 import i18n from "../../../config/i18n/config";
-import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
 import { TextInput } from "react-native-paper";
 
@@ -21,17 +20,30 @@ interface ILoginForm {
 export default function LoginForm({ logIn, loading, error }: ILoginForm) {
   const navigation = useNavigation();
   const { fontFamily, lng } = useTheme();
-  const { loginLoading } = useUserInfo();
 
   return (
     <View
       style={{
-        paddingTop: 300,
+        paddingTop: 250,
       }}
     >
-      <Styled.Title isAr={lng === "ar" ? true : false} fontFamily={fontFamily}>
-        {i18n.t("login.welcome")}
-      </Styled.Title>
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: 30,
+        }}
+      >
+        <Image
+          source={require("../../../assets/logo.png")}
+          style={{
+            width: 50,
+            height: 50,
+          }}
+        />
+      </View>
+
       {error ? (
         <Styled.ErrorText
           isAr={lng === "ar" ? true : false}
@@ -101,7 +113,7 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               <Button
                 accessoryLeft={loading && <Spinner />}
                 onPress={handleSubmit}
-                disabled={!isValid}
+                disabled={(!isValid && !values.email) || !values.password}
               >
                 {i18n.t("login.login")}
               </Button>

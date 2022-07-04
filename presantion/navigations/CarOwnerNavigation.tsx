@@ -103,7 +103,7 @@ export default function CarOwnerNavigation() {
       />
       <Taps.Screen
         options={{
-          title: lng === "ar" ? "عرض" : "Offer",
+          title: lng === "ar" ? "عرض" : "Requests",
         }}
         name="Request"
         component={Requests}

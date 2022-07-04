@@ -4,22 +4,23 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
 // @ts-ignore
 import Firebase from "../firebase";
-import { Alert } from "react-native";
 
 export const createUser = async (
   email: string,
   password: string,
   firstName: string,
   lastName: string,
-  role: string
+  role: string,
+  phoneNumber: string
 ) => {
   const user = await axios.post(
-    "https://us-central1-car-saviors.cloudfunctions.net/createUser",
+    "http://localhost:5001/car-saviors/us-central1/createUser",
     {
       email,
       password,
       firstName,
       lastName,
+      phoneNumber,
     }
   );
   return user;
@@ -46,7 +47,7 @@ export const userSignIn = async (
 
 export const authroizeUser = async (email: string) => {
   const userRole = await axios.post(
-    "https://us-central1-car-saviors.cloudfunctions.net/authorize",
+    "http://localhost:5001/car-saviors/us-central1/authorize",
     {
       email,
     }

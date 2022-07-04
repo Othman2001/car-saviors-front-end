@@ -17,8 +17,8 @@ export default function CarDetails() {
   const navigation = useNavigation();
   const car: carSchema = route.params?.car;
   const scrollViewRef = useRef();
-  const { setDates, setTotal, rentCar, resetState } = useRentalActions();
-  const { startDate, endDate, message, error } = useRentalState();
+  const { setDates, setTotal, rentCar } = useRentalActions();
+  const { startDate, endDate, message } = useRentalState();
 
   const [isVisible, setInvisible] = useState(false);
 
