@@ -49,21 +49,26 @@ export default function UserData() {
   };
 
   const finishTrip = () => {
+    navigation.navigate("Home");
+
     const db = getFirestore();
     setDocId(user?.uid && user?.uid + Date.now());
     const finishedRequestsCollection = doc(db, "FinishedRequests", docId);
     const requestRef = doc(db, "PendingRequets", user?.uid);
-    updateDoc(requestRef, {
-      isFinished: true,
-    });
-    const winchDriverRef = doc(db, "WinchDrivers", user?.uid);
+    setTimeout(() => {
+      updateDoc(requestRef, {
+        isFinished: true,
+      });
+    }, 2000);
+
     setTimeout(() => {
       updateDoc(winchDriverRef, {
         availability: true,
       });
     }, 2000);
-
-    deleteDoc(requestRef);
+    setTimeout(() => {
+      deleteDoc(requestRef);
+    }, 3000);
     setDoc(finishedRequestsCollection, {
       userId: user?.uid,
       userDestination: userDestination,
@@ -73,7 +78,6 @@ export default function UserData() {
       isFinished: true,
       driverName: user?.displayName,
     });
-    navigation.navigate("Home");
   };
   const getUserAddress = async ({
     userDestination,
@@ -136,13 +140,13 @@ export default function UserData() {
       {isVisible && (
         <Styled.ButtonsContainer>
           <Styled.ButtonContainer>
-            <Button
+            {/* <Button
               onPress={() => {
                 acceptRequest();
               }}
             >
               Accept{" "}
-            </Button>
+            </Button> */}
           </Styled.ButtonContainer>
           <Styled.ButtonContainer>
             <Button
@@ -156,13 +160,13 @@ export default function UserData() {
           </Styled.ButtonContainer>
         </Styled.ButtonsContainer>
       )}
-      {!isVisible && (
+      {/* {!isVisible && (
         <Styled.ButtonsContainer>
           <Styled.ButtonContainer>
             <Button onPress={finishTrip}> Finish The Trip </Button>
           </Styled.ButtonContainer>
         </Styled.ButtonsContainer>
-      )}
+      )} */}
     </Styled.Container>
   );
 }
