@@ -14,7 +14,7 @@ export const createUser = async (
   phoneNumber: string
 ) => {
   const user = await axios.post(
-    "http://localhost:5001/car-saviors/us-central1/createUser",
+    "https://us-central1-car-saviors.cloudfunctions.net/createUser",
     {
       email,
       password,
@@ -47,7 +47,7 @@ export const userSignIn = async (
 
 export const authroizeUser = async (email: string) => {
   const userRole = await axios.post(
-    "http://localhost:5001/car-saviors/us-central1/authorize",
+    "https://us-central1-car-saviors.cloudfunctions.net/authorize",
     {
       email,
     }
