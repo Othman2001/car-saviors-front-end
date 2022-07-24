@@ -22,6 +22,7 @@ export default function () {
     winchDrivers,
     currentWinchDriverId,
     isRejected,
+    driverOrigin,
   } = useWinchState();
   const {
     getTheNextDriver,
@@ -89,7 +90,7 @@ export default function () {
       winchDriverLocationListener();
       requestListener();
     };
-  }, [origin, destination, currentWinchDriverId, winchDrivers]);
+  }, [origin, destination, currentWinchDriverId, winchDrivers, driverOrigin]);
 
   return (
     <View>
