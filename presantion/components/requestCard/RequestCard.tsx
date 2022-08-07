@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import * as Styled from "./style";
 import React, { useEffect } from "react";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
@@ -12,6 +12,7 @@ export default function RequestCard() {
   useEffect(() => {}, [requests]);
   return (
     <ScrollView>
+      {!requests && <Text> No Requests in the moment</Text>}
       {requests?.map((request) => (
         <Styled.CardContainer>
           <Styled.CardFirstPart>

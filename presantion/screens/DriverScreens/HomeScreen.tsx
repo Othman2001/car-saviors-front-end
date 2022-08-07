@@ -63,11 +63,13 @@ export default function HomeScreen() {
           setUserDestination({
             userDestination: snapshot.data().userDestination,
           });
+          if (online) {
+            navigation.navigate("DriverMap", {
+              userOrigin: snapshot.data().destination,
+              driverOrigin: driverOrigin,
+            });
+          }
 
-          navigation.navigate("DriverMap", {
-            userOrigin: snapshot.data().destination,
-            driverOrigin: driverOrigin,
-          });
           setStayAtHome({ stayAtHome: false });
           if (snapshot.data().userRejected === true) {
             const ref = doc(db, "PendingRequets", user?.uid);

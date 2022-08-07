@@ -6,6 +6,8 @@ export const BrandCardsContainer = styled.View`
   margin-top: 20px;
   flex-wrap: wrap;
   padding-bottom: 200px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const BrandCard = styled.TouchableOpacity`

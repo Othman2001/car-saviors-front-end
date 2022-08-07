@@ -14,7 +14,6 @@ export const CardContainer = styled.TouchableOpacity`
   margin-left: 30px;
   margin-right: 30px;
   display: flex;
-
   justify-content: center;
 `;
 
@@ -24,7 +23,7 @@ export const CardInfo = styled.View`
 
 export const CardTitle = styled.Text<ITextProps>`
   font-family: ${(props) => props.fontFamily + "600SemiBold"};
-  font-size: 16px;
+  font-size: 12px;
   padding-left: 20px;
   /* text-align: ${(props) => (props.isAr ? "right" : "left")}; */
 `;

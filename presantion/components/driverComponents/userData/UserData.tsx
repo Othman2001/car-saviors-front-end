@@ -8,7 +8,6 @@ import {
   deleteDoc,
   updateDoc,
   getFirestore,
-  collection,
   setDoc,
 } from "firebase/firestore";
 import { useUserInfo } from "../../../../application/custom-hooks/useUserInfo";
@@ -26,6 +25,7 @@ export default function UserData() {
   );
   const [userDestinationAddress, setUserDestination] = useState<any>(null);
   const [isVisible, setIsVisible] = useState<any>(true);
+  const [docId, setDocId] = useState<string>();
 
   const navigation = useNavigation();
   const { user } = useUserInfo();
@@ -36,11 +36,12 @@ export default function UserData() {
         isAcceepted: false,
         isAcccepted: false,
       });
-      await deleteDoc(doc(db, "PendingRequets", user?.uid));
-      rejectRequest();
+      setTimeout(async () => {
+        await deleteDoc(doc(db, "PendingRequets", user.uid));
+      }, 2000);
+      docId && rejectRequest({ requestId: docId });
       navigation.navigate("Home");
       setIsVisible(true);
-      rejectRequest();
     }
   };
   const acceptRequest = () => {
@@ -48,14 +49,26 @@ export default function UserData() {
   };
 
   const finishTrip = () => {
+    navigation.navigate("Home");
+
     const db = getFirestore();
-    const docId = user?.uid && user?.uid + Date.now();
+    setDocId(user?.uid && user?.uid + Date.now());
     const finishedRequestsCollection = doc(db, "FinishedRequests", docId);
     const requestRef = doc(db, "PendingRequets", user?.uid);
-    updateDoc(requestRef, {
-      isFinished: true,
-    });
-    deleteDoc(requestRef);
+    setTimeout(() => {
+      updateDoc(requestRef, {
+        isFinished: true,
+      });
+    }, 2000);
+
+    setTimeout(() => {
+      updateDoc(winchDriverRef, {
+        availability: true,
+      });
+    }, 2000);
+    setTimeout(() => {
+      deleteDoc(requestRef);
+    }, 3000);
     setDoc(finishedRequestsCollection, {
       userId: user?.uid,
       userDestination: userDestination,
@@ -65,8 +78,6 @@ export default function UserData() {
       isFinished: true,
       driverName: user?.displayName,
     });
-
-    navigation.navigate("Home");
   };
   const getUserAddress = async ({
     userDestination,
@@ -129,13 +140,13 @@ export default function UserData() {
       {isVisible && (
         <Styled.ButtonsContainer>
           <Styled.ButtonContainer>
-            <Button
+            {/* <Button
               onPress={() => {
                 acceptRequest();
               }}
             >
               Accept{" "}
-            </Button>
+            </Button> */}
           </Styled.ButtonContainer>
           <Styled.ButtonContainer>
             <Button
@@ -149,13 +160,13 @@ export default function UserData() {
           </Styled.ButtonContainer>
         </Styled.ButtonsContainer>
       )}
-      {!isVisible && (
+      {/* {!isVisible && (
         <Styled.ButtonsContainer>
           <Styled.ButtonContainer>
             <Button onPress={finishTrip}> Finish The Trip </Button>
           </Styled.ButtonContainer>
         </Styled.ButtonsContainer>
-      )}
+      )} */}
     </Styled.Container>
   );
 }

@@ -13,7 +13,9 @@
     "Email": "بريد الالكتروني",
     "password": "كلمه السر",
     "confirmPassword": "تأكيد كلمة المرور",
-    "register": "اشتراك"
+    "register": "اشتراك",
+    "phoneNumber": "رقم الهاتف",
+    "error": "يوجد خطأ ، الحساب موجود بالفعل"
   },
   "rental": {
     "pricePerDay": "جنيه",

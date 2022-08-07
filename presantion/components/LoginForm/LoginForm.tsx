@@ -1,15 +1,15 @@
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import React from "react";
 import * as Styled from "./style";
 import { useNavigation } from "@react-navigation/native";
-import { Button, Input } from "@ui-kitten/components";
+import { Button } from "@ui-kitten/components";
 import { StyleSheet } from "react-native";
 import Spinner from "../common/Spinner";
 import loginValidationSchema from "./loginScehma";
 import { Formik } from "formik";
 import i18n from "../../../config/i18n/config";
-import { useUserInfo } from "../../../application/custom-hooks/useUserInfo";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
+import { TextInput } from "react-native-paper";
 
 interface ILoginForm {
   logIn: (payload: { email: string; password: string }) => Promise<void>;
@@ -20,17 +20,30 @@ interface ILoginForm {
 export default function LoginForm({ logIn, loading, error }: ILoginForm) {
   const navigation = useNavigation();
   const { fontFamily, lng } = useTheme();
-  const { loginLoading } = useUserInfo();
 
   return (
     <View
       style={{
-        paddingTop: 200,
+        paddingTop: 250,
       }}
     >
-      <Styled.Title isAr={lng === "ar" ? true : false} fontFamily={fontFamily}>
-        {i18n.t("login.welcome")}
-      </Styled.Title>
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: 30,
+        }}
+      >
+        <Image
+          source={require("../../../assets/logo.png")}
+          style={{
+            width: 50,
+            height: 50,
+          }}
+        />
+      </View>
+
       {error ? (
         <Styled.ErrorText
           isAr={lng === "ar" ? true : false}
@@ -55,14 +68,6 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
           isValid,
         }) => (
           <>
-            <Styled.FormLabel
-              fontFamily={fontFamily}
-              isAr={lng === "ar" ? true : false}
-              vertical={10}
-              horizontal={62}
-            >
-              {i18n.t("login.email")}:
-            </Styled.FormLabel>
             {errors.email ? (
               <Styled.ErrorText
                 isAr={lng === "ar" ? true : false}
@@ -71,24 +76,18 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
                 {errors.email}
               </Styled.ErrorText>
             ) : null}
-            <Input
+            <TextInput
+              autoCapitalize={"none"}
+              activeOutlineColor="#265A60"
+              mode="outlined"
+              style={styles.input}
+              label={i18n.t("login.email")}
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
               value={values.email}
-              autoCapitalize={false}
-              textStyle={{
-                color: "#000",
-              }}
-              style={styles.input}
+
               // onChangeText={(text) => setEmail(text)}
             />
-            <Styled.FormLabel
-              isAr={lng === "ar" ? true : false}
-              fontFamily={fontFamily}
-              vertical={10}
-            >
-              {i18n.t("login.password")}:
-            </Styled.FormLabel>
             {errors.password ? (
               <Styled.ErrorText
                 isAr={lng === "ar" ? true : false}
@@ -97,16 +96,16 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
                 {errors.password}
               </Styled.ErrorText>
             ) : null}
-            <Input
+            <TextInput
+              autoCapitalize={"none"}
+              activeOutlineColor="#265A60"
+              label={i18n.t("login.password")}
               onChangeText={handleChange("password")}
-              onBlur={handleBlur("password")}
               value={values.password}
-              textStyle={{
-                color: "#000",
-              }}
               placeholder="*******"
               secureTextEntry={true}
               style={styles.input}
+              mode={"outlined"}
               // value={password}
               // onChangeText={(text) => setPassword(text)}
             />
@@ -114,7 +113,7 @@ export default function LoginForm({ logIn, loading, error }: ILoginForm) {
               <Button
                 accessoryLeft={loading && <Spinner />}
                 onPress={handleSubmit}
-                disabled={!isValid}
+                disabled={(!isValid && !values.email) || !values.password}
               >
                 {i18n.t("login.login")}
               </Button>
@@ -154,7 +153,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     marginLeft: 30,
     marginRight: 30,
-    borderRadius: 15,
-    color: "black",
   },
 });

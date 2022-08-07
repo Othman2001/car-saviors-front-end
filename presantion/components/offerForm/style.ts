@@ -24,3 +24,11 @@ export const UploadButton = styled.View`
   margin-bottom: 30px;
   margin-top: 20px;
 `;
+
+export const FlexContainer = styled.View`
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+`;

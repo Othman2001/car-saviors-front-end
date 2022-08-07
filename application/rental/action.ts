@@ -66,6 +66,10 @@ export const rentCar: AsyncAction<{
         userId: state.authentication.user?.uid,
         carOwnerId,
         carId,
+        phoneNumber:
+          (state.authentication.phoneNumber &&
+            state.authentication.phoneNumber) ||
+          "no phone number for this user",
       })
       .then((res) => {
         state.rental.message = res.data.message;

@@ -11,7 +11,7 @@ export const fetchBrands = async () => {
 
 export const fetchWorkshops = async ({ brandName }: { brandName: string }) => {
   const workshops = axios
-    .post("http://localhost:5001/car-saviors/us-central1/fetchWorkshops", {
+    .post("https://us-central1-car-saviors.cloudfunctions.net/fetchWorkshops", {
       brandName,
     })
     .then((res) => {

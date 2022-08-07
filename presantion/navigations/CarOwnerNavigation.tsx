@@ -6,10 +6,13 @@ import WinchScreen from "../screens/WinchScreen/WinchScreen";
 import CarWorkshopsNavigation from "./CarWorkshopsNavigation";
 import Profile from "../screens/Profile/Profile";
 import Requests from "../screens/Requsets/Requests";
+import WinchNavigation from "./winchNavigation";
+import { useTheme } from "../../application/custom-hooks/useTheme";
 
 const Taps = createBottomTabNavigator();
 
 export default function CarOwnerNavigation() {
+  const { lng } = useTheme();
   const routesNames = {
     Home: {
       en: "Home",
@@ -68,16 +71,50 @@ export default function CarOwnerNavigation() {
             IconName = focused
               ? require("../../assets/profileActive.png")
               : require("../../assets/profile.png");
+          } else if (rn === "Request") {
+            IconName = focused
+              ? require("../../assets/contract.png")
+              : require("../../assets/contract.png");
           }
           return <Image source={IconName} style={{ width: 20, height: 20 }} />;
         },
       })}
     >
-      <Taps.Screen name="Home" component={HomeScreen} />
-      <Taps.Screen name="WorkShops" component={CarWorkshopsNavigation} />
-      <Taps.Screen name="Winch" component={WinchScreen} />
-      <Taps.Screen name="Request" component={Requests} />
-      <Taps.Screen name="Profile" component={Profile} />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "الرئيسية" : "Home",
+        }}
+        name="Home"
+        component={HomeScreen}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "الصيانة" : "WorkShop",
+        }}
+        name="WorkShops"
+        component={CarWorkshopsNavigation}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "ونش" : "Winch",
+        }}
+        name="Winch"
+        component={WinchNavigation}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "عرض" : "Requests",
+        }}
+        name="Request"
+        component={Requests}
+      />
+      <Taps.Screen
+        options={{
+          title: lng === "ar" ? "الصفحة الشخصية" : "Profile",
+        }}
+        name="Profile"
+        component={Profile}
+      />
     </Taps.Navigator>
   );
 }

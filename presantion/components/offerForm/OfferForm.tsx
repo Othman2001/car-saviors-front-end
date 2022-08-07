@@ -1,4 +1,4 @@
-import { Image, Platform, StyleSheet } from "react-native";
+import { Image, Platform, StyleSheet, View } from "react-native";
 import * as Styled from "./style";
 import * as FormStyled from "../../components/LoginForm/style";
 import React, { useEffect } from "react";
@@ -11,6 +11,7 @@ import { Formik } from "formik";
 import OfferSchema from "./formValdtion";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useTheme } from "../../../application/custom-hooks/useTheme";
+import SelectDropdown from "react-native-select-dropdown";
 
 interface IOfferFormProps {
   registerAsCarOwner: (payload: {
@@ -41,15 +42,19 @@ export default function OfferForm({
   const [image, setImage] = React.useState(undefined);
   const [imageUri, setImageUri] = React.useState<undefined | string>();
   const [imageUploaded, setImageUploaded] = React.useState(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
+
+  const carTypes = ["automatic", "manual"];
   const [imageUrlFirebase, setImageUrlFirebase] = React.useState<
     undefined | string | null
   >(null);
   const navigation = useNavigation();
-
-  const navigationToWelcome = () => {
-    navigation.navigate("Welcome");
+  const deleteImage = () => {
+    setImage(undefined);
+    setImageUrlFirebase(undefined);
+    setImageUri(undefined);
+    setImageUploaded(false);
   };
-
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -90,12 +95,16 @@ export default function OfferForm({
     // convert image to array of bytes
     const img = await fetch(imageUri);
     const bytes = await img.blob();
+    alert("image is uploading pelase wait ");
     // upload image to storage
     await uploadBytes(imageRef, bytes).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
+        setLoading(true);
         setImageUrlFirebase(url);
         if (url) {
           setImageUploaded(true);
+          setLoading(false);
+          alert("image uploaded successfully");
         }
       });
     });
@@ -147,7 +156,15 @@ export default function OfferForm({
             });
         }}
       >
-        {({ handleChange, handleSubmit, values, errors, isValid, dirty }) => (
+        {({
+          handleChange,
+          handleSubmit,
+          values,
+          errors,
+          isValid,
+          dirty,
+          setFieldValue,
+        }) => (
           <>
             <FormStyled.FormLabel
               isAr={lng === "ar" ? true : false}
@@ -330,29 +347,41 @@ export default function OfferForm({
               onChangeText={handleChange("location")}
               style={styles.input}
             />
-            <FormStyled.FormLabel
-              isAr={lng === "ar" ? true : false}
-              fontFamily={fontFamily}
-            >
-              {i18n.t("offer.motorType")}:
-            </FormStyled.FormLabel>
-            {errors.motorType ? (
-              <FormStyled.ErrorText
-                isAr={lng === "ar" ? true : false}
-                fontFamily={fontFamily}
-              >
-                {errors.motorType}
-              </FormStyled.ErrorText>
-            ) : null}
-            <Input
-              textStyle={{
-                color: "#000",
+
+            <View
+              style={{
+                marginTop: 30,
               }}
-              autoCapitalize="none"
-              value={values.motorType}
-              onChangeText={handleChange("motorType")}
-              style={styles.input}
-            />
+            >
+              {errors.motorType ? (
+                <FormStyled.ErrorText
+                  isAr={lng === "ar" ? true : false}
+                  fontFamily={fontFamily}
+                >
+                  {errors.motorType}
+                </FormStyled.ErrorText>
+              ) : null}
+              <SelectDropdown
+                buttonStyle={{
+                  borderColor: "#3333",
+                  borderWidth: 2,
+                  marginLeft: 30,
+                  marginRight: 30,
+                }}
+                defaultButtonText=" Select Motor Type"
+                data={carTypes}
+                onSelect={(selectedItem, index) => {
+                  setFieldValue("motorType", selectedItem);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem;
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item;
+                }}
+              />
+            </View>
+
             <FormStyled.FormLabel
               isAr={lng === "ar" ? true : false}
               fontFamily={fontFamily}
@@ -377,20 +406,35 @@ export default function OfferForm({
               style={styles.input}
             />
             {image && (
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
+              <Styled.FlexContainer>
+                <Button
+                  style={{
+                    marginLeft: 10,
+                  }}
+                  status="danger"
+                  onPress={deleteImage}
+                >
+                  delete
+                </Button>
+                <Image
+                  source={{ uri: image }}
+                  style={{ width: 200, height: 200 }}
+                />
+              </Styled.FlexContainer>
             )}
             {imageUri ? (
               <Styled.UploadButton>
-                <Button onPress={uploadImage}> Upload Image </Button>
+                <Button status="success" onPress={uploadImage}>
+                  {" "}
+                  Upload Image{" "}
+                </Button>
               </Styled.UploadButton>
             ) : (
               <Styled.UploadButton>
                 <Button onPress={pickImage}> Pick image </Button>
               </Styled.UploadButton>
             )}
+
             <Button
               disabled={
                 !(isValid && dirty && imageUploaded && imageUrlFirebase)

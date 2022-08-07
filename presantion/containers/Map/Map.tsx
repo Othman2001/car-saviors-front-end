@@ -11,6 +11,7 @@ import { WinchDriverSchema } from "../../../application/winch/types";
 import { useNavigation } from "@react-navigation/native";
 import { deleteData } from "../../custom/setData";
 import { StackActions } from "@react-navigation/native";
+import { setDriverOffline } from "./setDriverOffline";
 
 export default function () {
   const { user } = useUserInfo();
@@ -21,6 +22,7 @@ export default function () {
     winchDrivers,
     currentWinchDriverId,
     isRejected,
+    driverOrigin,
   } = useWinchState();
   const {
     getTheNextDriver,
@@ -61,6 +63,7 @@ export default function () {
         }
       }
     );
+
     // listener for the current winch driver location
     const winchDriverLocationListener = onSnapshot(
       // @ts-ignore
@@ -68,11 +71,16 @@ export default function () {
       (doc) => {
         if (doc.exists()) {
           const winchDriver = doc.data() as WinchDriverSchema;
-          const geopoint = winchDriver.geopoint;
-          const latitude = geopoint.latitude || geopoint._latitude;
-          const longitude = geopoint.longitude || geopoint._longitude;
-          setDriverOrigin({ driverOrigin: { latitude, longitude } });
-          setTravelTimeInformation();
+          if (winchDriver.availability) {
+            const geopoint = winchDriver.geopoint;
+            const latitude = geopoint.latitude || geopoint._latitude;
+            const longitude = geopoint.longitude || geopoint._longitude;
+            setDriverOrigin({ driverOrigin: { latitude, longitude } });
+            setTravelTimeInformation();
+            setDriverOffline({ driverId: winchDriver.id });
+          } else {
+            // setWinchDriverId({ winchDriverId: "driverIsInTrip" });
+          }
         }
       }
     );
@@ -82,7 +90,7 @@ export default function () {
       winchDriverLocationListener();
       requestListener();
     };
-  }, [origin, destination, currentWinchDriverId]);
+  }, [origin, destination, currentWinchDriverId, winchDrivers, driverOrigin]);
 
   return (
     <View>

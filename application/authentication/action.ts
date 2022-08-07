@@ -8,40 +8,32 @@ export const signUp: AsyncAction<{
   firstName: string;
   lastName: string;
   role: string;
+  phoneNumber: string;
 }> = async (
   { state: { authentication }, effects },
-  { email, password, firstName, lastName, role }
+  { email, password, firstName, lastName, role, phoneNumber }
 ) => {
   authentication.loading = true;
   authentication.error = "";
   //   @ts-ignore
 
   await effects.authentication
-    .createUser(email, password, firstName, lastName, role)
+    .createUser(email, password, firstName, lastName, role, phoneNumber)
     .then((res) => {
       authentication.user = res.data.user;
       authentication.currentUserRole = res.data.role;
-      if (
-        res.data.rentedCar &&
-        res.data.rentingCar &&
-        res.data.visitedWorkShops
-      ) {
-        authentication.currentUserRole = "user";
-      } else {
-        authentication.currentUserRole = "user";
-      }
+      authentication.currentUserRole = "user";
+      authentication.phoneNumber =
+        (res.data.phoneNumber && res.data.phoneNumber) || null;
     })
     .catch((error) => {
-      authentication.signUpError = error.message;
-      setTimeout(() => {
-        authentication.signUpError = "";
-      }, 3000);
+      authentication.signUpError = error;
     });
   authentication.loading = false;
 };
 
 export const logIn: AsyncAction<{ email: string; password: string }> = async (
-  { state, effects, actions },
+  { state, effects },
   { email, password }
 ) => {
   state.authentication.error = "";
@@ -60,17 +52,15 @@ export const logIn: AsyncAction<{ email: string; password: string }> = async (
   state.authentication.loginLoading = false;
   await effects.authentication.authroizeUser(email).then((res) => {
     state.authentication.currentUserRole = res.data.role;
-    state.authentication.rentedCar = res.data.rentedCar;
-    state.authentication.rentingCar = res.data.rentingCar;
-    state.authentication.visitedWorkShops = res.data.visitedWorkShops;
     state.winch.driverOrigin = res.data.geopoint;
     if (res.data.role === "driver") {
       state.winch.userType = "driver";
     } else {
       state.winch.userType = "user";
+      state.authentication.phoneNumber =
+        (res.data.phoneNumber && res.data.phoneNumber) || null;
     }
   });
-
   state.authentication.loading = false;
 };
 
@@ -78,9 +68,6 @@ export const SignOut: AsyncAction = async ({ state, effects }) => {
   await effects.authentication.userSignOut();
   state.authentication.user = null;
   state.authentication.currentUserRole = "";
-  state.authentication.rentedCar = 0;
-  state.authentication.rentingCar = 0;
-  state.authentication.visitedWorkShops = 0;
   state.winch.driverOrigin = null;
   state.winch.userType = "";
   state.winch.driverOrigin = null;

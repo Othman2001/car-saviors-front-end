@@ -1,13 +1,12 @@
 import { useAppState } from "../../config";
 
+// function declration
+
 export const useUserInfo = () => {
   const {
     authentication: {
       user,
-      visitedWorkShops,
       currentUserRole,
-      rentedCar,
-      rentingCar,
       loading,
       error,
       signUpError,
@@ -15,12 +14,10 @@ export const useUserInfo = () => {
       loginLoading,
     },
   } = useAppState();
+
   return {
     user,
-    visitedWorkShops,
     currentUserRole,
-    rentedCar,
-    rentingCar,
     loading,
     error,
     logInError,

@@ -7,6 +7,8 @@ import { useTheme } from "../../../application/custom-hooks/useTheme";
 import { Button } from "@ui-kitten/components";
 import i18n from "../../../config/i18n/config";
 import { useNavigation } from "@react-navigation/native";
+import { doc, getFirestore } from "firebase/firestore";
+import Firebase, { db } from "../../../infstracture/firebase";
 
 export default function Location() {
   const {
@@ -32,11 +34,13 @@ export default function Location() {
       clearFields();
       setRejection({ isRejected: false });
     }
+    console.log(origin, "dest");
   }, [origin, destination]);
+
   return (
     <View
       style={{
-        paddingTop: 60,
+        paddingTop: 50,
       }}
     >
       <Styled.FormInputContainer>

@@ -7,7 +7,6 @@ export const useWorkshopsActions = () => {
       fetchBrands,
       bookDate,
       getUserCurrentLocation,
-      getReviews,
     },
   } = useActions();
   return {
@@ -15,6 +14,5 @@ export const useWorkshopsActions = () => {
     fetchBrands,
     bookDate,
     getUserCurrentLocation,
-    getReviews,
   };
 };
